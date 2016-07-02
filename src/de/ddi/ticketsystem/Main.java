@@ -2,7 +2,7 @@ package de.ddi.ticketsystem;
 
 public class Main {
     public static void main(String[] args) {
-        TicketManager ticketManager = new TicketManager(10);
+        TicketManager ticketManager = new TicketManager();
 
         Employee employee = new Employee("Mike", "Barkmin");
         Customer customer = new Customer("Gero", "Behler", "Uni Due");

@@ -46,4 +46,8 @@ public class TicketManager {
         }
         return next;
     }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
 }

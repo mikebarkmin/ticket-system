@@ -9,6 +9,7 @@ public class UserManager {
 
     public UserManager() {
         this.users = new List<>();
+        this.current = null;
     }
 
     public void add(User... users) {
@@ -28,5 +29,9 @@ public class UserManager {
 
     public void logout() {
         current = null;
+    }
+
+    public User getCurrent() {
+        return current;
     }
 }

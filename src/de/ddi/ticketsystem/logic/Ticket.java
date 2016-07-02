@@ -67,4 +67,8 @@ public abstract class Ticket {
     public Date getCreationDate() {
         return creationDate;
     }
+
+    public List<Note> getNotes() {
+        return notes;
+    }
 }

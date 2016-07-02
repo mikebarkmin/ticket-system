@@ -1,10 +1,9 @@
-package de.ddi.ticketsystem;
+package util;
 
-
-public class TicketList {
+public class List<E> {
 
     // Der Listenkopf oder der Verweis/Referenz auf das erste Element der Liste
-    TicketNode head;
+    Node<E> head;
 
     // hier die Methode / Operation, die diese Liste leert.
     public void clear() {   // das head == null bedeutet es gibt kein Listenelement in der Liste
@@ -18,10 +17,10 @@ public class TicketList {
 
     public int size() {
         int size = 0; // lokale Variable zum mitzaehlen, wie viele Elemente in der List sind
-        TicketNode ticketNode = head; // lokale Variable zum Durchlaufen der Listenelement
-        while (ticketNode != null) {
-            ticketNode = ticketNode.getNext(); // gehe zum naechsten Element
-            // das kann(!) null sein, wenn ticketNode auf das
+        Node<E> node = head; // lokale Variable zum Durchlaufen der Listenelement
+        while (node != null) {
+            node = node.getNext(); // gehe zum naechsten Element
+            // das kann(!) null sein, wenn node auf das
             // letzte Element gezeigt hat!
             size = size + 1;        // mitzaehlen, dass ein Element da war(!)
         }
@@ -30,57 +29,71 @@ public class TicketList {
     }
 
     // Hilfsmethode fuer das Besorgen des Elementes an der Stell index 0 ..  size-1
-    private TicketNode getNodeAt(int index) {
+    private Node<E> getNodeAt(int index) {
         if (index < 0) {
             return null;
         } // falls negativer index => es gibt kein Element, das diese Bedingung erfuellt
 
         int currPos = 0;  // Hilfszaehler fuer das Mitzaehlen der Position beim Durchlaufen
-        TicketNode ticketNode = head; // Intialisierung des Durchlaufs der Liste
+        Node<E> node = head; // Intialisierung des Durchlaufs der Liste
         while (currPos < index  // noch in der Liste aber noch nicht an der richtigen Stelle
                 &&
-                ticketNode != null // sind ausserhalb der Liste angekommen
+                node != null // sind ausserhalb der Liste angekommen
                 ) {
-            ticketNode = ticketNode.getNext();
+            node = node.getNext();
             currPos = currPos + 1;
         }
 
-        return ticketNode;
+        return node;
     }
 
-    public Ticket get(int index) {
-        TicketNode ticketNode = getNodeAt(index); // hole das Element (im Container Node) an der Stelle index
+    public E get(int index) {
+        Node<E> node = getNodeAt(index); // hole das Element (im Container Node) an der Stelle index
 
-        if (ticketNode == null) {
+        if (isEmpty()) {
             // da gab es keins an der Stelle index
             return null;
         } else {
-            return ticketNode.getValue();
+            return node.getValue();
         }
     }
 
     public String toString() {
         String tempStr = "{"; // temporaere String-Variable zum Aufsammeln
-        TicketNode ticketNode = head;   // ticketNode ist die temporaere Laufvariable zum Durchlaufen der Liste
-        while (ticketNode != null)  // solange noch nicht am Ende
+        Node<E> node = head;   // node ist die temporaere Laufvariable zum Durchlaufen der Liste
+        while (node != null)  // solange noch nicht am Ende
         {
-            tempStr = tempStr + ticketNode; // erst Knoten verarbeiten
-            ticketNode = ticketNode.getNext();    // auf zum naechsten Knoten in der Liste (falls vorhanden!)
+            tempStr = tempStr + node; // erst Knoten verarbeiten
+            node = node.getNext();    // auf zum naechsten Knoten in der Liste (falls vorhanden!)
         }
 
         return tempStr + "}";
 
     }
 
-    public void add(Ticket value) {
-        TicketNode ticketNode = new TicketNode();
-        ticketNode.setValue(value);
-        if (head != null) {
-            TicketNode prev = getNodeAt(size() - 1);
-            prev.setNext(ticketNode);
+    public void add(E value) {
+        Node<E> node = new Node<>();
+        node.setValue(value);
+        if (!isEmpty()) {
+            Node<E> prev = getNodeAt(size() - 1);
+            prev.setNext(node);
         } else {
-            head = ticketNode;
+            head = node;
         }
+    }
+
+    public int indexOf(E value) {
+        Node<E> node = head;
+        int index = 0;
+        while(node != null) {
+            if(node.getValue().equals(value)) {
+                break;
+            } else {
+                index++;
+                node = node.getNext();
+            }
+        }
+        return index;
     }
 
     public void remove(int index) {
@@ -103,14 +116,14 @@ public class TicketList {
             if (index > 0) // nur sinnvolle Werte fuer index betrachten
             {
                 // besorge das Element, das zu entfernen ist
-                TicketNode ticketNode = getNodeAt(index);
-                // nun noch das Vorgaengerelement, aber nur falls ticketNode!=null
-                // d.h. ticketNode verweist auf ein Element in der Liste
-                if (ticketNode != null) {
+                Node<E> node = getNodeAt(index);
+                // nun noch das Vorgaengerelement, aber nur falls node!=null
+                // d.h. node verweist auf ein Element in der Liste
+                if (node != null) {
                     // jetzt kann der Vorgaenger besorgt werden
-                    TicketNode prev = getNodeAt(index - 1);
-                    // jetzt noch ticketNode aus der Liste ausketten
-                    prev.setNext(ticketNode.getNext());
+                    Node<E> prev = getNodeAt(index - 1);
+                    // jetzt noch node aus der Liste ausketten
+                    prev.setNext(node.getNext());
                 }
             }
         }

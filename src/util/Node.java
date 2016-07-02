@@ -1,28 +1,27 @@
-package de.ddi.ticketsystem;
+package util;
 
-
-public class TicketNode {
+public class Node<E> {
 
     // Nutzinformation ist ein Document
-    private Ticket value;
+    private E value;
 
     // Verwaltungsinformation
 
-    private TicketNode next;
+    private Node<E> next;
 
-    public Ticket getValue() {
+    public E getValue() {
         return value;
     }
 
-    public void setValue(Ticket v) {
+    public void setValue(E v) {
         value = v;
     }
 
-    public TicketNode getNext() {
+    public Node<E> getNext() {
         return next;
     }
 
-    public void setNext(TicketNode n) {
+    public void setNext(Node<E> n) {
         next = n;
     }
 

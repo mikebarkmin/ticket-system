@@ -1,5 +1,7 @@
 package de.ddi.ticketsystem;
 
+import util.List;
+
 import java.util.Date;
 
 public class Ticket {
@@ -9,6 +11,7 @@ public class Ticket {
     private Customer customer;
     private int priority;
     private Date creationDate;
+    private List<Note> notes;
 
     public Ticket(String description, String status, Employee employee, Customer customer, int priority) {
         this.description = description;
@@ -51,6 +54,14 @@ public class Ticket {
         if (priority > 0) {
             this.priority = priority;
         }
+    }
+
+    public void addNote(Note note) {
+        this.notes.add(note);
+    }
+
+    public void removeNote(Note note) {
+        this.notes.remove(this.notes.indexOf(note));
     }
 
     public Date getCreationDate() {

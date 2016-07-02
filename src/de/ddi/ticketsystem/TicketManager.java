@@ -1,10 +1,12 @@
 package de.ddi.ticketsystem;
 
+import util.List;
+
 public class TicketManager {
-    private TicketList tickets;
+    private List<Ticket> tickets;
 
     public TicketManager() {
-        this.tickets = new TicketList();
+        this.tickets = new List<>();
     }
 
     public void add(Ticket... tickets) {

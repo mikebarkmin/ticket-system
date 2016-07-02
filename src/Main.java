@@ -5,10 +5,14 @@ import java.util.Date;
 public class Main {
     public static void main(String[] args) {
         TicketManager ticketManager = new TicketManager();
+        UserManager userManager = new UserManager();
 
 
         Employee employee = new Employee("Mike", "Barkmin", "m@b.de", "DDI");
+        userManager.add(employee);
+
         Customer customer = new Customer("Gero", "Behler", "g@b.de", "Uni Due");
+        userManager.add(customer);
 
         Ticket ticket = new MalfunctionTicket(
                 "Beschreibung",

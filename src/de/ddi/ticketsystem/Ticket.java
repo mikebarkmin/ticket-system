@@ -1,13 +1,13 @@
-package de.ddi.ticketsystem.step1;
+package de.ddi.ticketsystem;
 
 public class Ticket {
     private String description;
     private String status;
-    private String employee;
-    private String customer;
+    private Employee employee;
+    private Customer customer;
     private int priority;
 
-    public Ticket(String description, String status, String employee, String customer, int priority) {
+    public Ticket(String description, String status, Employee employee, Customer customer, int priority) {
         this.description = description;
         this.status = status;
         this.employee = employee;
@@ -31,19 +31,19 @@ public class Ticket {
         this.status = status;
     }
 
-    public String getEmployee() {
+    public Employee getEmployee() {
         return employee;
     }
 
-    public void setEmployee(String employee) {
+    public void setEmployee(Employee employee) {
         this.employee = employee;
     }
 
-    public String getCustomer() {
+    public Customer getCustomer() {
         return customer;
     }
 
-    public void setCustomer(String customer) {
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 

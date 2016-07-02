@@ -6,8 +6,9 @@ public class Main {
     public static void main(String[] args) {
         TicketManager ticketManager = new TicketManager();
 
-        Employee employee = new Employee("Mike", "Barkmin");
-        Customer customer = new Customer("Gero", "Behler", "Uni Due");
+
+        Employee employee = new Employee("Mike", "Barkmin", "m@b.de", "DDI");
+        Customer customer = new Customer("Gero", "Behler", "g@b.de", "Uni Due");
 
         Ticket ticket = new MalfunctionTicket(
                 "Beschreibung",

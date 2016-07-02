@@ -1,4 +1,4 @@
-import de.ddi.ticketsystem.*;
+import de.ddi.ticketsystem.logic.*;
 
 import java.util.Date;
 

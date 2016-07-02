@@ -1,4 +1,4 @@
-package de.ddi.ticketsystem;
+package de.ddi.ticketsystem.logic;
 
 public class OrderTicket extends Ticket {
     private String vendor;

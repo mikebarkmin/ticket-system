@@ -4,7 +4,7 @@ import util.List;
 
 import java.util.Date;
 
-public class Ticket {
+public abstract class Ticket {
     private String description;
     private String status;
     private Employee employee;
@@ -13,7 +13,7 @@ public class Ticket {
     private Date creationDate;
     private List<Note> notes;
 
-    public Ticket(String description, String status, Employee employee, Customer customer, int priority) {
+    protected Ticket(String description, String status, Employee employee, Customer customer, int priority) {
         this.description = description;
         this.status = status;
         this.employee = employee;

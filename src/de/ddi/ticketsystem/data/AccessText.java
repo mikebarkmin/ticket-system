@@ -31,8 +31,8 @@ public abstract class AccessText implements Access {
         FileWriter fw = new FileWriter(pathToFile);
         BufferedWriter bw = new BufferedWriter(fw);
 
-        for(int i = 0; i < this.lines.size(); i++) {
-            String line = this.lines.get(i);
+        for(int i = 0; i < data.size(); i++) {
+            String line = data.get(i);
             bw.write(line);
             bw.newLine();
         }

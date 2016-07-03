@@ -69,6 +69,10 @@ public abstract class Ticket implements Saveable{
         return creationDate;
     }
 
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
     public List<Note> getNotes() {
         return notes;
     }

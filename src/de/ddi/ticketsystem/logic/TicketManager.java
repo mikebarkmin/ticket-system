@@ -4,7 +4,11 @@ import de.ddi.ticketsystem.data.Access;
 import util.List;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class TicketManager extends Manager{
     private List<Ticket> tickets;
@@ -48,20 +52,37 @@ public class TicketManager extends Manager{
                 Employee employee = (Employee) this.userManager.get(Integer.parseInt(values[1]));
                 Customer customer = (Customer) this.userManager.get(Integer.parseInt(values[2]));
                 int priority = Integer.parseInt(values[6]);
+                DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.US);
+                Date creationDate;
+                try {
+                    creationDate = formatter.parse(values[7]);
+                } catch (ParseException e) {
+                    creationDate = new Date();
+                    e.printStackTrace();
+                }
                 switch (values[3]) {
                     case "REQUEST":
-                        Date date = new Date(values[7]);
-                        ticket = new RequestTicket(values[4], values[5], employee, customer, priority, date, values[8]);
+                        Date date = null;
+                        try {
+                            date = formatter.parse(values[8]);
+                        } catch (ParseException e) {
+                            date = new Date();
+                            e.printStackTrace();
+                        }
+                        ticket = new RequestTicket(values[4], values[5], employee, customer, priority, date, values[9]);
+                        ticket.setCreationDate(creationDate);
                         this.tickets.add(ticket);
                         break;
                     case "ORDER":
-                        int quantity = Integer.parseInt(values[10]);
-                        ticket = new OrderTicket(values[4], values[5], employee, customer, priority, values[7],
-                                values[8], values[9], quantity);
+                        int quantity = Integer.parseInt(values[11]);
+                        ticket = new OrderTicket(values[4], values[5], employee, customer, priority, values[8],
+                                values[9], values[10], quantity);
+                        ticket.setCreationDate(creationDate);
                         this.tickets.add(ticket);
                         break;
                     case "MALFUNCTION":
-                        ticket = new MalfunctionTicket(values[4], values[5], employee, customer, priority, values[7]);
+                        ticket = new MalfunctionTicket(values[4], values[5], employee, customer, priority, values[8]);
+                        ticket.setCreationDate(creationDate);
                         this.tickets.add(ticket);
                         break;
                     default:

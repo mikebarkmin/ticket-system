@@ -2,7 +2,7 @@ package de.ddi.ticketsystem.logic;
 
 import java.util.Date;
 
-public class Note {
+public class Note implements Saveable{
     private String title;
     private String content;
     private Employee employee;
@@ -13,6 +13,11 @@ public class Note {
         this.content = content;
         this.employee = employee;
         this.creationDate = new Date();
+    }
+
+    public Note(String title, String content, Employee employee, Date creationDate) {
+        this(title, content, employee);
+        this.creationDate = creationDate;
     }
 
     public String getTitle() {
@@ -29,5 +34,11 @@ public class Note {
 
     public Date getCreationDate() {
         return creationDate;
+    }
+
+    @Override
+    public String saveToText() {
+        String text = this.title + ";" + this.content + ";" + this.creationDate + ";";
+        return text;
     }
 }

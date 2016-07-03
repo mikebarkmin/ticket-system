@@ -1,6 +1,6 @@
 package de.ddi.ticketsystem.logic;
 
-public abstract class User {
+public abstract class User implements Saveable {
     private String firstName;
     private String lastName;
     private String email;
@@ -21,5 +21,11 @@ public abstract class User {
 
     public String getEmail() {
         return email;
+    }
+
+    @Override
+    public String saveToText() {
+        String text = this.firstName + ";" + this.lastName + ";" + this.email + ";";
+        return text;
     }
 }

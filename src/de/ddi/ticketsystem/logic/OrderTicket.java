@@ -30,4 +30,12 @@ public class OrderTicket extends Ticket {
     public int getQuantity() {
         return quantity;
     }
+
+    @Override
+    public String saveToText() {
+        String text = "ORDER;";
+        text += super.saveToText();
+        text += this.vendor + ";" + this.article + ";" + this.address + ";" + this.quantity + ";";
+        return text;
+    }
 }

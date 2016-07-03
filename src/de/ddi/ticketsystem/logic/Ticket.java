@@ -4,7 +4,7 @@ import util.List;
 
 import java.util.Date;
 
-public abstract class Ticket {
+public abstract class Ticket implements Saveable{
     private String description;
     private String status;
     private Employee employee;
@@ -71,5 +71,11 @@ public abstract class Ticket {
 
     public List<Note> getNotes() {
         return notes;
+    }
+
+    @Override
+    public String saveToText() {
+        String text = this.description + ";" + this.status + ";" + this.priority + ";" + this.creationDate + ";";
+        return text;
     }
 }

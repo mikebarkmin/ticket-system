@@ -1,15 +1,64 @@
 package de.ddi.ticketsystem.logic;
 
+import de.ddi.ticketsystem.data.Access;
 import util.List;
 
-public class UserManager {
+import java.io.IOException;
+
+public class UserManager extends Manager{
 
     private List<User> users;
     private User current;
 
-    public UserManager() {
+    public UserManager(Access access) {
+        super(access);
         this.users = new List<>();
         this.current = null;
+        this.load();
+    }
+
+    @Override
+    public void save() {
+        List<String> data = new List<>();
+        for(int i = 0; i < this.users.size(); i++) {
+            User user = this.users.get(i);
+            String sUser = i + ";" + user.saveToText();
+            data.add(sUser);
+        }
+        try {
+            this.access.save(data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void load() {
+        try {
+            List<String> data = this.access.load();
+            for(int i = 0; i < data.size(); i++) {
+                String sUser = data.get(i);
+                String[] values = sUser.split(";");
+                if(values[1].equals("EMPLOYEE")) {
+                    User user = new Employee(values[2], values[3], values[4], values[5]);
+                    this.users.add(user);
+                } else if(values[1].equals("CUSTOMER")){
+                    User user = new Customer(values[2], values[3], values[4], values[5]);
+                    this.users.add(user);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public int indexOf(User user) {
+        return this.users.indexOf(user);
+    }
+
+    public User get(int index) {
+        return this.users.get(index);
     }
 
     public void add(User... users) {

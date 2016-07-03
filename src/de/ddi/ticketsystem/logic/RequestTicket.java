@@ -20,4 +20,12 @@ public class RequestTicket extends Ticket {
     public String getService() {
         return service;
     }
+
+    @Override
+    public String saveToText() {
+        String text = "REQUEST;";
+        text += super.saveToText();
+        text += this.date + ";" + this.service + ";";
+        return text;
+    }
 }

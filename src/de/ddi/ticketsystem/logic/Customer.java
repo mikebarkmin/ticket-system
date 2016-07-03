@@ -11,4 +11,12 @@ public class Customer extends User {
     public String getCompany() {
         return company;
     }
+
+    @Override
+    public String saveToText() {
+        String text = "CUSTOMER;";
+        text += super.saveToText();
+        text += this.company + ";";
+        return text;
+    }
 }

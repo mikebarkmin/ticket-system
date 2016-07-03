@@ -11,4 +11,12 @@ public class Employee extends User {
     public String getDepartment() {
         return department;
     }
+
+    @Override
+    public String saveToText() {
+        String text = "EMPLOYEE;";
+        text += super.saveToText();
+        text += this.department + ";";
+        return text;
+    }
 }

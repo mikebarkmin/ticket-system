@@ -49,6 +49,7 @@ public abstract class View {
     }
 
     protected abstract void evaluate(String input);
+
     protected String getState() {
         return this.state;
     };

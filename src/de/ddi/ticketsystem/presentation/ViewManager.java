@@ -30,6 +30,7 @@ public class ViewManager {
                 case "ticket-selected":
                     Ticket selected = ((TicketsView) current).getSelectedTicket();
                     current = new TicketView(userManager, selected);
+                    state = current.getState();
                     break;
                default:
                     current.show();

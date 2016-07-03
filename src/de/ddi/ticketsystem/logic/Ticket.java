@@ -20,6 +20,7 @@ public abstract class Ticket {
         this.customer = customer;
         this.priority = priority;
         this.creationDate = new Date();
+        this.notes = new List<>();
     }
 
     public String getDescription() {

@@ -41,6 +41,7 @@ public class TicketsView extends View {
     }
 
     private void selectTicket() {
+        System.out.println("Ticketnummer: ");
         int ticketId = this.scanner.nextInt();
         this.selectedTicket = this.tickets.get(ticketId);
         this.state = "ticket-selected";

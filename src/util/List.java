@@ -82,6 +82,25 @@ public class List<E> {
         }
     }
 
+    public void add(int index, E value) {
+        Node<E> node = new Node<>();
+        node.setValue(value);
+        if (index == 0 ) {
+            node.setNext(head);
+            head = node;
+        } else {
+            if (index > 0) {
+                Node<E> prev = getNodeAt(index-1);
+                if (prev!= null) {
+                    node.setNext(prev.getNext());
+                    prev.setNext(node);
+                }
+
+            }
+        }
+
+    }
+
     public int indexOf(E value) {
         Node<E> node = head;
         int index = 0;

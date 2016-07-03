@@ -1,4 +1,4 @@
-package de.ddi.ticketsystem;
+package de.ddi.ticketsystem.logic;
 
 import util.List;
 
@@ -45,5 +45,9 @@ public class TicketManager {
             }
         }
         return next;
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
     }
 }

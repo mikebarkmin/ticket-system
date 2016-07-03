@@ -1,14 +1,20 @@
-import de.ddi.ticketsystem.*;
+import de.ddi.ticketsystem.logic.*;
+import de.ddi.ticketsystem.presentation.ViewManager;
 
 import java.util.Date;
 
 public class Main {
     public static void main(String[] args) {
         TicketManager ticketManager = new TicketManager();
+        UserManager userManager = new UserManager();
+        ViewManager viewManager = new ViewManager(userManager, ticketManager);
 
 
         Employee employee = new Employee("Mike", "Barkmin", "m@b.de", "DDI");
+        userManager.add(employee);
+
         Customer customer = new Customer("Gero", "Behler", "g@b.de", "Uni Due");
+        userManager.add(customer);
 
         Ticket ticket = new MalfunctionTicket(
                 "Beschreibung",
@@ -44,7 +50,6 @@ public class Main {
 
         ticketManager.add(ticket);
 
-        Ticket oldest = ticketManager.getOldest();
-        System.out.println(oldest.getCreationDate());
+        viewManager.run();
     }
 }

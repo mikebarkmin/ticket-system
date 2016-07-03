@@ -1,4 +1,4 @@
-package de.ddi.ticketsystem;
+package de.ddi.ticketsystem.logic;
 
 public class MalfunctionTicket extends Ticket {
     private String deviceService;

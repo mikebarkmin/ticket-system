@@ -1,4 +1,4 @@
-package de.ddi.ticketsystem;
+package de.ddi.ticketsystem.logic;
 
 import util.List;
 
@@ -20,6 +20,7 @@ public abstract class Ticket {
         this.customer = customer;
         this.priority = priority;
         this.creationDate = new Date();
+        this.notes = new List<>();
     }
 
     public String getDescription() {
@@ -66,5 +67,9 @@ public abstract class Ticket {
 
     public Date getCreationDate() {
         return creationDate;
+    }
+
+    public List<Note> getNotes() {
+        return notes;
     }
 }

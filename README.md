@@ -13,8 +13,8 @@ Ticket angelegt wurde, soll ein Angestellter in der Lage sein den Status
 und die Priority des Tickets zu ändern. Außerdem soll ein Angestellter
 Notizen zu einem Ticket hinzufügen können.
 
-Schritt 1
----------
+Schritt 1 (feature/ticket)
+--------------------------
 
 ### Aufgaben
 * Erstelle die Klasse Ticket mit passenden Attributen und einem geeignetem
@@ -32,8 +32,8 @@ Schritt 1
 ### UML
 ![UML-Diagramm](docs/step_1.png?raw=true)
 
-Schritt 2
----------
+Schritt 2 (feature/customer-employee)
+-------------------------------------
 
 ### Motivation
 * Der Angestellte, sowie der Kunde sollen noch weitere Angaben erhalten. Dazu
@@ -52,8 +52,8 @@ Schritt 2
 ### UML
 ![UML-Diagramm](docs/step_2.png?raw=true)
 
-Schritt 3
----------
+Schritt 3 (feature/ticketmanager-array)
+---------------------------------------
 
 ### Motivation
 * Um eine vielzahl von Tickets sinnvoll verwalten zu können, biete es sich an
@@ -86,8 +86,8 @@ Schritt 3
 ### UML
 ![UML-Diagramm](docs/step_3.png?raw=true)
 
-Schritt 4
----------
+Schritt 4 (feature/ticketmanager-list)
+--------------------------------------
 
 ### Motivation
 * Die Datenstruktur, die wir im Schritt 3 verwendet haben, ist sehr limitiert
@@ -106,8 +106,8 @@ Schritt 4
 ### UML
 ![UML-Diagramm](docs/step_4.png?raw=true)
 
-Schritt 5
----------
+Schritt 5 (feature/ticket-notes)
+--------------------------------
 
 ### Motivation
 * Im nächsten Schritt wollen wir den Tickets Notizen hinzufügen. Dafür soll jedes
@@ -131,8 +131,8 @@ Schritt 5
 ### UML
 ![UML-Diagramm](docs/step_5.png?raw=true)
 
-Schritt 6
----------
+Schritt 6 (feature/ticketmanager-binarytree)
+--------------------------------------------
 
 ### Motivation
 Aus Geschwindigkeitsgründen ist es sinnvoll auf Binäredatenstrukturen zu setzten.
@@ -151,8 +151,8 @@ ersetzten.
 ### UML
 ![UML-Diagramm](docs/step_6.png?raw=true)
 
-Schritt 7
----------
+Schritt 7 (feature/abstraction)
+-------------------------------
 
 ### Motivation
 Da wir nun noch weitere Arten von Tickets einführen wollen, die sich in ihren
@@ -173,8 +173,8 @@ User generalisieren.
 ### UML
 ![UML-Diagramm](docs/step_7.png?raw=true)
 
-Schritt 8
----------
+Schritt 8 (feature/gui)
+-----------------------
 
 ### Motivation
 Bis jetzt haben wir unsere Daten fest in der Main-Methode verankert.
@@ -202,8 +202,8 @@ Ticket User Beziehung über IDs
 ![UML-Diagramm](docs/step_8_presentation.png?raw=true)
 ![UML-Diagramm](docs/step_8_logic.png?raw=true)
 
-Schritt 9
----------
+Schritt 9 (feature/load-save)
+-----------------------------
 
 ### Motivation
 Nach dem Beenden des Programms sind alle Daten die der Benutzer eingeben hat verloren.
@@ -228,8 +228,8 @@ verwendet wird.
 ![UML-Diagramm](docs/step_9_logic.png?raw=true)
 ![UML-Diagramm](docs/step_9_data.png?raw=true)
 
-Schritt 10
-----------
+Schritt 10 (feature/list-sort)
+------------------------------
 
 ### Motivation
 Anzeige sortieren. Anonyme Klasse Comparator. Statische Lists.

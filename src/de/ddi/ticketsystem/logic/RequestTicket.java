@@ -6,7 +6,7 @@ public class RequestTicket extends Ticket {
     private Date date;
     private String service;
 
-    public RequestTicket(String description, String status, Employee employee, Customer customer, int priority,
+    public RequestTicket(String description, Status status, Employee employee, Customer customer, int priority,
                          Date date, String service) {
         super(description, status, employee, customer, priority);
         this.date = date;
@@ -25,7 +25,7 @@ public class RequestTicket extends Ticket {
     public String saveToText() {
         String text = "REQUEST;";
         text += super.saveToText();
-        text += this.date + ";" + this.service + ";";
+        text += date + ";" + service + ";";
         return text;
     }
 }

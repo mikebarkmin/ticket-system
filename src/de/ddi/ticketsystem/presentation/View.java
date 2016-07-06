@@ -9,31 +9,38 @@ public abstract class View {
     protected String name;
     protected String text;
     protected String[] options;
-    protected String state;
-    protected UserManager userManager;
-    protected Scanner scanner;
+    private String[] globalOptions = {"[Z]üruck", "[B]eenden"};
+    protected ViewManager viewManager;
     protected final String SEPERATOR = "-----------------";
+    protected Scanner scanner;
+    protected User currentUser;
 
-    public View(UserManager userManager) {
-        this.state = "";
-        this.userManager = userManager;
-        this.scanner = new Scanner(System.in);
+    public View(ViewManager viewManager) {
+        this.viewManager = viewManager;
+        scanner = new Scanner(System.in);
+        scanner.useDelimiter("\\n");
     }
 
     public void show() {
         System.out.println(SEPERATOR);
 
-        User current = this.userManager.getCurrent();
-        String out = this.name + " - ";
-        if (current != null) {
-            out += current.getFirstName() + " " + current.getLastName();
+        currentUser = viewManager.getUserManager().getCurrent();
+        String out = name + " - ";
+        if (currentUser != null) {
+            out += currentUser.getFirstName() + " " + currentUser.getLastName();
         } else {
             out += "Nicht angemeldet";
         }
 
-        out += "\n\n" + this.text;
+        out += "\n\n" + text;
 
-        for (String option : this.options) {
+        for (String option : options) {
+            out += "\n" + option;
+        }
+
+        out += "\n";
+
+        for (String option : globalOptions) {
             out += "\n" + option;
         }
 
@@ -41,16 +48,8 @@ public abstract class View {
 
         System.out.println(SEPERATOR);
 
-        this.evaluate(this.captureInput());
     }
 
-    private String captureInput() {
-        return this.scanner.next();
-    }
+    public abstract void evaluate(String input);
 
-    protected abstract void evaluate(String input);
-
-    protected String getState() {
-        return this.state;
-    };
 }

@@ -1,6 +1,7 @@
 package de.ddi.ticketsystem.logic;
 
 import de.ddi.ticketsystem.data.Access;
+import util.BinaryTree;
 import util.List;
 
 import java.io.IOException;
@@ -14,28 +15,30 @@ public class TicketManager extends Manager{
     private List<Ticket> tickets;
     private NoteManager noteManager;
     private UserManager userManager;
+    private BinaryTree<Employee, List<Ticket>> ticketsByEmployee;
 
     public TicketManager(Access access, NoteManager noteManager, UserManager userManager) {
         super(access);
-        this.tickets = new List<>();
+        tickets = new List<>();
+        ticketsByEmployee = new BinaryTree<>();
         this.noteManager = noteManager;
         this.userManager = userManager;
-        this.load();
+        load();
     }
 
     @Override
     public void save() {
         List<String> data = new List<>();
-        for(int i = 0; i < this.tickets.size(); i++) {
-            Ticket ticket = this.tickets.get(i);
-            int employeeId = this.userManager.indexOf(ticket.getEmployee());
-            int customerId = this.userManager.indexOf(ticket.getCustomer());
+        for(int i = 0; i < tickets.size(); i++) {
+            Ticket ticket = tickets.get(i);
+            int employeeId = userManager.indexOf(ticket.getEmployee());
+            int customerId = userManager.indexOf(ticket.getCustomer());
             String sTicket = i + ";" + employeeId + ";" + customerId + ";" + ticket.saveToText();
             data.add(sTicket);
-            this.noteManager.addToSave(i, ticket.getNotes());
+            noteManager.addToSave(i, ticket.getNotes());
         }
         try {
-            this.access.save(data);
+            access.save(data);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,15 +47,16 @@ public class TicketManager extends Manager{
     @Override
     protected void load() {
         try {
-            List<String> data = this.access.load();
+            List<String> data = access.load();
             for(int i = 0; i < data.size(); i++) {
                 String sTicket = data.get(i);
                 String[] values = sTicket.split(";");
                 Ticket ticket;
-                Employee employee = (Employee) this.userManager.get(Integer.parseInt(values[1]));
-                Customer customer = (Customer) this.userManager.get(Integer.parseInt(values[2]));
+                Employee employee = (Employee) userManager.get(Integer.parseInt(values[1]));
+                Customer customer = (Customer) userManager.get(Integer.parseInt(values[2]));
+                Status status = Status.valueOf(values[5]);
                 int priority = Integer.parseInt(values[6]);
-                DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.US);
+                DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.GERMANY);
                 Date creationDate;
                 try {
                     creationDate = formatter.parse(values[7]);
@@ -69,21 +73,21 @@ public class TicketManager extends Manager{
                             date = new Date();
                             e.printStackTrace();
                         }
-                        ticket = new RequestTicket(values[4], values[5], employee, customer, priority, date, values[9]);
+                        ticket = new RequestTicket(values[4], status, employee, customer, priority, date, values[9]);
                         ticket.setCreationDate(creationDate);
-                        this.tickets.add(ticket);
+                        tickets.add(ticket);
                         break;
                     case "ORDER":
                         int quantity = Integer.parseInt(values[11]);
-                        ticket = new OrderTicket(values[4], values[5], employee, customer, priority, values[8],
+                        ticket = new OrderTicket(values[4], status, employee, customer, priority, values[8],
                                 values[9], values[10], quantity);
                         ticket.setCreationDate(creationDate);
-                        this.tickets.add(ticket);
+                        tickets.add(ticket);
                         break;
                     case "MALFUNCTION":
-                        ticket = new MalfunctionTicket(values[4], values[5], employee, customer, priority, values[8]);
+                        ticket = new MalfunctionTicket(values[4], status, employee, customer, priority, values[8]);
                         ticket.setCreationDate(creationDate);
-                        this.tickets.add(ticket);
+                        tickets.add(ticket);
                         break;
                     default:
                         break;
@@ -96,14 +100,38 @@ public class TicketManager extends Manager{
 
     public void add(Ticket... tickets) {
         for(int i = 0; i < tickets.length; i++) {
-            this.tickets.add(tickets[i]);
+            Ticket ticket = tickets[i];
+            this.tickets.add(ticket);
+            List<Ticket> userTickets = ticketsByEmployee.get(ticket.getEmployee());
+            if(userTickets == null) {
+                userTickets = new List<>();
+                ticketsByEmployee.insert(ticket.getEmployee(), userTickets);
+            }
+            userTickets.add(ticket);
         }
+    }
+
+    public void remove(Ticket ticket) {
+        for(int i = 0; i < tickets.size(); i++) {
+            Ticket current = tickets.get(i);
+            if(current.equals(ticket)) {
+                current.setStatus(Status.CLOSED);
+                break;
+            }
+        }
+    }
+
+    public List<Ticket> getAll() {
+        return tickets;
     }
 
     public Ticket getOldest() {
         Ticket oldest = null;
         for(int i = 0; i < tickets.size(); i++) {
             Ticket current = tickets.get(i);
+            if(current.getStatus() == Status.CLOSED) {
+                continue;
+            }
             if(oldest == null) {
                 oldest = current;
             } else if(current.getCreationDate().compareTo(oldest.getCreationDate()) < 0) {
@@ -113,12 +141,19 @@ public class TicketManager extends Manager{
         return oldest;
     }
 
+    public List<Ticket> getFromEmployee(Employee employee) {
+        return ticketsByEmployee.get(employee);
+    }
+
     public Ticket next() {
         Ticket next = null;
         for(int i = 0; i < tickets.size(); i++) {
             Ticket current = tickets.get(i);
+            if(current.getStatus() == Status.CLOSED) {
+                continue;
+            }
             if(current != null) {
-                if(next != null) {
+                if(next == null) {
                     next = current;
                 } else if(next.getPriority() < current.getPriority()) {
                     next = current;

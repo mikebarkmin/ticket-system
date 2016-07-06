@@ -4,9 +4,9 @@ public class LoginView extends View {
 
     public LoginView(ViewManager viewManager) {
         super(viewManager);
-        this.name = "Anmelden";
-        this.text = "Bevor Sie das Programm benutzen können müssen Sie sich anmelden.";
-        this.options = new String[]{
+        name = "Anmelden";
+        text = "Bevor Sie das Programm benutzen können müssen Sie sich anmelden.";
+        options = new String[]{
                 "[A]nmelden"
         };
     }
@@ -19,9 +19,9 @@ public class LoginView extends View {
                 String firstName = scanner.next();
                 System.out.print("Nachname: ");
                 String lastName = scanner.next();
-                this.viewManager.getUserManager().login(firstName, lastName);
-                if (this.viewManager.getUserManager().getCurrent() != null) {
-                    this.viewManager.setNextView(new TicketsView(this.viewManager));
+                viewManager.getUserManager().login(firstName, lastName);
+                if (viewManager.getUserManager().getCurrent() != null) {
+                    viewManager.setNextView(new MenuView(viewManager));
                 }
         }
     }

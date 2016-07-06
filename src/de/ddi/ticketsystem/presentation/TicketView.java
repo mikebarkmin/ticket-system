@@ -10,9 +10,9 @@ public class TicketView extends View {
 
     public TicketView(ViewManager viewManager, Ticket ticket) {
         super(viewManager);
-        this.name = "Ticket";
+        name = "Ticket";
         this.ticket = ticket;
-        this.options = new String[]{
+        options = new String[]{
                 "[S]tatus ändern",
                 "[N]otizen (" + ticket.getNotes().size() + ")"
         };
@@ -35,10 +35,10 @@ public class TicketView extends View {
     public void evaluate(String input) {
         switch (input) {
             case "S":
-                this.changeStatus();
+                changeStatus();
                 break;
             case "N":
-                this.showNotes();
+                showNotes();
                 break;
         }
     }
@@ -50,10 +50,10 @@ public class TicketView extends View {
         System.out.print(text);
         String statusString = scanner.next();
         Status status = Status.valueOf(statusString);
-        this.ticket.setStatus(status);
+        ticket.setStatus(status);
     }
 
     private void showNotes() {
-        this.viewManager.setNextView(new NotesView(this.viewManager, this.ticket));
+        viewManager.setNextView(new NotesView(viewManager, ticket));
     }
 }

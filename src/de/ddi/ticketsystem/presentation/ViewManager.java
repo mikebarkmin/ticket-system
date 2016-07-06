@@ -16,27 +16,27 @@ public class ViewManager {
     public ViewManager(UserManager userManager, TicketManager ticketManager) {
         this.userManager = userManager;
         this.ticketManager = ticketManager;
-        this.viewStack = new Stack<>();
-        this.scanner = new Scanner(System.in);
-        this.scanner.useDelimiter("\\n");
+        viewStack = new Stack<>();
+        scanner = new Scanner(System.in);
+        scanner.useDelimiter("\\n");
     }
 
     public void run() {
         viewStack.push(new LoginView(this));
         while(true) {
-            this.showView();
-            this.getInput();
+            showView();
+            getInput();
         }
     }
 
     private void showView() {
-        View current = this.viewStack.peek();
+        View current = viewStack.peek();
         current.show();
     }
 
     private void getInput() {
         String input;
-        input = this.scanner.next().toUpperCase();
+        input = scanner.next().toUpperCase();
         switch (input) {
             case "Z":
                 viewStack.pop();
@@ -45,7 +45,7 @@ public class ViewManager {
                 System.exit(0);
                 break;
             default:
-                View current = this.viewStack.peek();
+                View current = viewStack.peek();
                 current.evaluate(input);
                 break;
         }

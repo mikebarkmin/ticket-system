@@ -19,26 +19,26 @@ public class TicketManager extends Manager{
 
     public TicketManager(Access access, NoteManager noteManager, UserManager userManager) {
         super(access);
-        this.tickets = new List<>();
-        this.ticketsByEmployee = new BinaryTree<>();
+        tickets = new List<>();
+        ticketsByEmployee = new BinaryTree<>();
         this.noteManager = noteManager;
         this.userManager = userManager;
-        this.load();
+        load();
     }
 
     @Override
     public void save() {
         List<String> data = new List<>();
-        for(int i = 0; i < this.tickets.size(); i++) {
-            Ticket ticket = this.tickets.get(i);
-            int employeeId = this.userManager.indexOf(ticket.getEmployee());
-            int customerId = this.userManager.indexOf(ticket.getCustomer());
+        for(int i = 0; i < tickets.size(); i++) {
+            Ticket ticket = tickets.get(i);
+            int employeeId = userManager.indexOf(ticket.getEmployee());
+            int customerId = userManager.indexOf(ticket.getCustomer());
             String sTicket = i + ";" + employeeId + ";" + customerId + ";" + ticket.saveToText();
             data.add(sTicket);
-            this.noteManager.addToSave(i, ticket.getNotes());
+            noteManager.addToSave(i, ticket.getNotes());
         }
         try {
-            this.access.save(data);
+            access.save(data);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -47,13 +47,13 @@ public class TicketManager extends Manager{
     @Override
     protected void load() {
         try {
-            List<String> data = this.access.load();
+            List<String> data = access.load();
             for(int i = 0; i < data.size(); i++) {
                 String sTicket = data.get(i);
                 String[] values = sTicket.split(";");
                 Ticket ticket;
-                Employee employee = (Employee) this.userManager.get(Integer.parseInt(values[1]));
-                Customer customer = (Customer) this.userManager.get(Integer.parseInt(values[2]));
+                Employee employee = (Employee) userManager.get(Integer.parseInt(values[1]));
+                Customer customer = (Customer) userManager.get(Integer.parseInt(values[2]));
                 Status status = Status.valueOf(values[5]);
                 int priority = Integer.parseInt(values[6]);
                 DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.GERMANY);
@@ -75,19 +75,19 @@ public class TicketManager extends Manager{
                         }
                         ticket = new RequestTicket(values[4], status, employee, customer, priority, date, values[9]);
                         ticket.setCreationDate(creationDate);
-                        this.tickets.add(ticket);
+                        tickets.add(ticket);
                         break;
                     case "ORDER":
                         int quantity = Integer.parseInt(values[11]);
                         ticket = new OrderTicket(values[4], status, employee, customer, priority, values[8],
                                 values[9], values[10], quantity);
                         ticket.setCreationDate(creationDate);
-                        this.tickets.add(ticket);
+                        tickets.add(ticket);
                         break;
                     case "MALFUNCTION":
                         ticket = new MalfunctionTicket(values[4], status, employee, customer, priority, values[8]);
                         ticket.setCreationDate(creationDate);
-                        this.tickets.add(ticket);
+                        tickets.add(ticket);
                         break;
                     default:
                         break;
@@ -102,10 +102,10 @@ public class TicketManager extends Manager{
         for(int i = 0; i < tickets.length; i++) {
             Ticket ticket = tickets[i];
             this.tickets.add(ticket);
-            List<Ticket> userTickets = this.ticketsByEmployee.get(ticket.getEmployee());
+            List<Ticket> userTickets = ticketsByEmployee.get(ticket.getEmployee());
             if(userTickets == null) {
                 userTickets = new List<>();
-                this.ticketsByEmployee.insert(ticket.getEmployee(), userTickets);
+                ticketsByEmployee.insert(ticket.getEmployee(), userTickets);
             }
             userTickets.add(ticket);
         }
@@ -142,7 +142,7 @@ public class TicketManager extends Manager{
     }
 
     public List<Ticket> getFromEmployee(Employee employee) {
-        return this.ticketsByEmployee.get(employee);
+        return ticketsByEmployee.get(employee);
     }
 
     public Ticket next() {

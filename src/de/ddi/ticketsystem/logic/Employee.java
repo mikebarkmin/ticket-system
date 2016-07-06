@@ -19,11 +19,11 @@ public class Employee extends User implements Comparable<Employee> {
     public String saveToText() {
         String text = "EMPLOYEE;";
         text += super.saveToText();
-        text += this.department + ";";
+        text += department + ";";
         return text;
     }
 
     public int compareTo(Employee employee) {
-        return (this.firstName + this.lastName).compareTo(employee.firstName + employee.lastName);
+        return (firstName + lastName).compareTo(employee.firstName + employee.lastName);
     }
 }

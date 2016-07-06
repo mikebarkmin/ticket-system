@@ -11,7 +11,7 @@ public class OrderTicket extends Ticket {
         super(description, status, employee, customer, priority);
         this.vendor = vendor;
         this.article = article;
-        this.address = addess;
+        address = addess;
         this.quantity = quantity;
     }
 
@@ -35,7 +35,7 @@ public class OrderTicket extends Ticket {
     public String saveToText() {
         String text = "ORDER;";
         text += super.saveToText();
-        text += this.vendor + ";" + this.article + ";" + this.address + ";" + this.quantity + ";";
+        text += vendor + ";" + article + ";" + address + ";" + quantity + ";";
         return text;
     }
 }

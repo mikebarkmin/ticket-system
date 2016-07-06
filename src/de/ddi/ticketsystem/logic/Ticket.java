@@ -19,9 +19,9 @@ public abstract class Ticket implements Saveable{
         this.employee = employee;
         this.customer = customer;
         this.priority = priority;
-        this.notes = new List<>();
-        this.creationDate = new Date();
-        this.notes = new List<>();
+        notes = new List<>();
+        creationDate = new Date();
+        notes = new List<>();
     }
 
     public String getDescription() {
@@ -43,7 +43,7 @@ public abstract class Ticket implements Saveable{
     }
 
     public void setEmployee(Employee employee) {
-        if(this.status != Status.CLOSED) {
+        if(status != Status.CLOSED) {
             this.employee = employee;
         }
     }
@@ -57,17 +57,17 @@ public abstract class Ticket implements Saveable{
     }
 
     public void setPriority(int priority) {
-        if (this.status != Status.CLOSED && priority > 0) {
+        if (status != Status.CLOSED && priority > 0) {
             this.priority = priority;
         }
     }
 
     public void addNote(Note note) {
-        this.notes.add(note);
+        notes.add(note);
     }
 
     public void removeNote(Note note) {
-        this.notes.remove(this.notes.indexOf(note));
+        notes.remove(notes.indexOf(note));
     }
 
     public List<Note> getNotes() {
@@ -84,7 +84,7 @@ public abstract class Ticket implements Saveable{
 
     @Override
     public String saveToText() {
-        String text = this.description + ";" + this.status + ";" + this.priority + ";" + this.creationDate + ";";
+        String text = description + ";" + status + ";" + priority + ";" + creationDate + ";";
         return text;
     }
 }

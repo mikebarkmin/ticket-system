@@ -25,7 +25,7 @@ public class RequestTicket extends Ticket {
     public String saveToText() {
         String text = "REQUEST;";
         text += super.saveToText();
-        text += this.date + ";" + this.service + ";";
+        text += date + ";" + service + ";";
         return text;
     }
 }

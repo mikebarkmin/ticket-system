@@ -16,7 +16,7 @@ public class MalfunctionTicket extends Ticket {
     public String saveToText() {
         String text = "MALFUNCTION;";
         text += super.saveToText();
-        text += this.deviceService + ";";
+        text += deviceService + ";";
         return text;
     }
 }

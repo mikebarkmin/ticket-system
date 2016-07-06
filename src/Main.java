@@ -1,13 +1,10 @@
-import de.ddi.ticketsystem.Customer;
-import de.ddi.ticketsystem.Employee;
-import de.ddi.ticketsystem.Ticket;
-import de.ddi.ticketsystem.TicketManager;
+import de.ddi.ticketsystem.*;
 
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        TicketManager ticketManager = new TicketManager(10);
+        TicketManager ticketManager = new TicketManager();
 
         Employee employee = new Employee("Mike", "Barkmin");
         Customer customer = new Customer("Gero", "Behler", "Uni Due");
@@ -43,14 +40,14 @@ public class Main {
         scanner.useDelimiter("\\n");
         String input;
         do {
-            System.out.println("[T]ickets, [H]inzufügen, [E]ntfernen, [B]eenden");
+            System.out.println("[T]ickets, [H]inzufügen, [E]ntfernen, [N]ächtes, [Ä]ltestes, [B]eenden");
             input = scanner.next();
             input = input.toUpperCase();
             if(input.equals("T")) {
-                Ticket[] tickets = ticketManager.getAll();
+                TicketList tickets = ticketManager.getAll();
                 // for(Ticket ticket : tickets) {
-                for(int i = 0; i < tickets.length; i++) {
-                    Ticket current = tickets[i];
+                for(int i = 0; i < tickets.size(); i++) {
+                    Ticket current = tickets.get(i);
                     if(current != null) {
                         System.out.println(i + ") " + current.getStatus() + "\t " + current.getDescription() + "\t " + current.getPriority() + "\t " + current.getCreationDate());
                     }
@@ -67,12 +64,19 @@ public class Main {
             } else if(input.equals("E")) {
                 System.out.println("Ticketnummer: ");
                 int ticketId = scanner.nextInt();
-                Ticket toRemove = ticketManager.getAll()[ticketId];
+                Ticket toRemove = ticketManager.getAll().get(ticketId);
                 ticketManager.remove(toRemove);
+            } else if(input.equals("N")) {
+                ticket = ticketManager.next();
+                if(ticket != null) {
+                    System.out.println(ticket.getStatus() + "\t " + ticket.getDescription() + "\t " + ticket.getPriority() + "\t " + ticket.getCreationDate());
+                }
+            } else if(input.equals("Ä")) {
+                ticket = ticketManager.getOldest();
+                if(ticket != null) {
+                    System.out.println(ticket.getStatus() + "\t " + ticket.getDescription() + "\t " + ticket.getPriority() + "\t " + ticket.getCreationDate());
+                }
             }
         } while (!input.equals("B"));
-
-        Ticket oldest = ticketManager.getOldest();
-        System.out.println(oldest.getCreationDate());
     }
 }

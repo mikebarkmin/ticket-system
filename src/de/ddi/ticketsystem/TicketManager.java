@@ -14,16 +14,16 @@ public class TicketManager {
     }
 
     public void remove(Ticket ticket) {
-        for(int i = 0; i < tickets.length; i++) {
-            Ticket current = tickets[i];
+        for(int i = 0; i < tickets.size(); i++) {
+            Ticket current = tickets.get(i);
             if(current.equals(ticket)) {
-                tickets[i] = null;
+                tickets.remove(i);
                 break;
             }
         }
     }
 
-    public Ticket[] getAll() {
+    public TicketList getAll() {
         return tickets;
     }
 
@@ -45,7 +45,7 @@ public class TicketManager {
         for(int i = 0; i < tickets.size(); i++) {
             Ticket current = tickets.get(i);
             if(current != null) {
-                if(next != null) {
+                if(next == null) {
                     next = current;
                 } else if(next.getPriority() < current.getPriority()) {
                     next = current;

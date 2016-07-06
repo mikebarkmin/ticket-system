@@ -45,8 +45,15 @@ public class Main {
             input = scanner.next();
             input = input.toUpperCase();
             if(input.equals("T")) {
-                List<Ticket> tickets = ticketManager.getAll();
-                // for(Ticket ticket : tickets) {
+                System.out.println("[A]lle, [M]eine");
+                input = scanner.next().toUpperCase();
+                List<Ticket> tickets = new List<>();
+                if(input.equals("A")) {
+                    tickets = ticketManager.getAll();
+                    // for(Ticket ticket : tickets) {
+                } else if(input.equals("M")) {
+                    tickets = ticketManager.getFromEmployee(employee);
+                }
                 for(int i = 0; i < tickets.size(); i++) {
                     Ticket current = tickets.get(i);
                     if(current != null) {

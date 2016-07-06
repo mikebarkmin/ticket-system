@@ -1,6 +1,6 @@
 package de.ddi.ticketsystem;
 
-public class Employee {
+public class Employee implements Comparable<Employee> {
     private String firstName;
     private String lastName;
     private String email;
@@ -32,5 +32,10 @@ public class Employee {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public int compareTo(Employee employee) {
+        return (firstName + lastName).compareTo(employee.firstName + employee.lastName);
     }
 }

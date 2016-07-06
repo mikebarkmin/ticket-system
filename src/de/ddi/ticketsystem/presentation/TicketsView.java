@@ -3,6 +3,7 @@ package de.ddi.ticketsystem.presentation;
 import de.ddi.ticketsystem.logic.*;
 import util.List;
 
+import java.util.Comparator;
 import java.util.Date;
 
 public class TicketsView extends View {
@@ -19,7 +20,8 @@ public class TicketsView extends View {
                 "[N]ächstes",
                 "[Ä]ltestes",
                 "[H]inzufügen",
-                "[L]öschen"
+                "[L]öschen",
+                "[S]ortieren"
         };
     }
 
@@ -52,6 +54,8 @@ public class TicketsView extends View {
             case "L":
                 deleteTicket(selectTicket());
                 break;
+            case "S":
+                sort();
             default:
                 break;
         }
@@ -139,5 +143,44 @@ public class TicketsView extends View {
 
     private void showTicket(Ticket ticket) {
         viewManager.setNextView(new TicketView(viewManager, ticket));
+    }
+
+    private void sort() {
+        System.out.println("[P]riorität, [D]atum, [A]ngestellter, [K]unde");
+        String input = scanner.next();
+        switch (input) {
+            case "P":
+                tickets.sort(new Comparator<Ticket>() {
+                    @Override
+                    public int compare(Ticket ticket, Ticket t1) {
+                        return ticket.getPriority() - t1.getPriority();
+                    }
+                });
+                break;
+            case "D":
+                tickets.sort(new Comparator<Ticket>() {
+                    @Override
+                    public int compare(Ticket ticket, Ticket t1) {
+                        return ticket.getCreationDate().compareTo(t1.getCreationDate());
+                    }
+                });
+                break;
+            case "A":
+                tickets.sort(new Comparator<Ticket>() {
+                    @Override
+                    public int compare(Ticket ticket, Ticket t1) {
+                        return ticket.getEmployee().compareTo(t1.getEmployee());
+                    }
+                });
+                break;
+            case "K":
+                tickets.sort(new Comparator<Ticket>() {
+                    @Override
+                    public int compare(Ticket ticket, Ticket t1) {
+                        return ticket.getCustomer().compareTo(t1.getCustomer());
+                    }
+                });
+                break;
+        }
     }
 }

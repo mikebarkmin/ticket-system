@@ -1,6 +1,6 @@
 package de.ddi.ticketsystem.logic;
 
-public abstract class User implements Saveable {
+public abstract class User implements Saveable, Comparable<User> {
     private String firstName;
     private String lastName;
     private String email;
@@ -27,5 +27,9 @@ public abstract class User implements Saveable {
     public String saveToText() {
         String text = firstName + ";" + lastName + ";" + email + ";";
         return text;
+    }
+
+    public int compareTo(User user) {
+        return (firstName + lastName).compareTo(user.firstName + user.lastName);
     }
 }

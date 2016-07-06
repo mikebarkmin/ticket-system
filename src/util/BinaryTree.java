@@ -1,6 +1,6 @@
 package util;
 
-public class BinaryTree<K extends Comparable<K>, V> {
+public class BinaryTree<K extends Comparable<? super K>, V> {
 
     private BinaryTreeNode<K, V> root;
 

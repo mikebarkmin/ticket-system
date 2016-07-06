@@ -17,7 +17,7 @@ public class TicketManager {
         for(int i = 0; i < tickets.size(); i++) {
             Ticket current = tickets.get(i);
             if(current.equals(ticket)) {
-                tickets.remove(i);
+                current.setStatus(Status.CLOSED);
                 break;
             }
         }
@@ -31,6 +31,9 @@ public class TicketManager {
         Ticket oldest = null;
         for(int i = 0; i < tickets.size(); i++) {
             Ticket current = tickets.get(i);
+            if(current.getStatus() == Status.CLOSED) {
+                continue;
+            }
             if(oldest == null) {
                 oldest = current;
             } else if(current.getCreationDate().compareTo(oldest.getCreationDate()) < 0) {
@@ -44,6 +47,9 @@ public class TicketManager {
         Ticket next = null;
         for(int i = 0; i < tickets.size(); i++) {
             Ticket current = tickets.get(i);
+            if(current.getStatus() == Status.CLOSED) {
+                continue;
+            }
             if(current != null) {
                 if(next == null) {
                     next = current;

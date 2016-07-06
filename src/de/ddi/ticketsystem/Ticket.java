@@ -4,13 +4,13 @@ import java.util.Date;
 
 public class Ticket {
     private String description;
-    private String status;
+    private Status status;
     private Employee employee;
     private Customer customer;
     private int priority;
     private Date creationDate;
 
-    public Ticket(String description, String status, Employee employee, Customer customer, int priority) {
+    public Ticket(String description, Status status, Employee employee, Customer customer, int priority) {
         this.description = description;
         this.status = status;
         this.employee = employee;
@@ -23,12 +23,14 @@ public class Ticket {
         return description;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatus(Status status) {
+        if(this.status != Status.CLOSED) {
+            this.status = status;
+        }
     }
 
     public Employee getEmployee() {
@@ -36,7 +38,9 @@ public class Ticket {
     }
 
     public void setEmployee(Employee employee) {
-        this.employee = employee;
+        if(this.status != Status.CLOSED) {
+            this.employee = employee;
+        }
     }
 
     public Customer getCustomer() {
@@ -48,7 +52,7 @@ public class Ticket {
     }
 
     public void setPriority(int priority) {
-        if (priority > 0) {
+        if (this.status != Status.CLOSED && priority > 0) {
             this.priority = priority;
         }
     }

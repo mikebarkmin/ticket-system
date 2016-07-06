@@ -11,7 +11,7 @@ public class Main {
 
         Ticket ticket = new Ticket(
                 "Beschreibung",
-                "In Bearbeitung",
+                Status.RECORDED,
                 employee,
                 customer,
                 2);
@@ -20,7 +20,7 @@ public class Main {
 
         ticket = new Ticket(
                 "Beschreibung",
-                "In Bearbeitung",
+                Status.RECORDED,
                 employee,
                 customer,
                 1);
@@ -29,7 +29,7 @@ public class Main {
 
         ticket = new Ticket(
                 "Beschreibung",
-                "In Bearbeitung",
+                Status.RECORDED,
                 employee,
                 customer,
                 3);
@@ -40,7 +40,7 @@ public class Main {
         scanner.useDelimiter("\\n");
         String input;
         do {
-            System.out.println("[T]ickets, [H]inzufügen, [E]ntfernen, [N]ächtes, [Ä]ltestes, [B]eenden");
+            System.out.println("[T]ickets, [S]tatus ändern, [H]inzufügen, [E]ntfernen, [N]ächtes, [Ä]ltestes, [B]eenden");
             input = scanner.next();
             input = input.toUpperCase();
             if(input.equals("T")) {
@@ -49,33 +49,52 @@ public class Main {
                 for(int i = 0; i < tickets.size(); i++) {
                     Ticket current = tickets.get(i);
                     if(current != null) {
-                        System.out.println(i + ") " + current.getStatus() + "\t " + current.getDescription() + "\t " + current.getPriority() + "\t " + current.getCreationDate());
+                        System.out.println(i + ") " + current.getStatus() + "\t " + current.getDescription() + "\t "
+                                + current.getPriority() + "\t " + current.getCreationDate());
                     }
                 }
             } else if(input.equals("H")) {
                 System.out.print("Beschreibung: ");
                 String description = scanner.next();
                 System.out.print("Status: ");
-                String status = scanner.next();
+                Status status;
+                System.out.println("(" + Status.RECORDED + ", " + Status.PROCESSED + ", " +
+                        Status.WAITING_FOR_FEEDBACK + ", " + Status.SOLVED + ", " + Status.CLOSED + ")");
+                String sStatus = scanner.next();
+                status = Status.valueOf(sStatus);
                 System.out.print("Priorität: ");
                 int priority = scanner.nextInt();
                 Ticket toAdd = new Ticket(description, status, employee, customer, priority);
                 ticketManager.add(toAdd);
             } else if(input.equals("E")) {
-                System.out.println("Ticketnummer: ");
+                System.out.print("Ticketnummer: ");
                 int ticketId = scanner.nextInt();
                 Ticket toRemove = ticketManager.getAll().get(ticketId);
                 ticketManager.remove(toRemove);
             } else if(input.equals("N")) {
                 ticket = ticketManager.next();
                 if(ticket != null) {
-                    System.out.println(ticket.getStatus() + "\t " + ticket.getDescription() + "\t " + ticket.getPriority() + "\t " + ticket.getCreationDate());
+                    System.out.println(ticket.getStatus() + "\t " + ticket.getDescription() + "\t "
+                            + ticket.getPriority() + "\t " + ticket.getCreationDate());
                 }
             } else if(input.equals("Ä")) {
                 ticket = ticketManager.getOldest();
                 if(ticket != null) {
-                    System.out.println(ticket.getStatus() + "\t " + ticket.getDescription() + "\t " + ticket.getPriority() + "\t " + ticket.getCreationDate());
+                    System.out.println(ticket.getStatus() + "\t " + ticket.getDescription() + "\t "
+                            + ticket.getPriority() + "\t " + ticket.getCreationDate());
                 }
+            } else if(input.equals("S")) {
+                System.out.print("Ticketnummer: ");
+                int ticketId = scanner.nextInt();
+                ticket = ticketManager.getAll().get(ticketId);
+                System.out.println("Aktueller Status: " + ticket.getStatus());
+                Status status;
+                System.out.print("Neuer Status: ");
+                System.out.println("(" + Status.RECORDED + ", " + Status.PROCESSED + ", " +
+                        Status.WAITING_FOR_FEEDBACK + ", " + Status.SOLVED + ", " + Status.CLOSED + ")");
+                String sStatus = scanner.next();
+                status = Status.valueOf(sStatus);
+                ticket.setStatus(status);
             }
         } while (!input.equals("B"));
     }

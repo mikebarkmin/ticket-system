@@ -1,3 +1,4 @@
+import de.ddi.ticketsystem.logic.Status;
 import de.ddi.ticketsystem.logic.*;
 import de.ddi.ticketsystem.presentation.ViewManager;
 
@@ -16,40 +17,41 @@ public class Main {
         Customer customer = new Customer("Gero", "Behler", "g@b.de", "Uni Due");
         userManager.add(customer);
 
-        Ticket ticket = new MalfunctionTicket(
+        Ticket ticket = new RequestTicket(
                 "Beschreibung",
-                "In Bearbeitung",
+                Status.RECORDED,
                 employee,
                 customer,
                 2,
-                "test");
-
-        ticketManager.add(ticket);
-
-        ticket = new OrderTicket(
-                "Beschreibung",
-                "In Bearbeitung",
-                employee,
-                customer,
-                1,
-                "Microsoft",
-                "Windows 10",
-                "Schützenbahn 10",
-                20);
-
-        ticketManager.add(ticket);
-
-        ticket = new RequestTicket(
-                "Beschreibung",
-                "In Bearbeitung",
-                employee,
-                customer,
-                3,
                 new Date(),
                 "repair");
 
         ticketManager.add(ticket);
 
+        ticket = new MalfunctionTicket(
+                "Beschreibung",
+                Status.RECORDED,
+                employee,
+                customer,
+                1,
+                "reboot");
+
+        ticketManager.add(ticket);
+
+        ticket = new OrderTicket(
+                "Beschreibung",
+                Status.RECORDED,
+                employee,
+                customer,
+                3,
+                "dingssoft",
+                "doors",
+                "Plastic Valley",
+                19);
+
+        ticketManager.add(ticket);
+
         viewManager.run();
+
     }
 }

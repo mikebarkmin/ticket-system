@@ -8,34 +8,35 @@ import util.List;
 public class TicketsView extends View {
 
     private List<Ticket> tickets;
-    private Ticket selectedTicket;
 
-    public TicketsView(UserManager userManager, TicketManager ticketManager) {
-        super(userManager);
+    public TicketsView(ViewManager viewManager) {
+        super(viewManager);
         this.name = "Tickets";
-        this.tickets = ticketManager.getTickets();
+        this.tickets = this.viewManager.getTicketManager().getTickets();
 
+        this.options = new String[]{
+                "[A]uswählen"
+        };
+    }
+
+    @Override
+    public void show() {
         String text = "";
         for(int i = 0; i < tickets.size(); i++) {
             Ticket ticket = tickets.get(i);
             text += i + ") " + ticket.getDescription() + "\t" + ticket.getPriority() + "\n";
         }
         this.text = text;
-        this.options = new String[]{
-                "[A]uswählen",
-                "[B]eenden"
-        };
+        super.show();
     }
 
     @Override
-    protected void evaluate(String input) {
-        input = input.toUpperCase();
+    public void evaluate(String input) {
         switch (input) {
-            case "B":
-                this.state = "exit";
-                break;
             case "A":
                 this.selectTicket();
+                break;
+            default:
                 break;
         }
     }
@@ -43,11 +44,7 @@ public class TicketsView extends View {
     private void selectTicket() {
         System.out.println("Ticketnummer: ");
         int ticketId = this.scanner.nextInt();
-        this.selectedTicket = this.tickets.get(ticketId);
-        this.state = "ticket-selected";
-    }
-
-    public Ticket getSelectedTicket() {
-        return selectedTicket;
+        Ticket ticket = this.tickets.get(ticketId);
+        this.viewManager.setNextView(new TicketView(this.viewManager, ticket));
     }
 }

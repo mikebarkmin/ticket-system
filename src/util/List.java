@@ -3,7 +3,7 @@ package util;
 public class List<E> {
 
     // Der Listenkopf oder der Verweis/Referenz auf das erste Element der Liste
-    Node<E> head;
+    ListNode<E> head;
 
     // hier die Methode / Operation, die diese Liste leert.
     public void clear() {   // das head == null bedeutet es gibt kein Listenelement in der Liste
@@ -17,10 +17,10 @@ public class List<E> {
 
     public int size() {
         int size = 0; // lokale Variable zum mitzaehlen, wie viele Elemente in der List sind
-        Node<E> node = head; // lokale Variable zum Durchlaufen der Listenelement
-        while (node != null) {
-            node = node.getNext(); // gehe zum naechsten Element
-            // das kann(!) null sein, wenn node auf das
+        ListNode<E> listNode = head; // lokale Variable zum Durchlaufen der Listenelement
+        while (listNode != null) {
+            listNode = listNode.getNext(); // gehe zum naechsten Element
+            // das kann(!) null sein, wenn listNode auf das
             // letzte Element gezeigt hat!
             size = size + 1;        // mitzaehlen, dass ein Element da war(!)
         }
@@ -29,42 +29,42 @@ public class List<E> {
     }
 
     // Hilfsmethode fuer das Besorgen des Elementes an der Stell index 0 ..  size-1
-    private Node<E> getNodeAt(int index) {
+    private ListNode<E> getNodeAt(int index) {
         if (index < 0) {
             return null;
         } // falls negativer index => es gibt kein Element, das diese Bedingung erfuellt
 
         int currPos = 0;  // Hilfszaehler fuer das Mitzaehlen der Position beim Durchlaufen
-        Node<E> node = head; // Intialisierung des Durchlaufs der Liste
+        ListNode<E> listNode = head; // Intialisierung des Durchlaufs der Liste
         while (currPos < index  // noch in der Liste aber noch nicht an der richtigen Stelle
                 &&
-                node != null // sind ausserhalb der Liste angekommen
+                listNode != null // sind ausserhalb der Liste angekommen
                 ) {
-            node = node.getNext();
+            listNode = listNode.getNext();
             currPos = currPos + 1;
         }
 
-        return node;
+        return listNode;
     }
 
     public E get(int index) {
-        Node<E> node = getNodeAt(index); // hole das Element (im Container Node) an der Stelle index
+        ListNode<E> listNode = getNodeAt(index); // hole das Element (im Container ListNode) an der Stelle index
 
         if (isEmpty()) {
             // da gab es keins an der Stelle index
             return null;
         } else {
-            return node.getValue();
+            return listNode.getValue();
         }
     }
 
     public String toString() {
         String tempStr = "{"; // temporaere String-Variable zum Aufsammeln
-        Node<E> node = head;   // node ist die temporaere Laufvariable zum Durchlaufen der Liste
-        while (node != null)  // solange noch nicht am Ende
+        ListNode<E> listNode = head;   // listNode ist die temporaere Laufvariable zum Durchlaufen der Liste
+        while (listNode != null)  // solange noch nicht am Ende
         {
-            tempStr = tempStr + node; // erst Knoten verarbeiten
-            node = node.getNext();    // auf zum naechsten Knoten in der Liste (falls vorhanden!)
+            tempStr = tempStr + listNode; // erst Knoten verarbeiten
+            listNode = listNode.getNext();    // auf zum naechsten Knoten in der Liste (falls vorhanden!)
         }
 
         return tempStr + "}";
@@ -72,25 +72,25 @@ public class List<E> {
     }
 
     public void add(E value) {
-        Node<E> node = new Node<>();
-        node.setValue(value);
+        ListNode<E> listNode = new ListNode<>();
+        listNode.setValue(value);
         if (!isEmpty()) {
-            Node<E> prev = getNodeAt(size() - 1);
-            prev.setNext(node);
+            ListNode<E> prev = getNodeAt(size() - 1);
+            prev.setNext(listNode);
         } else {
-            head = node;
+            head = listNode;
         }
     }
 
     public int indexOf(E value) {
-        Node<E> node = head;
+        ListNode<E> listNode = head;
         int index = 0;
-        while(node != null) {
-            if(node.getValue().equals(value)) {
+        while(listNode != null) {
+            if(listNode.getValue().equals(value)) {
                 break;
             } else {
                 index++;
-                node = node.getNext();
+                listNode = listNode.getNext();
             }
         }
         return index;
@@ -116,14 +116,14 @@ public class List<E> {
             if (index > 0) // nur sinnvolle Werte fuer index betrachten
             {
                 // besorge das Element, das zu entfernen ist
-                Node<E> node = getNodeAt(index);
-                // nun noch das Vorgaengerelement, aber nur falls node!=null
-                // d.h. node verweist auf ein Element in der Liste
-                if (node != null) {
+                ListNode<E> listNode = getNodeAt(index);
+                // nun noch das Vorgaengerelement, aber nur falls listNode!=null
+                // d.h. listNode verweist auf ein Element in der Liste
+                if (listNode != null) {
                     // jetzt kann der Vorgaenger besorgt werden
-                    Node<E> prev = getNodeAt(index - 1);
-                    // jetzt noch node aus der Liste ausketten
-                    prev.setNext(node.getNext());
+                    ListNode<E> prev = getNodeAt(index - 1);
+                    // jetzt noch listNode aus der Liste ausketten
+                    prev.setNext(listNode.getNext());
                 }
             }
         }

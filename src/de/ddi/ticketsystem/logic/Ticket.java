@@ -6,19 +6,20 @@ import java.util.Date;
 
 public abstract class Ticket {
     private String description;
-    private String status;
+    private Status status;
     private Employee employee;
     private Customer customer;
     private int priority;
     private Date creationDate;
     private List<Note> notes;
 
-    protected Ticket(String description, String status, Employee employee, Customer customer, int priority) {
+    protected Ticket(String description, Status status, Employee employee, Customer customer, int priority) {
         this.description = description;
         this.status = status;
         this.employee = employee;
         this.customer = customer;
         this.priority = priority;
+        this.notes = new List<>();
         this.creationDate = new Date();
         this.notes = new List<>();
     }
@@ -27,12 +28,14 @@ public abstract class Ticket {
         return description;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatus(Status status) {
+        if(this.status != Status.CLOSED) {
+            this.status = status;
+        }
     }
 
     public Employee getEmployee() {
@@ -40,7 +43,9 @@ public abstract class Ticket {
     }
 
     public void setEmployee(Employee employee) {
-        this.employee = employee;
+        if(this.status != Status.CLOSED) {
+            this.employee = employee;
+        }
     }
 
     public Customer getCustomer() {
@@ -52,7 +57,7 @@ public abstract class Ticket {
     }
 
     public void setPriority(int priority) {
-        if (priority > 0) {
+        if (this.status != Status.CLOSED && priority > 0) {
             this.priority = priority;
         }
     }
@@ -65,11 +70,12 @@ public abstract class Ticket {
         this.notes.remove(this.notes.indexOf(note));
     }
 
+    public List<Note> getNotes() {
+        return notes;
+    }
+
     public Date getCreationDate() {
         return creationDate;
     }
 
-    public List<Note> getNotes() {
-        return notes;
-    }
 }

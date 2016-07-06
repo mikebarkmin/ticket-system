@@ -1,38 +1,29 @@
 package de.ddi.ticketsystem.presentation;
 
-import de.ddi.ticketsystem.logic.UserManager;
-
 public class LoginView extends View {
 
-    public LoginView(UserManager userManager) {
-        super(userManager);
+    public LoginView(ViewManager viewManager) {
+        super(viewManager);
         this.name = "Anmelden";
         this.text = "Bevor Sie das Programm benutzen können müssen Sie sich anmelden.";
         this.options = new String[]{
-                "[A]nmelden",
-                "[B]eenden"
+                "[A]nmelden"
         };
     }
 
     @Override
-    protected void evaluate(String input) {
-        input = input.toUpperCase();
-        if(input.equals("A")) {
-            this.showLogin();
-        } else if(input.equals("B")) {
-            this.state = "exit";
+    public void evaluate(String input) {
+        switch (input) {
+            case "A":
+                System.out.print("Vorname: ");
+                String firstName = scanner.next();
+                System.out.print("Nachname: ");
+                String lastName = scanner.next();
+                this.viewManager.getUserManager().login(firstName, lastName);
+                if (this.viewManager.getUserManager().getCurrent() != null) {
+                    this.viewManager.setNextView(new TicketsView(this.viewManager));
+                }
         }
     }
 
-    private void showLogin() {
-        System.out.print("Name: ");
-        String firstName = this.scanner.next();
-        String lastName = this.scanner.next();
-        this.userManager.login(firstName, lastName);
-        if(this.userManager.getCurrent() != null) {
-            this.state = "logged-in";
-        } else {
-            this.state = "failed-logged-in";
-        }
-    }
 }

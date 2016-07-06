@@ -1,35 +1,33 @@
 package de.ddi.ticketsystem.presentation;
 
-import de.ddi.ticketsystem.logic.Ticket;
-import de.ddi.ticketsystem.logic.TicketManager;
-import de.ddi.ticketsystem.logic.UserManager;
+import de.ddi.ticketsystem.logic.*;
 import util.List;
-import util.Lists;
 
-import java.util.Comparator;
+import java.util.Date;
 
 public class TicketsView extends View {
 
     private List<Ticket> tickets;
-    private Ticket selectedTicket;
 
-    public TicketsView(UserManager userManager, TicketManager ticketManager) {
-        super(userManager);
-        this.name = "Tickets";
-        this.tickets = ticketManager.getTickets();
+    public TicketsView(ViewManager viewManager) {
+        super(viewManager);
+        name = "Tickets";
+        tickets = this.viewManager.getTicketManager().getTickets();
 
-        this.options = new String[]{
+        options = new String[]{
                 "[A]uswählen",
-                "[S]ortieren",
-                "[B]eenden"
+                "[N]ächstes",
+                "[Ä]ltestes",
+                "[H]inzufügen",
+                "[L]öschen"
         };
     }
 
     @Override
     public void show() {
         String text = "";
-        for(int i = 0; i < this.tickets.size(); i++) {
-            Ticket ticket = this.tickets.get(i);
+        for(int i = 0; i < tickets.size(); i++) {
+            Ticket ticket = tickets.get(i);
             text += i + ") " + ticket.getDescription() + "\t" + ticket.getPriority() + "\n";
         }
         this.text = text;
@@ -37,71 +35,109 @@ public class TicketsView extends View {
     }
 
     @Override
-    protected void evaluate(String input) {
-        input = input.toUpperCase();
+    public void evaluate(String input) {
         switch (input) {
-            case "B":
-                this.state = "exit";
-                break;
             case "A":
-                this.selectTicket();
+                showTicket(selectTicket());
                 break;
-            case "S":
-                this.selectSort();
+            case "N":
+                showNext();
+                break;
+            case "Ä":
+                showOldest();
+                break;
+            case "H":
+                createTicket();
+                break;
+            case "L":
+                deleteTicket(selectTicket());
+                break;
+            default:
                 break;
         }
     }
 
-    private void selectTicket() {
-        System.out.println("Ticketnummer: ");
-        int ticketId = this.scanner.nextInt();
-        this.selectedTicket = this.tickets.get(ticketId);
-        this.state = "ticket-selected";
-    }
-
-    private void selectSort() {
-        String[] sortOptions = {
-                "Nach [B]eschreibung",
-                "Nach [P]riorität",
-        };
-        String out = "";
-        for (String option : sortOptions) {
-            out += "\n" + option;
+    private void createTicket() {
+        System.out.println("[B]estellung, [S]törung, [A]nforderung");
+        System.out.println("Kunden auswählen: ");
+        List<Customer> customers = viewManager.getUserManager().getCustomers();
+        for(int i = 0; i < customers.size(); i++) {
+            Customer customer = customers.get(i);
+            System.out.println(i + ") " + customer.getFirstName() + " " + customer.getLastName() + " "
+                    + customer.getCompany() + " " + customer.getEmail());
         }
-
-        System.out.println(out);
-
-        String input = this.scanner.next();
-        input = input.toUpperCase();
-
+        int customerId = scanner.nextInt();
+        Customer customer = customers.get(customerId);
+        String input = scanner.next().toUpperCase();
+        System.out.print("Beschreibung: ");
+        String description = scanner.next();
+        Status status = Status.RECORDED;
+        System.out.print("Priorität: ");
+        int priority = scanner.nextInt();
+        System.out.println("Angestellen auswählen: ");
+        List<Employee> employees = viewManager.getUserManager().getEmployees();
+        for(int i = 0; i < employees.size(); i++) {
+            Employee employee = employees.get(i);
+            System.out.println(i + ") " + employee.getFirstName() + " " + employee.getLastName() + " "
+                    + employee.getDepartment() + " " + employee.getEmail());
+        }
+        int employeeId = scanner.nextInt();
+        Employee employee = employees.get(employeeId);
         switch (input) {
-            case "B":
-                Lists.sort(this.tickets, new Comparator<Ticket>() {
-                    @Override
-                    public int compare(Ticket ticket, Ticket t1) {
-                        return ticket.getDescription().compareTo(t1.getDescription());
-                    }
-                });
+            case "S": {
+                System.out.print("Gerätservice: ");
+                String deviceService = scanner.next();
+                Ticket ticket = new MalfunctionTicket(description, status, employee, customer, priority, deviceService);
+                viewManager.getTicketManager().add(ticket);
                 break;
-            case "P":
-                Lists.sort(this.tickets, new Comparator<Ticket>() {
-                    @Override
-                    public int compare(Ticket ticket, Ticket t1) {
-                        if(ticket.getPriority() > t1.getPriority()) {
-                            return 1;
-                        } else if(ticket.getPriority() < t1.getPriority()) {
-                            return -1;
-                        } else {
-                            return 0;
-                        }
-                    }
-                });
+            }
+            case "A": {
+                System.out.print("Datum: ");
+                Date date = new Date();
+                System.out.print("Service: ");
+                String service = scanner.next();
+                Ticket ticket = new RequestTicket(description, status, employee, customer, priority, date, service);
+                viewManager.getTicketManager().add(ticket);
                 break;
+            }
+            case "B": {
+                System.out.print("Lieferant: ");
+                String vendor = scanner.next();
+                System.out.print("Artikel: ");
+                String article = scanner.next();
+                System.out.print("Adresse: ");
+                String address = scanner.next();
+                System.out.print("Anzahl: ");
+                int quantity = scanner.nextInt();
+                Ticket ticket = new OrderTicket(description, status, employee, customer, priority,
+                        vendor, article, address, quantity);
+                viewManager.getTicketManager().add(ticket);
+                break;
+            }
         }
-        this.show();
     }
 
-    public Ticket getSelectedTicket() {
-        return selectedTicket;
+    private void deleteTicket(Ticket ticket) {
+        viewManager.getTicketManager().remove(ticket);
+    }
+
+    private Ticket selectTicket() {
+        System.out.println("Ticketnummer: ");
+        int ticketId = scanner.nextInt();
+        return tickets.get(ticketId);
+    }
+
+    private void showNext() {
+        Ticket ticket = viewManager.getTicketManager().next();
+        showTicket(ticket);
+    }
+
+    private void showOldest() {
+        Ticket ticket = viewManager.getTicketManager().getOldest();
+        showTicket(ticket);
+    }
+
+    private void showTicket(Ticket ticket) {
+        viewManager.setNextView(new TicketView(viewManager, ticket));
     }
 }

@@ -16,7 +16,7 @@ public class Customer extends User {
     public String saveToText() {
         String text = "CUSTOMER;";
         text += super.saveToText();
-        text += this.company + ";";
+        text += company + ";";
         return text;
     }
 }

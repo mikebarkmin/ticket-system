@@ -25,7 +25,7 @@ public abstract class User implements Saveable {
 
     @Override
     public String saveToText() {
-        String text = this.firstName + ";" + this.lastName + ";" + this.email + ";";
+        String text = firstName + ";" + lastName + ";" + email + ";";
         return text;
     }
 }

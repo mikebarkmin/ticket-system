@@ -6,12 +6,12 @@ public class OrderTicket extends Ticket {
     private String address;
     private int quantity;
 
-    public OrderTicket(String description, String status, Employee employee, Customer customer, int priority,
+    public OrderTicket(String description, Status status, Employee employee, Customer customer, int priority,
                        String vendor, String article, String addess, int quantity) {
         super(description, status, employee, customer, priority);
         this.vendor = vendor;
         this.article = article;
-        this.address = addess;
+        address = addess;
         this.quantity = quantity;
     }
 
@@ -35,7 +35,7 @@ public class OrderTicket extends Ticket {
     public String saveToText() {
         String text = "ORDER;";
         text += super.saveToText();
-        text += this.vendor + ";" + this.article + ";" + this.address + ";" + this.quantity + ";";
+        text += vendor + ";" + article + ";" + address + ";" + quantity + ";";
         return text;
     }
 }

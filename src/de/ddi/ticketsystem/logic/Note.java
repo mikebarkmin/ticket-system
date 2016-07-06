@@ -12,7 +12,7 @@ public class Note implements Saveable{
         this.title = title;
         this.content = content;
         this.employee = employee;
-        this.creationDate = new Date();
+        creationDate = new Date();
     }
 
     public Note(String title, String content, Employee employee, Date creationDate) {
@@ -38,7 +38,7 @@ public class Note implements Saveable{
 
     @Override
     public String saveToText() {
-        String text = this.title + ";" + this.content + ";" + this.creationDate + ";";
+        String text = title + ";" + content + ";" + creationDate + ";";
         return text;
     }
 }

@@ -10,21 +10,13 @@ public class NotesView extends View {
     private Ticket ticket;
     private List<Note> notes;
 
-    public NotesView(UserManager userManager, Ticket ticket) {
-        super(userManager);
+    public NotesView(ViewManager viewManager, Ticket ticket) {
+        super(viewManager);
         this.ticket = ticket;
-        this.name = "Notizen";
-        this.notes = this.ticket.getNotes();
+        name = "Notizen";
+        notes = this.ticket.getNotes();
 
-        String text = "";
-        for(int i = 0; i < this.notes.size(); i++) {
-            Note note = this.notes.get(i);
-            text += note.getEmployee().getFirstName() + " " + note.getEmployee().getLastName() + " - "
-                    + note.getTitle() + " (" + note.getCreationDate() + ")\n";
-            text += "\t" + note.getContent() + "\n\n";
-        }
-        this.text = "Bevor Sie das Programm benutzen können müssen Sie sich anmelden.";
-        this.options = new String[]{
+        options = new String[]{
                 "[L]öschen",
                 "[N]eu",
                 "[B]eenden"
@@ -32,27 +24,20 @@ public class NotesView extends View {
     }
 
     @Override
-    protected void evaluate(String input) {
-        input = input.toUpperCase();
-        switch (input) {
-            case "L":
-                this.showDelete();
-                break;
-            case "N":
-                this.showCreate();
-                break;
-            case "B":
-                this.state = "exit";
-                break;
+    public void show() {
+        String text = "";
+        for(int i = 0; i < notes.size(); i++) {
+            Note note = notes.get(i);
+            text += note.getEmployee().getFirstName() + " " + note.getEmployee().getLastName() + " - "
+                    + note.getTitle() + " (" + note.getCreationDate() + ")\n";
+            text += "\t" + note.getContent() + "\n\n";
         }
-
+        this.text = text;
+        super.show();
     }
 
-    private void showDelete() {
-
-    }
-
-    private void showCreate() {
+    @Override
+    public void evaluate(String input) {
 
     }
 }

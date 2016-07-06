@@ -14,4 +14,20 @@ public class Note {
         this.employee = employee;
         this.creationDate = new Date();
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
 }

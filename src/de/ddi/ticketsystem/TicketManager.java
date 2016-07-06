@@ -15,10 +15,27 @@ public class TicketManager {
         }
     }
 
+    public void remove(Ticket ticket) {
+        for(int i = 0; i < tickets.size(); i++) {
+            Ticket current = tickets.get(i);
+            if(current.equals(ticket)) {
+                current.setStatus(Status.CLOSED);
+                break;
+            }
+        }
+    }
+
+    public List<Ticket> getAll() {
+        return tickets;
+    }
+
     public Ticket getOldest() {
         Ticket oldest = null;
         for(int i = 0; i < tickets.size(); i++) {
             Ticket current = tickets.get(i);
+            if(current.getStatus() == Status.CLOSED) {
+                continue;
+            }
             if(oldest == null) {
                 oldest = current;
             } else if(current.getCreationDate().compareTo(oldest.getCreationDate()) < 0) {
@@ -32,8 +49,11 @@ public class TicketManager {
         Ticket next = null;
         for(int i = 0; i < tickets.size(); i++) {
             Ticket current = tickets.get(i);
+            if(current.getStatus() == Status.CLOSED) {
+                continue;
+            }
             if(current != null) {
-                if(next != null) {
+                if(next == null) {
                     next = current;
                 } else if(next.getPriority() < current.getPriority()) {
                     next = current;

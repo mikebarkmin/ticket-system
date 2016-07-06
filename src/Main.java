@@ -58,11 +58,7 @@ public class Main {
 
         ticketManager.add(ticket);
 
-        ViewManager viewManager = new ViewManager(userManager, ticketManager);
+        ViewManager viewManager = new ViewManager(userManager, ticketManager, noteManager);
         viewManager.run();
-
-        userManager.save();
-        ticketManager.save();
-        noteManager.save();
     }
 }

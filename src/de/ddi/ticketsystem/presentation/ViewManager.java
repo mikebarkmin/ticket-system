@@ -1,5 +1,6 @@
 package de.ddi.ticketsystem.presentation;
 
+import de.ddi.ticketsystem.logic.NoteManager;
 import de.ddi.ticketsystem.logic.TicketManager;
 import de.ddi.ticketsystem.logic.UserManager;
 import util.Stack;
@@ -10,12 +11,14 @@ public class ViewManager {
 
     private UserManager userManager;
     private TicketManager ticketManager;
+    private NoteManager noteManager;
     private Stack<View> viewStack;
     private Scanner scanner;
 
-    public ViewManager(UserManager userManager, TicketManager ticketManager) {
+    public ViewManager(UserManager userManager, TicketManager ticketManager, NoteManager noteManager) {
         this.userManager = userManager;
         this.ticketManager = ticketManager;
+        this.noteManager = noteManager;
         viewStack = new Stack<>();
         scanner = new Scanner(System.in);
         scanner.useDelimiter("\\n");
@@ -42,6 +45,9 @@ public class ViewManager {
                 viewStack.pop();
                 break;
             case "B":
+                userManager.save();
+                ticketManager.save();
+                noteManager.save();
                 System.exit(0);
                 break;
             default:

@@ -13,10 +13,10 @@ public class NotesView extends View {
     public NotesView(ViewManager viewManager, Ticket ticket) {
         super(viewManager);
         this.ticket = ticket;
-        this.name = "Notizen";
-        this.notes = this.ticket.getNotes();
+        name = "Notizen";
+        notes = this.ticket.getNotes();
 
-        this.options = new String[]{
+        options = new String[]{
                 "[L]öschen",
                 "[N]eu",
                 "[B]eenden"
@@ -26,8 +26,8 @@ public class NotesView extends View {
     @Override
     public void show() {
         String text = "";
-        for(int i = 0; i < this.notes.size(); i++) {
-            Note note = this.notes.get(i);
+        for(int i = 0; i < notes.size(); i++) {
+            Note note = notes.get(i);
             text += note.getEmployee().getFirstName() + " " + note.getEmployee().getLastName() + " - "
                     + note.getTitle() + " (" + note.getCreationDate() + ")\n";
             text += "\t" + note.getContent() + "\n\n";

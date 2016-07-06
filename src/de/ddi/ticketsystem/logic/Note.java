@@ -12,7 +12,7 @@ public class Note {
         this.title = title;
         this.content = content;
         this.employee = employee;
-        this.creationDate = new Date();
+        creationDate = new Date();
     }
 
     public String getTitle() {

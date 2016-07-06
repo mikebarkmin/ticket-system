@@ -11,7 +11,7 @@ public class OrderTicket extends Ticket {
         super(description, status, employee, customer, priority);
         this.vendor = vendor;
         this.article = article;
-        this.address = addess;
+        address = addess;
         this.quantity = quantity;
     }
 

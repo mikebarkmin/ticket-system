@@ -8,8 +8,8 @@ public class UserManager {
     private User current;
 
     public UserManager() {
-        this.users = new List<>();
-        this.current = null;
+        users = new List<>();
+        current = null;
     }
 
     public void add(User... users) {
@@ -33,5 +33,31 @@ public class UserManager {
 
     public User getCurrent() {
         return current;
+    }
+
+    public List<User> getAll() {
+        return users;
+    }
+
+    public List<Customer> getCustomers() {
+        List<Customer> customers = new List<>();
+        for(int i = 0; i < users.size(); i++) {
+            User user = users.get(i);
+            if (user instanceof Customer) {
+                customers.add((Customer) user);
+            }
+        }
+        return customers;
+    }
+    
+    public List<Employee> getEmployees() {
+        List<Employee> employees = new List<>();
+        for(int i = 0; i < users.size(); i++) {
+            User user = users.get(i);
+            if (user instanceof Employee) {
+                employees.add((Employee) user);
+            }
+        }
+        return employees;
     }
 }

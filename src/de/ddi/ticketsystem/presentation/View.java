@@ -9,35 +9,38 @@ public abstract class View {
     protected String name;
     protected String text;
     protected String[] options;
-    private String[] globalOptions = {"[Z]üruck, [B]eenden"};
+    private String[] globalOptions = {"[Z]üruck", "[B]eenden"};
     protected ViewManager viewManager;
     protected final String SEPERATOR = "-----------------";
     protected Scanner scanner;
+    protected User currentUser;
 
     public View(ViewManager viewManager) {
         this.viewManager = viewManager;
-        this.scanner = new Scanner(System.in);
-        this.scanner.useDelimiter("\\n");
+        scanner = new Scanner(System.in);
+        scanner.useDelimiter("\\n");
     }
 
     public void show() {
         System.out.println(SEPERATOR);
 
-        User current = this.viewManager.getUserManager().getCurrent();
-        String out = this.name + " - ";
-        if (current != null) {
-            out += current.getFirstName() + " " + current.getLastName();
+        currentUser = viewManager.getUserManager().getCurrent();
+        String out = name + " - ";
+        if (currentUser != null) {
+            out += currentUser.getFirstName() + " " + currentUser.getLastName();
         } else {
             out += "Nicht angemeldet";
         }
 
-        out += "\n\n" + this.text;
+        out += "\n\n" + text;
 
-        for (String option : this.options) {
+        for (String option : options) {
             out += "\n" + option;
         }
 
-        for (String option : this.globalOptions) {
+        out += "\n";
+
+        for (String option : globalOptions) {
             out += "\n" + option;
         }
 

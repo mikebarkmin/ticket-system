@@ -17,6 +17,6 @@ public class Employee extends User implements Comparable<Employee> {
 
     @Override
     public int compareTo(Employee employee) {
-        return (this.firstName + this.lastName).compareTo(employee.firstName + employee.lastName);
+        return (firstName + lastName).compareTo(employee.firstName + employee.lastName);
     }
 }

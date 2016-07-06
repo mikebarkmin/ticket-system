@@ -13,14 +13,12 @@ public class BinaryTree<K extends Comparable<K>, V> {
         if(root == null) {
             root = binaryTreeNode;
         } else {
-            this.insert(binaryTreeNode, root);
+            insert(binaryTreeNode, root);
         }
     }
 
     private void insert(BinaryTreeNode<K, V> newBTN, BinaryTreeNode<K, V> currentBTN) {
-        if (currentBTN.getKey().compareTo(newBTN.getKey()) == 0) {
-            return;
-        } else if(currentBTN.getKey().compareTo(newBTN.getKey()) < 0) {
+        if(currentBTN.getKey().compareTo(newBTN.getKey()) < 0) {
             if(currentBTN.getLarger() != null) {
                 insert(newBTN, currentBTN.getLarger());
             } else {

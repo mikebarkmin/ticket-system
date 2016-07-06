@@ -1,4 +1,4 @@
-package de.ddi.ticketsystem.step1;
+package de.ddi.ticketsystem;
 
 public class Main {
     public static void main(String[] args) {

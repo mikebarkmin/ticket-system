@@ -1,5 +1,6 @@
 package de.ddi.ticketsystem.presentation;
 
+import de.ddi.ticketsystem.logic.Status;
 import de.ddi.ticketsystem.logic.Ticket;
 import de.ddi.ticketsystem.logic.UserManager;
 
@@ -7,10 +8,18 @@ public class TicketView extends View {
 
     private Ticket ticket;
 
-    public TicketView(UserManager userManager, Ticket ticket) {
-        super(userManager);
+    public TicketView(ViewManager viewManager, Ticket ticket) {
+        super(viewManager);
         this.name = "Ticket";
         this.ticket = ticket;
+        this.options = new String[]{
+                "[S]tatus ändern",
+                "[N]otizen (" + ticket.getNotes().size() + ")"
+        };
+    }
+
+    @Override
+    public void show() {
         String text = "";
         text += "Beschreibung\n\t" + ticket.getDescription() + "\n";
         text += "Kunde\n\t" + ticket.getCustomer().getCompany() + " (" + ticket.getCustomer().getFirstName() + " " + ticket.getCustomer().getLastName() + ")\n";
@@ -19,33 +28,32 @@ public class TicketView extends View {
         text += "Status\n\t" + ticket.getStatus() + "\n";
         text += "Priorität\n\t" + ticket.getPriority() + "\n";
         this.text = text;
-        this.options = new String[]{
-                "[S]tatus ändern",
-                "[N]otizen (" + ticket.getNotes().size() + ")",
-                "[B]eenden"
-        };
+        super.show();
     }
 
     @Override
-    protected void evaluate(String input) {
-        input = input.toUpperCase();
+    public void evaluate(String input) {
         switch (input) {
-            case "B":
-                this.state = "exit";
+            case "S":
+                this.changeStatus();
                 break;
             case "N":
                 this.showNotes();
                 break;
-            case "S":
-                this.showEdit();
-                break;
         }
     }
 
-    private void showEdit() {
+    private void changeStatus() {
+        String text = "Status (";
+        text += Status.RECORDED + ", " + Status.PROCESSED + ", " + Status.WAITING_FOR_FEEDBACK + ", " + Status.SOLVED
+                + " oder " + Status.CLOSED + "): ";
+        System.out.print(text);
+        String statusString = scanner.next();
+        Status status = Status.valueOf(statusString);
+        this.ticket.setStatus(status);
     }
 
     private void showNotes() {
-        NotesView notesView = new NotesView(userManager, this.ticket);
+        this.viewManager.setNextView(new NotesView(this.viewManager, this.ticket));
     }
 }

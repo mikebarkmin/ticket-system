@@ -1,7 +1,10 @@
 package de.ddi.ticketsystem.logic;
 
-public class Employee extends User {
+public class Employee extends User implements Comparable<Employee> {
     private String department;
+    private String firstName;
+    private String lastName;
+    private String email;
 
     public Employee(String firstName, String lastName, String email, String department) {
         super(firstName, lastName, email);
@@ -18,5 +21,9 @@ public class Employee extends User {
         text += super.saveToText();
         text += this.department + ";";
         return text;
+    }
+
+    public int compareTo(Employee employee) {
+        return (this.firstName + this.lastName).compareTo(employee.firstName + employee.lastName);
     }
 }

@@ -6,7 +6,7 @@ public class OrderTicket extends Ticket {
     private String address;
     private int quantity;
 
-    public OrderTicket(String description, String status, Employee employee, Customer customer, int priority,
+    public OrderTicket(String description, Status status, Employee employee, Customer customer, int priority,
                        String vendor, String article, String addess, int quantity) {
         super(description, status, employee, customer, priority);
         this.vendor = vendor;

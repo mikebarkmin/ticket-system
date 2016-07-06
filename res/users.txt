@@ -1,2 +1,0 @@
-0;EMPLOYEE;Mike;Barkmin;m@b.de;DDI;
-1;CUSTOMER;Gero;Behler;g@b.de;Uni Due;

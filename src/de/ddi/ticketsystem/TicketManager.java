@@ -13,6 +13,20 @@ public class TicketManager {
         }
     }
 
+    public void remove(Ticket ticket) {
+        for(int i = 0; i < tickets.length; i++) {
+            Ticket current = tickets[i];
+            if(current.equals(ticket)) {
+                tickets[i] = null;
+                break;
+            }
+        }
+    }
+
+    public Ticket[] getAll() {
+        return tickets;
+    }
+
     public Ticket getOldest() {
         Ticket oldest = null;
         for(int i = 0; i < tickets.size(); i++) {

@@ -19,6 +19,7 @@ public class Ticket {
         this.employee = employee;
         this.customer = customer;
         this.priority = priority;
+        this.notes = new List<>();
         this.creationDate = new Date();
     }
 
@@ -66,6 +67,10 @@ public class Ticket {
 
     public void removeNote(Note note) {
         this.notes.remove(this.notes.indexOf(note));
+    }
+
+    public List<Note> getNotes() {
+        return notes;
     }
 
     public Date getCreationDate() {

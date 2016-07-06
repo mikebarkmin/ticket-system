@@ -25,7 +25,7 @@ public class TicketManager {
         }
     }
 
-    public TicketList getAll() {
+    public List<Ticket> getAll() {
         return tickets;
     }
 

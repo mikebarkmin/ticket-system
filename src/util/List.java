@@ -1,5 +1,7 @@
 package util;
 
+import java.util.Comparator;
+
 public class List<E> {
 
     // Der Listenkopf oder der Verweis/Referenz auf das erste Element der Liste
@@ -143,6 +145,20 @@ public class List<E> {
                     ListNode<E> prev = getNodeAt(index - 1);
                     // jetzt noch listNode aus der Liste ausketten
                     prev.setNext(listNode.getNext());
+                }
+            }
+        }
+    }
+
+    public void sort(Comparator<E> c) {
+        for (int i = size() - 1; i >= 0; i--) {
+            for (int j = 0; j < i; j++) {
+                if (c.compare(get(j), get(j + 1)) > 0) {
+                    E temp = get(j);
+                    remove(j);
+                    add(j, get(j + 1));
+                    remove(j + 1);
+                    add(j + 1, temp);
                 }
             }
         }

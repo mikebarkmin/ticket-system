@@ -56,7 +56,7 @@ public class TicketManager extends Manager{
                 Customer customer = (Customer) userManager.get(Integer.parseInt(values[2]));
                 Status status = Status.valueOf(values[5]);
                 int priority = Integer.parseInt(values[6]);
-                DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.GERMANY);
+                DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.US);
                 Date creationDate;
                 try {
                     creationDate = formatter.parse(values[7]);

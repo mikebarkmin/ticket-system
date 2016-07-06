@@ -32,16 +32,16 @@ public abstract class View {
             out += "Nicht angemeldet";
         }
 
-        out += "\n\n" + text;
+        out += "\n\n" + text + "\n\n";
 
         for (String option : options) {
-            out += "\n" + option;
+            out += option + ", ";
         }
 
         out += "\n";
 
         for (String option : globalOptions) {
-            out += "\n" + option;
+            out += option + ", ";
         }
 
         System.out.println(out);

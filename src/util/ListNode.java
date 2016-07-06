@@ -1,13 +1,13 @@
 package util;
 
-public class Node<E> {
+public class ListNode<E> {
 
     // Nutzinformation ist ein Document
     private E value;
 
     // Verwaltungsinformation
 
-    private Node<E> next;
+    private ListNode<E> next;
 
     public E getValue() {
         return value;
@@ -17,15 +17,15 @@ public class Node<E> {
         value = v;
     }
 
-    public Node<E> getNext() {
+    public ListNode<E> getNext() {
         return next;
     }
 
-    public void setNext(Node<E> n) {
+    public void setNext(ListNode<E> n) {
         next = n;
     }
 
-    public String toString() // gibt Node-Object aus zusammen mit value
+    public String toString() // gibt ListNode-Object aus zusammen mit value
     {
         return "[ " + value + " ] ->";
     }

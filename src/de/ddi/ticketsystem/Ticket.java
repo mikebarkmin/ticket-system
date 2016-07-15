@@ -7,6 +7,14 @@ public class Ticket {
     private String customer;
     private int priority;
 
+    /**
+     * Erzeugt ein neues Ticket
+     * @param description Beschreibung des Tickets
+     * @param status Status aus (RECORDED, PROCESSED, WAITING_FOR_FEEDBACK, SOLVED, CLOSED)
+     * @param employee Name des Angestellten
+     * @param customer Name des Kunden
+     * @param priority Wichtigkeit des Tickets
+     */
     public Ticket(String description, String status, String employee, String customer, int priority) {
         this.description = description;
         this.status = status;

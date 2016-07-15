@@ -10,6 +10,14 @@ public class Ticket {
     private int priority;
     private Date creationDate;
 
+    /**
+     * Erzeugt ein neues Ticket, welches beim Erzeugen den momentanen Zeitstempel als Erstelldatum zugewiesen bekommen.
+     * @param description Beschreibung des Tickets
+     * @param status Status als Enum Status
+     * @param employee Referenz eines Objekts vom Typ Emloyee
+     * @param customer Referenz eines Objekts vom Typ Customer
+     * @param priority Wichtigkeit des Tickets
+     */
     public Ticket(String description, Status status, Employee employee, Customer customer, int priority) {
         this.description = description;
         this.status = status;

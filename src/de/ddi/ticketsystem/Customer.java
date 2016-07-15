@@ -6,6 +6,12 @@ public class Customer {
     private String email;
     private String company;
 
+    /**
+     * Erstellt ein Objekt vom Type Customer
+     * @param firstName Vorname des Kunden
+     * @param lastName Nachname des Kunden
+     * @param company Firma des Kunden
+     */
     public Customer(String firstName, String lastName, String company) {
         this.firstName = firstName;
         this.lastName = lastName;

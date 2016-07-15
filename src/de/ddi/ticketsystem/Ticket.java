@@ -11,7 +11,7 @@ public class Ticket {
     private Date creationDate;
 
     /**
-     * Erzeugt ein neues Ticket
+     * Erzeugt ein neues Ticket, welches beim Erzeugen den momentanen Zeitstempel als Erstelldatum zugewiesen bekommen.
      * @param description Beschreibung des Tickets
      * @param status Status aus (RECORDED, PROCESSED, WAITING_FOR_FEEDBACK, SOLVED, CLOSED)
      * @param employee Referenz eines Objekts vom Typ Emloyee

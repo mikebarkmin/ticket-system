@@ -6,7 +6,6 @@ public class Node<E> {
     private E value;
 
     // Verwaltungsinformation
-
     private Node<E> next;
 
     public E getValue() {
@@ -25,10 +24,6 @@ public class Node<E> {
         next = n;
     }
 
-    public String toString() // gibt Node-Object aus zusammen mit value
-    {
-        return "[ " + value + " ] ->";
-    }
 }
 
 

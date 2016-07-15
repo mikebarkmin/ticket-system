@@ -5,16 +5,26 @@ public class List<E> {
     // Der Listenkopf oder der Verweis/Referenz auf das erste Element der Liste
     Node<E> head;
 
-    // hier die Methode / Operation, die diese Liste leert.
+    /**
+     * Leert die Liste
+     */
     public void clear() {   // das head == null bedeutet es gibt kein Listenelement in der Liste
         head = null;
     }
 
+    /**
+     * Überprüft ob die Liste leer ist und gibt
+     * @return true, wenn die Liste leer ist, false anderenfalls.
+     */
     public boolean isEmpty() {
         // liefert true, falls head == null gilt, also die Liste kein Element enthaelt
         return head == null;
     }
 
+    /**
+     * Gibt Anzahl der gespeicherten Elemente zurück.
+     * @return Anzahl der gespeicherten Elemente
+     */
     public int size() {
         int size = 0; // lokale Variable zum mitzaehlen, wie viele Elemente in der List sind
         Node<E> node = head; // lokale Variable zum Durchlaufen der Listenelement
@@ -47,6 +57,12 @@ public class List<E> {
         return node;
     }
 
+
+    /**
+     * Gibt das Element an der angebenden Position zurück.
+     * @param index des Elements, welches zurückgeben werden soll
+     * @return Element an der angebenden Position
+     */
     public E get(int index) {
         Node<E> node = getNodeAt(index); // hole das Element (im Container Node) an der Stelle index
 
@@ -58,35 +74,31 @@ public class List<E> {
         }
     }
 
-    public String toString() {
-        String tempStr = "{"; // temporaere String-Variable zum Aufsammeln
-        Node<E> node = head;   // node ist die temporaere Laufvariable zum Durchlaufen der Liste
-        while (node != null)  // solange noch nicht am Ende
-        {
-            tempStr = tempStr + node; // erst Knoten verarbeiten
-            node = node.getNext();    // auf zum naechsten Knoten in der Liste (falls vorhanden!)
-        }
-
-        return tempStr + "}";
-
-    }
-
-    public void add(E value) {
+    /**
+     * Fügt das übergebende Element der Datenstruktur am Ende hinzu. Ist die Datenstruktur leer, ist das hinzugefügte
+     * Element anschließend zudem das erste Element.
+     * @param element zu speichernde Element
+     */
+    public void add(E element) {
         Node<E> node = new Node<>();
-        node.setValue(value);
+        node.setValue(element);
         if (!isEmpty()) {
             Node<E> prev = getNodeAt(size() - 1);
             prev.setNext(node);
-        } else {
-            head = node;
         }
     }
 
-    public int indexOf(E value) {
+    /**
+     * Gibt den Index des übergebenen Elements zurück, wenn dieses in der Datenstruktur enthalten ist, sonst wird 0
+     * zurückgegeben.
+     * @param element dessen Index zurückgegeben werden soll
+     * @return der Index des übergebenen Elements
+     */
+    public int indexOf(E element) {
         Node<E> node = head;
         int index = 0;
         while(node != null) {
-            if(node.getValue().equals(value)) {
+            if(node.getValue().equals(element)) {
                 break;
             } else {
                 index++;
@@ -96,6 +108,11 @@ public class List<E> {
         return index;
     }
 
+    /**
+     * Löscht ein Element anhand des Index aus der Datenstruktur. Ist kein Element an diesem Index vorhanden passiert
+     * nichts.
+     * @param index des Element, welches gelöscht werden soll
+     */
     public void remove(int index) {
         if (index == 0) // das erste Element soll entfernt werden
         {

@@ -6,16 +6,26 @@ public class TicketList {
     // Der Listenkopf oder der Verweis/Referenz auf das erste Element der Liste
     TicketNode head;
 
-    // hier die Methode / Operation, die diese Liste leert.
+    /**
+     * Leert die Liste
+     */
     public void clear() {   // das head == null bedeutet es gibt kein Listenelement in der Liste
         head = null;
     }
 
+    /**
+     * Überprüft ob die Liste leer ist und gibt
+     * @return true, wenn die Liste leer ist, false anderenfalls.
+     */
     public boolean isEmpty() {
         // liefert true, falls head == null gilt, also die Liste kein Element enthaelt
         return head == null;
     }
 
+    /**
+     * Gibt Anzahl der gespeicherten Tickets zurück.
+     * @return Anzahl der gespeicherten Tickets
+     */
     public int size() {
         int size = 0; // lokale Variable zum mitzaehlen, wie viele Elemente in der List sind
         TicketNode ticketNode = head; // lokale Variable zum Durchlaufen der Listenelement
@@ -48,6 +58,11 @@ public class TicketList {
         return ticketNode;
     }
 
+    /**
+     * Gibt das Ticket an der angebenden Position zurück.
+     * @param index des Tickets, welches zurückgeben werden soll
+     * @return Ticket an der angebenden Position
+     */
     public Ticket get(int index) {
         TicketNode ticketNode = getNodeAt(index); // hole das Element (im Container Node) an der Stelle index
 
@@ -59,19 +74,11 @@ public class TicketList {
         }
     }
 
-    public String toString() {
-        String tempStr = "{"; // temporaere String-Variable zum Aufsammeln
-        TicketNode ticketNode = head;   // ticketNode ist die temporaere Laufvariable zum Durchlaufen der Liste
-        while (ticketNode != null)  // solange noch nicht am Ende
-        {
-            tempStr = tempStr + ticketNode; // erst Knoten verarbeiten
-            ticketNode = ticketNode.getNext();    // auf zum naechsten Knoten in der Liste (falls vorhanden!)
-        }
-
-        return tempStr + "}";
-
-    }
-
+    /**
+     * Fügt das übergebende Ticket der Datenstruktur am Ende hinzu. Ist die Datenstruktur leer, ist das hinzugefügte
+     * Ticket anschließend zudem das erste Ticket.
+     * @param value zu speichernde Ticket
+     */
     public void add(Ticket value) {
         TicketNode ticketNode = new TicketNode();
         ticketNode.setValue(value);
@@ -83,6 +90,11 @@ public class TicketList {
         }
     }
 
+    /**
+     * Löscht ein Ticket anhand des Index aus der Datenstruktur. Ist kein Ticket an diesem Index vorhanden passiert
+     * nichts.
+     * @param index des Tickets, welches gelöscht werden soll
+     */
     public void remove(int index) {
         if (index == 0) // das erste Element soll entfernt werden
         {

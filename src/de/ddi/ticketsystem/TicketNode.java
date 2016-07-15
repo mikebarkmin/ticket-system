@@ -7,7 +7,6 @@ public class TicketNode {
     private Ticket value;
 
     // Verwaltungsinformation
-
     private TicketNode next;
 
     public Ticket getValue() {
@@ -26,10 +25,6 @@ public class TicketNode {
         next = n;
     }
 
-    public String toString() // gibt Node-Object aus zusammen mit value
-    {
-        return "[ " + value + " ] ->";
-    }
 }
 
 

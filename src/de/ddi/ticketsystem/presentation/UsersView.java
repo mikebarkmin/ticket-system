@@ -9,6 +9,11 @@ public class UsersView extends View {
 
     private List<User> users;
 
+    /**
+     * Erstellt eine Anzeige zum Ausgeben einer Nutzerliste mit den Optionen, einen Nutzer auszuwählen oder einen neuen
+     * hinzuzufügen.
+     * @param viewManager
+     */
     public UsersView(ViewManager viewManager) {
         super(viewManager);
         name = "Users";
@@ -37,6 +42,13 @@ public class UsersView extends View {
         super.show();
     }
 
+    /**
+     * Wertet die Anzeige aus.
+     * Wurde "A" eingegeben, wird eine Möglichkeit zur Auswahl eines Nutzers ausgegeben und der ViewManager angewiesen,
+     * als nächstes den Nutzer anzuzeigen.
+     * Wurde "H" eingegeben, wird eine Möglichkeit zum Anlegen eines neuen Benutzers angezeigt.
+     * @param input Die Eingabe des Nutzers
+     */
     @Override
     public void evaluate(String input) {
         switch (input) {

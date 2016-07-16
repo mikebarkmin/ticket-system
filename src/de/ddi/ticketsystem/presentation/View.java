@@ -15,12 +15,19 @@ public abstract class View {
     protected Scanner scanner;
     protected User currentUser;
 
+    /**
+     * Erzeugt eine neue Anzeige mit Scanner zum entgegennehmen von Nutzereingaben
+     * @param viewManager ViewManager, der die Anzeige verwaltet
+     */
     public View(ViewManager viewManager) {
         this.viewManager = viewManager;
         scanner = new Scanner(System.in);
         scanner.useDelimiter("\\n");
     }
 
+    /**
+     * Zeigt die Anzeige an
+     */
     public void show() {
         System.out.println(SEPERATOR);
 
@@ -50,6 +57,10 @@ public abstract class View {
 
     }
 
+    /**
+     * Weißt die Anzeige an, eine Eingabe durch den Nutzer auszuwerten
+     * @param input Die Eingabe des Nutzers
+     */
     public abstract void evaluate(String input);
 
 }

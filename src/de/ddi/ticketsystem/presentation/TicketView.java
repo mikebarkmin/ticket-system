@@ -8,6 +8,12 @@ public class TicketView extends View {
 
     private Ticket ticket;
 
+    /**
+     * Erstellt eine Anzeige zum ausgeben der Daten zu einem Ticket mit den Optionen, den Status zu ändern
+     * und die Notizen zu dem Ticket anzeigen zu lassen
+     * @param viewManager ViewManager, der die Anzeige verwaltet
+     * @param ticket Das Ticket, welches angezeigt werden soll
+     */
     public TicketView(ViewManager viewManager, Ticket ticket) {
         super(viewManager);
         name = "Ticket";
@@ -31,6 +37,12 @@ public class TicketView extends View {
         super.show();
     }
 
+    /**
+     * Wertet die Anzeige aus.
+     * Wurde "S" eingegeben, wird eine Option zum wechseln des Ticketstatus angezeigt.
+     * Wurde "N" eingegeben, wird der viewManager angewiesen, als nächstes die Notizen zu dem Ticket anzuzeigen
+     * @param input Die Eingabe des Nutzers
+     */
     @Override
     public void evaluate(String input) {
         switch (input) {

@@ -6,7 +6,6 @@ public class ListNode<E> {
     private E value;
 
     // Verwaltungsinformation
-
     private ListNode<E> next;
 
     public E getValue() {

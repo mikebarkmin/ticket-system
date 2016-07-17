@@ -2,6 +2,10 @@ package de.ddi.ticketsystem.presentation;
 
 public class LoginView extends View {
 
+    /**
+     * Erstellt eine Anzeige, die den Login eines Nutzers im System ermöglicht
+     * @param viewManager ViewManager, der die Anzeige verwaltet
+     */
     public LoginView(ViewManager viewManager) {
         super(viewManager);
         name = "Anmelden";
@@ -11,6 +15,12 @@ public class LoginView extends View {
         };
     }
 
+    /**
+     * Auswertung der Login-Anzeige. Wurde "A" eingegeben, wird ein Formular zum Login angezeigt.
+     * Anschließend wird der viewManager angewiesen, den Nutzer mit den angegebenen Daten einzuloggen. Ist dies
+     * erfolgreich, soll als nächstes das Hauptmenü angezeigt werden.
+     * @param input Die Eingabe des Nutzers
+     */
     @Override
     public void evaluate(String input) {
         switch (input) {

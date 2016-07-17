@@ -23,6 +23,11 @@ public abstract class User implements Saveable {
         return email;
     }
 
+    /**
+     * Erstellt eine ";"-getrennte Zeichenkette mit den Daten des Nutzers in der Reihenfolge
+     * Vorname;Nachname;Emailadresse;
+     * @return Ein ";"-getrennter String mit den Daten des Nutzers
+     */
     @Override
     public String saveToText() {
         String text = firstName + ";" + lastName + ";" + email + ";";

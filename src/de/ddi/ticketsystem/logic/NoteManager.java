@@ -12,6 +12,12 @@ public class NoteManager extends Manager{
     private List<String> toSave;
     private UserManager userManager;
 
+    /**
+     * Erstellt ein Objekt vom Typ NoteManager, der die Notizen zu Tickets über einen Zugriff laden und speichern kann,
+     * und die Notizen zu Tickets verwaltet.
+     * @param access Ein Zugriff vom Typ Access zum Laden und Speichern der Notizen
+     * @param userManager Ein UserManager zum Zugriff auf Nutzerdaten
+     */
     public NoteManager(Access access, UserManager userManager) {
         super(access);
         load();
@@ -19,6 +25,11 @@ public class NoteManager extends Manager{
         this.userManager = userManager;
     }
 
+    /**
+     * Fügt Notizen anhand einer TicketID eienr Liste hinzu, die Notizen zum Speicher vormerkt.
+     * @param ticketId Die ID des Tickets, zu dem die Notizen gehören
+     * @param notes Eine Liste von Notizen
+     */
     public void addToSave(int ticketId, List<Note> notes) {
         for(int i = 0; i < notes.size(); i++) {
             Note note = notes.get(i);
@@ -28,6 +39,9 @@ public class NoteManager extends Manager{
         }
     }
 
+    /**
+     * Weist einen Zugriff vom Typ Access an, die zum Speichern vorgemerkten Notizen zu speichern
+     */
     @Override
     public void save() {
         try {
@@ -37,6 +51,9 @@ public class NoteManager extends Manager{
         }
     }
 
+    /**
+     * Weißt einen Zugriff vom Typ Access an, die Notizen zu laden und speichert diese intern.
+     */
     @Override
     protected void load() {
         try {
@@ -46,6 +63,11 @@ public class NoteManager extends Manager{
         }
     }
 
+    /**
+     * Gibt eine Liste von Notizen zurück, die zu dem Ticket mit der übergebenen ID gehören.
+     * @param id Die ID eines Tickets
+     * @return List<Note> aus den zu dem Ticket gehörenden Notizen
+     */
     public List<Note> getForTicketId(int id) {
         List<Note> notes = new List<>();
         for(int i = 0; i < loaded.size(); i++) {

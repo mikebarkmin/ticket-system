@@ -2,9 +2,6 @@ package de.ddi.ticketsystem.logic;
 
 public class Employee extends User {
     private String department;
-    private String firstName;
-    private String lastName;
-    private String email;
 
     /**
      * Erstellt ein Objekt vom Typ Employee

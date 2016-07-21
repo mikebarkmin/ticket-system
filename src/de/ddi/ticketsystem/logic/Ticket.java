@@ -13,6 +13,14 @@ public abstract class Ticket implements Saveable{
     private Date creationDate;
     private List<Note> notes;
 
+    /**
+     * Erzeugt ein neues Ticket, welches beim Erzeugen den momentanen Zeitstempel als Erstelldatum zugewiesen bekommen.
+     * @param description Beschreibung des Tickets
+     * @param status Status als Enum Status
+     * @param employee Referenz eines Objekts vom Typ Emloyee
+     * @param customer Referenz eines Objekts vom Typ Customer
+     * @param priority Wichtigkeit des Tickets
+     */
     protected Ticket(String description, Status status, Employee employee, Customer customer, int priority) {
         this.description = description;
         this.status = status;
@@ -82,6 +90,11 @@ public abstract class Ticket implements Saveable{
         this.creationDate = creationDate;
     }
 
+    /**
+     * Erstellt eine ";"-getrennte Zeichenkette mit den Daten des Tickets in der Reihenfolge
+     * Beschreibung;Status;Priorität;Erstellugnsdatum;
+     * @return Ein ";"-getrennter String mit den Daten des Tickets
+     */
     @Override
     public String saveToText() {
         String text = description + ";" + status + ";" + priority + ";" + creationDate + ";";

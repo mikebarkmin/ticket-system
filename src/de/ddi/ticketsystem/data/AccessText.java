@@ -8,6 +8,11 @@ public abstract class AccessText implements Access {
     protected String pathToFile;
     protected List<String> lines;
 
+    /**
+     * Lädt eine Textdatei Zeilenweise in eine Liste
+     * @return Die Liste mit den Zeilen aus einer Textdatei
+     * @throws IOException
+     */
     @Override
     public List<String> load() throws IOException {
         List<String> lines = new List<>();
@@ -26,6 +31,11 @@ public abstract class AccessText implements Access {
         return lines;
     }
 
+    /**
+     * Speichert eine Liste aus Strings zeilenweise in eine Textdatei.
+     * @param data List<String>, die zeilenweise gespeichert werden soll
+     * @throws IOException
+     */
     @Override
     public void save(List<String> data) throws IOException {
         FileWriter fw = new FileWriter(pathToFile);

@@ -23,7 +23,7 @@ public class NotesView extends View {
         name = "Notizen";
         notes = this.ticket.getNotes();
 
-        options = new String[]{
+        employeeOptions = new String[]{
                 "[L]öschen",
                 "[N]eu",
         };

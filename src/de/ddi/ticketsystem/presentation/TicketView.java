@@ -18,7 +18,7 @@ public class TicketView extends View {
         super(viewManager);
         name = "Ticket";
         this.ticket = ticket;
-        options = new String[]{
+        employeeOptions = new String[]{
                 "[S]tatus ändern",
                 "[N]otizen (" + ticket.getNotes().size() + ")"
         };

@@ -22,8 +22,10 @@ public class TicketsView extends View {
 
         options = new String[]{
                 "[A]uswählen",
+                "[Ä]ltestes"
+        };
+        employeeOptions = new String[]{
                 "[N]ächstes",
-                "[Ä]ltestes",
                 "[H]inzufügen",
                 "[L]öschen"
         };

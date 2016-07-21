@@ -1,9 +1,9 @@
 package de.ddi.ticketsystem.logic;
 
 public abstract class User implements Saveable, Comparable<User> {
-    private String firstName;
-    private String lastName;
-    private String email;
+    protected String firstName;
+    protected String lastName;
+    protected String email;
 
     protected User(String firstName, String lastName, String email) {
         this.firstName = firstName;

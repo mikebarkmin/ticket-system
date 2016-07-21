@@ -15,6 +15,12 @@ public class ViewManager {
     private Stack<View> viewStack;
     private Scanner scanner;
 
+    /**
+     * Erstellt eine Instanz zur Verwaltung verschiedener Anzeigen.
+     * @param userManager Ein UserManager zum Zugriff auf die Nutzer
+     * @param ticketManager Ein TicketManager zum Zugriff auf die Tickets
+     * @param noteManager Ein NoteManager zum Zugriff auf die Notizen
+     */
     public ViewManager(UserManager userManager, TicketManager ticketManager, NoteManager noteManager) {
         this.userManager = userManager;
         this.ticketManager = ticketManager;
@@ -24,6 +30,9 @@ public class ViewManager {
         scanner.useDelimiter("\\n");
     }
 
+    /**
+     * Startet den ViewManager mit der Anzeige des Logins.
+     */
     public void run() {
         viewStack.push(new LoginView(this));
         while(true) {

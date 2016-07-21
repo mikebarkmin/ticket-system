@@ -8,6 +8,11 @@ public class BinaryTree<K extends Comparable<? super K>, V> {
         root = null;
     }
 
+    /**
+     * Fügt ein Element v vom Typ V mit dem Schlüssel key vom Typ K in den Binärbaum ein
+     * @param key Eindeutiger Schlüssel, nach dem der Baum durchsuchbar ist
+     * @param value Element, das in den Baum engefügt werden soll
+     */
     public void insert(K key, V value) {
         BinaryTreeNode<K, V> binaryTreeNode = new BinaryTreeNode<>(key, value);
         if(root == null) {
@@ -33,6 +38,11 @@ public class BinaryTree<K extends Comparable<? super K>, V> {
         }
     }
 
+    /**
+     * Gibt das Element zurück, welches den Schlüssel key hat. Ist das Element nicht im Baum, wird null zurückgegeben
+     * @param key Schlüssel, des Elements, welches zurückgegeben werden soll
+     * @return Das Element mit dem Schlüssel key. Ist dieses nicht vorhanden, wird null zurückgegeben.
+     */
     public V get(K key) {
         if(root == null) {
             return null;

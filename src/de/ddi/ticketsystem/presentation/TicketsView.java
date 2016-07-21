@@ -10,6 +10,12 @@ public class TicketsView extends View {
 
     private List<Ticket> tickets;
 
+    /**
+     * Erstellt eine Anzeige, die alle Tickets ausgibt und Optionen zur Auswahl eines Tickets,
+     * zum Anzeigen des nächsten Tickets, zum Anzeigen des ältesten Tickets, zum Erstellen eines Tickets,
+     * zum Löschen eines Tickets anzeigt
+     * @param viewManager
+     */
     public TicketsView(ViewManager viewManager) {
         super(viewManager);
         name = "Tickets";
@@ -17,14 +23,19 @@ public class TicketsView extends View {
 
         options = new String[]{
                 "[A]uswählen",
+                "[Ä]ltestes"
+        };
+        employeeOptions = new String[]{
                 "[N]ächstes",
-                "[Ä]ltestes",
                 "[H]inzufügen",
                 "[L]öschen",
                 "[S]ortieren"
         };
     }
 
+    /**
+     * Gibt alle Tickets mit Beschreibung und Priorität aus und zeigt die Anzeige an
+     */
     @Override
     public void show() {
         String text = "";
@@ -36,6 +47,17 @@ public class TicketsView extends View {
         super.show();
     }
 
+    /**
+     * Auswertung der Anzeige.
+     * Wurde "A" eingegeben, wird eine Möglichkeit zur Auswahl eines Tickets ausgegeben und anschließend das Ticket
+     * angezeigt.
+     * Wurde "N" eingegeben, wird das nächste Ticket angezeigt.
+     * Wurde "Ä" eingegeben, wird das älteste Ticket angezeigt.
+     * Wurde "H" eingegeben, wird eine Möglichkeit zum Erstellen eines Tickets angezeigt.
+     * Wurde "L" eingegeben, wird eine Möglichkeit zur Auswahl eines Tickets ausgegeben und anschließend das Ticket
+     * gelöscht.
+     * @param input Die Eingabe des Nutzers
+     */
     @Override
     public void evaluate(String input) {
         switch (input) {

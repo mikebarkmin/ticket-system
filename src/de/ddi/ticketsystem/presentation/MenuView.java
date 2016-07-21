@@ -13,6 +13,8 @@ public class MenuView extends View {
         text = "Wählen Sie einen Menüpunkt aus!";
         options = new String[]{
                 "[T]ickets",
+        };
+        employeeOptions = new String[]{
                 "[U]sers"
         };
     }

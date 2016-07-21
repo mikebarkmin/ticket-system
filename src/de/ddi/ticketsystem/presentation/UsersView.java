@@ -21,6 +21,8 @@ public class UsersView extends View {
 
         options = new String[]{
                 "[A]uswählen",
+        };
+        employeeOptions = new String[]{
                 "[H]inzufügen",
         };
     }

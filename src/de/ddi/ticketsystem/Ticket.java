@@ -40,27 +40,31 @@ public class Ticket {
     }
 
     /**
-     * @return gibt die Beschreibung des Tickets zurück
+     * Gibt die Beschreibung des Tickets zurück
+     * @return Beschreibung
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     * @param description Beschreibung des Tickets
+     * Setzten einer neuen Beschreibung
+     * @param description Beschreibung
      */
     public void setDescription(String description) {
         this.description = description;
     }
 
     /**
-     * @return gibt den Status des Tickets zurück
+     * Gibt den Status des Tickets zurück
+     * @return Status des Tickets
      */
     public String getStatus() {
         return status;
     }
 
     /**
+     * Setzten eines neuen Status
      * @param status Status des Tickets
      */
     public void setStatus(String status) {
@@ -68,42 +72,48 @@ public class Ticket {
     }
 
     /**
-     * @return gibt den Namen des zugewiesenen Angestellten
+     * Gibt den Namen des zugewiesenen Angestellten zurück
+     * @return Name des Angestellten
      */
     public String getEmployee() {
         return employee;
     }
 
     /**
-     * @param employee Name des Angestellten, welcher dem Ticket zugewiesen wird
+     * Dem Ticket einen neuen Angestellten per Namen zuweisen
+     * @param employee Name des Angestellten
      */
     public void setEmployee(String employee) {
         this.employee = employee;
     }
 
     /**
-     * @return gibt den Namen des Kunden zurück für den das Ticket bearbeitet wird
+     * Gibt den Namen des Kunden zurück für den das Ticket bearbeitet wird
+     * @return Name des Kunden
      */
     public String getCustomer() {
         return customer;
     }
 
     /**
-     * @param customer Name des Kunden, für den das Ticket bearbeitet wird
+     * Dem Ticket einen neuen Kunden per Namen zuweisen
+     * @param customer Name des Kunden
      */
     public void setCustomer(String customer) {
         this.customer = customer;
     }
 
     /**
-     * @return gibt die Priorität des Tickets zurück
+     * Gibt die Priorität des Tickets zurück
+     * @return Priorität des Tickets
      */
     public int getPriority() {
         return priority;
     }
 
     /**
-     * Es werden nur Prioritäten größer als 0 erlaubt. Wenn ein Wert kleiner 0 gesetzt werden soll, passiert nichts.
+     * Setzten einer neunen Priorität. Es werden nur Prioritäten größer als 0 erlaubt. Wenn ein Wert kleiner 0 gesetzt
+     * werden soll, passiert nichts.
      * @param priority Priorität des Tickets
      */
     public void setPriority(int priority) {

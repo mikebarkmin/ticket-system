@@ -28,6 +28,7 @@ public class TicketManager {
      * verwendet wird.
      * @param ticket das hinzugefügt werden soll
      * @see List#add(Object)
+     * @see BinaryTree#insert(Comparable, Object)
      */
     public void add(Ticket ticket) {
         // Ticket der Liste hinzufügen

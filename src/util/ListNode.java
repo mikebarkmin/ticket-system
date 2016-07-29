@@ -43,11 +43,6 @@ public class ListNode<E> {
     public void setNext(ListNode<E> n) {
         next = n;
     }
-
-    public String toString() // gibt ListNode-Object aus zusammen mit value
-    {
-        return "[ " + value + " ] ->";
-    }
 }
 
 

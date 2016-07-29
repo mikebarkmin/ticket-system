@@ -11,7 +11,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * Der TicketManager ist für die Verwaltung von Tickets zuständig
+ */
 public class TicketManager extends Manager{
+    /**
+     * Gespeicherte Tickets
+     */
     private List<Ticket> tickets;
     private NoteManager noteManager;
     private UserManager userManager;
@@ -117,8 +123,11 @@ public class TicketManager extends Manager{
      * die als Wert in einem Binärbaum gespeichert wird, in dem der Name des bearbeitenden Mitarbeiters als Key
      * verwendet wird.
      * @param ticket das hinzugefügt werden soll
+     * @see List#add(Object)
+     * @see BinaryTree#insert(Comparable, Object)
      */
     public void add(Ticket ticket) {
+        // Ticket der Liste hinzufügen
         tickets.add(ticket);
         List<Ticket> userTickets = ticketsByEmployee.get(ticket.getEmployee());
         if (userTickets == null) {
@@ -129,12 +138,14 @@ public class TicketManager extends Manager{
     }
 
     /**
-     * Entfernt das übergebene Ticket aus der Datenstruktur.
-     * @param ticket das entfernt werden soll
+     * Setzt den Status des übergebenen Tickets auf CLOSED, so dass es von der Bearbeitung ausgeschlossen ist.
+     * @param ticket welches geschlossen werden soll
      */
     public void remove(Ticket ticket) {
+        // Die Liste von Tickets durchlaufen
         for(int i = 0; i < tickets.size(); i++) {
             Ticket current = tickets.get(i);
+            // Überprüfen, ob das momentane Ticket gleich dem zu löschenden ist.
             if(current.equals(ticket)) {
                 current.setStatus(Status.CLOSED);
                 break;
@@ -147,6 +158,8 @@ public class TicketManager extends Manager{
      * @return List<Ticket> aller Tickets
      */
     public List<Ticket> getAll() {
+        // Flache Kopie der Ticket Liste anlegen, um das Entfernen und Hinzufügen, welches nicht vom TicketManager
+        // ausgeht zu vermeiden.
         List<Ticket> tickets = new List<>();
         for(int i = 0; i < this.tickets.size(); i++) {
             tickets.add(this.tickets.get(i));
@@ -157,21 +170,29 @@ public class TicketManager extends Manager{
     /**
      * Die Methode gibt das älteste Ticket zurück oder eine Null-Referenz, wenn kein Ticket in der Datenstruktur
      * existiert.
+     *
      * @return das älteste Ticket
      */
     public Ticket getOldest() {
+        // initialisieren der Variablen oldest, in der das älteste Ticket gespeichert werden soll
         Ticket oldest = null;
+        // Die Liste von Tickets durchlaufen
         for(int i = 0; i < tickets.size(); i++) {
             Ticket current = tickets.get(i);
+            // Ist das momentane Ticket geschlossen, dann wird es übersprungen
             if(current.getStatus() == Status.CLOSED) {
                 continue;
             }
+            // Wenn noch kein Ältestes zwischengespeichert wurde, dann speichern wir das momentane Ticket als Ältestes.
+            // Wenn dies nicht der Fall ist, werden die Erstellungsdaten des momentane Ältesten und es momentanen Tickets
+            // verglichen. Ist das momentane Ticket älter, dann wird es als Ältestes zwischengespeichert.
             if(oldest == null) {
                 oldest = current;
             } else if(current.getCreationDate().compareTo(oldest.getCreationDate()) < 0) {
                 oldest = current;
             }
         }
+        // das älteste Ticket wird zurückgeben, wenn eins gefunden wurde, sonst wird null zurückgegeben.
         return oldest;
     }
 
@@ -191,25 +212,32 @@ public class TicketManager extends Manager{
      * @return das Ticket, welches als nächstes bearbeitet werden soll
      */
     public Ticket next() {
+        // initialisieren der Variable next, in der das nächste Ticket gespeichert werden soll
         Ticket next = null;
+        // Die Liste von Tickets durchlaufen
         for(int i = 0; i < tickets.size(); i++) {
             Ticket current = tickets.get(i);
+            // Ist das momentane Ticket geschlossen, dann wird es übersprungen
             if(current.getStatus() == Status.CLOSED) {
                 continue;
             }
-            // TODO: Erst Statusabfrage, dann null-Abfrage. Können Fehler auftreten?
-            if(current != null) {
-                if(next == null) {
+            // Wenn noch kein Nächstes zwischengespeichert wurde, dann speichern wir das momentane Ticket als Nächstes.
+            // Wenn dies nicht der Fall ist, werden die Prioritäten der beiden Tickets miteinander verglichen.
+            // Ist die Priorität vom momentanen Ticket größere als vom Nächsten, dann wird diese Ticket
+            // zwischengespeichert. Sind die Prioritäten gleich, dann werden die Erstellungsdaten verglichen. Hat
+            // das momentane Ticket ein älteres Erstellungsdatum als das Nächste, wird es als Nächstes
+            // zwischengespeichert.
+            if(next == null) {
+                next = current;
+            } else if(next.getPriority() < current.getPriority()) {
+                next = current;
+            } else if(next.getPriority() == current.getPriority()) {
+                if(current.getCreationDate().compareTo(next.getCreationDate()) < 0) {
                     next = current;
-                } else if(next.getPriority() < current.getPriority()) {
-                    next = current;
-                } else if(next.getPriority() == current.getPriority()) {
-                    if(current.getCreationDate().compareTo(next.getCreationDate()) < 0) {
-                        next = current;
-                    }
                 }
             }
         }
+        // das nächste Ticket wird zurückgeben, wenn eines gefunden wurde, sonst wird null zurückgegeben.
         return next;
     }
 

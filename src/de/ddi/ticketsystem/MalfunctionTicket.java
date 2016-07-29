@@ -1,5 +1,8 @@
 package de.ddi.ticketsystem;
 
+/**
+ * Diese Art von Tickets soll für Störungsfälle verwendet werden.
+ */
 public class MalfunctionTicket extends Ticket {
     private String deviceService;
 
@@ -17,6 +20,10 @@ public class MalfunctionTicket extends Ticket {
         this.deviceService = deviceService;
     }
 
+    /**
+     * Gibt das Gerät zurück, welches eine Störung hat
+     * @return Gerät mit Störung
+     */
     public String getDeviceService() {
         return deviceService;
     }

@@ -4,14 +4,10 @@ import util.List;
 
 import java.util.Date;
 
-<<<<<<< HEAD
 public abstract class Ticket {
-=======
-public class Ticket {
     /**
      * Beschreibung des Tickets
      */
->>>>>>> feature/ticketmanager-binarytree
     private String description;
     /**
      * Bearbeitungsstatus kann sein RECORDED (Aufgenommen), PROCESSED (Bearbeitet), WAITING_FOR_FEEDBACK (Auf Rückmeldung

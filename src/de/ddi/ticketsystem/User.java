@@ -1,8 +1,22 @@
 package de.ddi.ticketsystem;
 
+/**
+ * Abstrakte Klasse User, die die Grundinformationen über einen Benutzer enthält. Diese Klasse ist Abstrakt, da Benutzer
+ * immer von einem speziellen Typ, der von dieser Klasse erbt, sein müssen. Demnach müssen keine Objekte vom Typ User
+ * erzeugt werden.
+ */
 public abstract class User {
+    /**
+     * Vorname des Benutzers
+     */
     protected String firstName;
+    /**
+     * Nachname des Benutzers
+     */
     protected String lastName;
+    /**
+     * Email-Adresse des Benutzers
+     */
     protected String email;
 
     protected User(String firstName, String lastName, String email) {

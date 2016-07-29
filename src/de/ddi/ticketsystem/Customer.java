@@ -1,9 +1,24 @@
 package de.ddi.ticketsystem;
 
+/**
+ * Customer dient zum Bündeln von Informationen über einen Kunden
+ */
 public class Customer {
+    /**
+     * Vorname des Kunden
+     */
     private String firstName;
+    /**
+     * Nachname des Kunden
+     */
     private String lastName;
+    /**
+     * Email-Adresse des Kunden
+     */
     private String email;
+    /**
+     * Name der Firma für die der Kunde arbeitet
+     */
     private String company;
 
     /**

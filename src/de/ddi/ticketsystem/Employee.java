@@ -1,8 +1,20 @@
 package de.ddi.ticketsystem;
 
+/**
+ * Employee dient zum Bündeln von Informationen über einen Angestellten
+ */
 public class Employee {
+    /**
+     * Vorname des Angestellten
+     */
     private String firstName;
+    /**
+     * Nachname des Angestellten
+     */
     private String lastName;
+    /**
+     * Email-Adresse des Angestellten
+     */
     private String email;
 
     /**

@@ -138,18 +138,34 @@ public class Ticket {
         }
     }
 
+    /**
+     * Fügt eine Notiz der Ticketnotizen hinzu.
+     * @param note Notiz
+     */
     public void addNote(Note note) {
-        this.notes.add(note);
+        notes.add(note);
     }
 
+    /**
+     * Entfernt eine Notiz aus den Ticketnotizen.
+     * @param note Notiz
+     */
     public void removeNote(Note note) {
-        this.notes.remove(this.notes.indexOf(note));
+        notes.remove(notes.indexOf(note));
     }
 
+    /**
+     * Gibt die Ticketnotizen zurück.
+     * @return Liste von Notizen
+     */
     public List<Note> getNotes() {
         return notes;
     }
 
+    /**
+     * Gibt das Erstelldatum zurück.
+     * @return Erstelldatum
+     */
     public Date getCreationDate() {
         return creationDate;
     }

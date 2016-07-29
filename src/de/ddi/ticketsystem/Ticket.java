@@ -11,11 +11,11 @@ public class Ticket {
      */
     private String status;
     /**
-     * Referenz zum Objekt des zugewiesenen Angestellten
+     * zugewiesener Angestellte
      */
     private Employee employee;
     /**
-     * Referenz zum Objekt des Kunden
+     * Kunden für den das Ticket bearbeitet wird
      */
     private Customer customer;
     /**
@@ -40,27 +40,31 @@ public class Ticket {
     }
 
     /**
-     * @return gibt die Beschreibung des Tickets zurück
+     * Gibt die Beschreibung des Tickets zurück
+     * @return Beschreibung
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     * @param description Beschreibung des Tickets
+     * Setzten einer neuen Beschreibung
+     * @param description Beschreibung
      */
     public void setDescription(String description) {
         this.description = description;
     }
 
     /**
-     * @return gibt den Status des Tickets zurück
+     * Gibt den Status des Tickets zurück
+     * @return Status des Tickets
      */
     public String getStatus() {
         return status;
     }
 
     /**
+     * Setzten eines neuen Status
      * @param status Status des Tickets
      */
     public void setStatus(String status) {
@@ -68,42 +72,48 @@ public class Ticket {
     }
 
     /**
-     * @return gibt die Referenz zum Objekt des zugewiesenen Angestellten zurück
+     * Gibt den zugewiesenen Angestellten zurück
+     * @return zugewiesener Angestellte
      */
     public Employee getEmployee() {
         return employee;
     }
 
     /**
-     * @param employee Referenz zum Objekt des zugewiesenen Angestellten
+     * Dem Ticket einen neuen Angestellten zuweisen
+     * @param employee Angestellter
      */
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
 
     /**
-     * @return gibt die Referenz zum Objekt des Kunden zurück
+     * Gibt den Kunden zurück für den das Ticket bearbeitet wird
+     * @return Kunde
      */
     public Customer getCustomer() {
         return customer;
     }
 
     /**
-     * @param customer Referenz zum Objekt des Kunden
+     * Dem Ticket einen neuen Kunden zuweisen
+     * @param customer Kunde
      */
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
     /**
-     * @return gibt die Priorität des Tickets zurück
+     * Gibt die Priorität des Tickets zurück
+     * @return Priorität des Tickets
      */
     public int getPriority() {
         return priority;
     }
 
     /**
-     * Es werden nur Prioritäten größer als 0 erlaubt. Wenn ein Wert kleiner 0 gesetzt werden soll, passiert nichts.
+     * Setzten einer neunen Priorität. Es werden nur Prioritäten größer als 0 erlaubt. Wenn ein Wert kleiner 0 gesetzt
+     * werden soll, passiert nichts.
      * @param priority Priorität des Tickets
      */
     public void setPriority(int priority) {

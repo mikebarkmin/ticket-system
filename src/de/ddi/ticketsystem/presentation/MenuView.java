@@ -29,9 +29,11 @@ public class MenuView extends View {
     public void evaluate(String input) {
         switch (input) {
             case "T":
+                // den nächsten View setzten
                 viewManager.setNextView(new TicketsView(viewManager));
                 break;
             case "U":
+                // den nächsten View setzten
                 viewManager.setNextView(new UsersView(viewManager));
                 break;
         }

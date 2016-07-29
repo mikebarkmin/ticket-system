@@ -55,6 +55,9 @@ public class TicketView extends View {
         }
     }
 
+    /**
+     * Den Status des Tickets ändern
+     */
     private void changeStatus() {
         String text = "Status (";
         text += Status.RECORDED + ", " + Status.PROCESSED + ", " + Status.WAITING_FOR_FEEDBACK + ", " + Status.SOLVED
@@ -65,6 +68,9 @@ public class TicketView extends View {
         ticket.setStatus(status);
     }
 
+    /**
+     * Die Notizen des Tickets anzeigen
+     */
     private void showNotes() {
         viewManager.setNextView(new NotesView(viewManager, ticket));
     }

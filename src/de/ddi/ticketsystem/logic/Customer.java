@@ -1,6 +1,13 @@
 package de.ddi.ticketsystem.logic;
 
+/**
+ * Customer dient zum Bündeln von Informationen über einen Kunden. Dabei wird die Klasse User erweitert.
+ * @see User
+ */
 public class Customer extends User {
+    /**
+     * Name der Firma des Kunden
+     */
     private String company;
 
     /**
@@ -15,6 +22,10 @@ public class Customer extends User {
         this.company = company;
     }
 
+    /**
+     * Gibt den Namen der Firma für die der Kunde arbeitet zurück
+     * @return Name der Firma
+     */
     public String getCompany() {
         return company;
     }
@@ -30,5 +41,13 @@ public class Customer extends User {
         text += super.saveToText();
         text += company + ";";
         return text;
+    }
+
+    /**
+     * Eine neue Firma per Namen dem Kunden zuweisen
+     * @param company Name der Firma
+     */
+    public void setCompany(String company) {
+        this.company = company;
     }
 }

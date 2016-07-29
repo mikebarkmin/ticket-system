@@ -1,5 +1,8 @@
 package de.ddi.ticketsystem.presentation;
 
+/**
+ * Der LoginView ist für die Darstellung und Verwaltung einer Anmeldeseite verantwortlich
+ */
 public class LoginView extends View {
 
     /**
@@ -25,12 +28,17 @@ public class LoginView extends View {
     public void evaluate(String input) {
         switch (input) {
             case "A":
+                // auf den Vornamen horchen
                 System.out.print("Vorname: ");
                 String firstName = scanner.next();
+                // auf den Nachnamen horchen
                 System.out.print("Nachname: ");
                 String lastName = scanner.next();
+                // versuchen den Login durchzuführen
                 viewManager.getUserManager().login(firstName, lastName);
+                // überprüfen, ob der Login funktioniert hat
                 if (viewManager.getUserManager().getCurrent() != null) {
+                    // den nächsten View setzten
                     viewManager.setNextView(new MenuView(viewManager));
                 }
         }

@@ -4,7 +4,13 @@ import util.List;
 
 public class UserManager {
 
+    /**
+     * Liste aller Benutzer
+     */
     private List<User> users;
+    /**
+     * momentan angemeldeter Benutzer
+     */
     private User current;
 
     /**
@@ -30,8 +36,10 @@ public class UserManager {
      * @param lastName Der Nachname des Nutzers
      */
     public void login(String firstName, String lastName) {
+        // Liste alle Benutzer durchlaufen
         for(int i = 0; i < users.size(); i++) {
             User user = users.get(i);
+            // Überprüfen, ob der Vor- und Nachname mit dem momentanen Benutzer übereinstimmt.
             if(user.getFirstName().equals(firstName) && user.getLastName().equals(lastName)) {
                 current = user;
             }
@@ -63,8 +71,10 @@ public class UserManager {
      */
     public List<Customer> getCustomers() {
         List<Customer> customers = new List<>();
+        // Liste der Benutzer durchlaufen
         for(int i = 0; i < users.size(); i++) {
             User user = users.get(i);
+            // Wenn der momentane Benutzer eine Instanz der Klasse Customer ist, dann füge ihn der Liste hinzu.
             if (user instanceof Customer) {
                 customers.add((Customer) user);
             }
@@ -78,8 +88,10 @@ public class UserManager {
      */
     public List<Employee> getEmployees() {
         List<Employee> employees = new List<>();
+        // Liste der Benutzer durchlaufen
         for(int i = 0; i < users.size(); i++) {
             User user = users.get(i);
+            // Wenn der momentane Benutzer eine Instanz der Klasse Employee ist, dann füge ihn der Liste hinzu
             if (user instanceof Employee) {
                 employees.add((Employee) user);
             }

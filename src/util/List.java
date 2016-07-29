@@ -2,7 +2,9 @@ package util;
 
 public class List<E> {
 
-    // Der Listenkopf oder der Verweis/Referenz auf das erste Element der Liste
+    /**
+     * Listenkopf. Anfang der Liste.
+     */
     ListNode<E> head;
 
     /**
@@ -38,7 +40,12 @@ public class List<E> {
         return size;
     }
 
-    // Hilfsmethode fuer das Besorgen des Elementes an der Stell index 0 ..  size-1
+    /**
+     * Gibt die Node an der Stelle index zurück. Wenn keine Node an diesem Index existiert wird null
+     * zurückgegeben.
+     * @param index Index
+     * @return Node an der Stelle index
+     */
     private ListNode<E> getNodeAt(int index) {
         if (index < 0) {
             return null;

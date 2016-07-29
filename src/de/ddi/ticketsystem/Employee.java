@@ -1,10 +1,10 @@
 package de.ddi.ticketsystem;
 
+/**
+ * Employee dient zum Bündeln von Informationen über einen Angestellten
+ */
 public class Employee extends User implements Comparable<Employee> {
     private String department;
-    private String firstName;
-    private String lastName;
-    private String email;
 
     /**
      * Erstellt ein Objekt vom Typ Employee
@@ -24,6 +24,6 @@ public class Employee extends User implements Comparable<Employee> {
 
     @Override
     public int compareTo(Employee employee) {
-        return (this.firstName + this.lastName).compareTo(employee.firstName + employee.lastName);
+        return (firstName + lastName).compareTo(employee.firstName + employee.lastName);
     }
 }

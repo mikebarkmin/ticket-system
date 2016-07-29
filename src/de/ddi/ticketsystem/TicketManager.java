@@ -1,6 +1,12 @@
 package de.ddi.ticketsystem;
 
+/**
+ * Der TicketManager ist für die Verwaltung von Tickets zuständig
+ */
 public class TicketManager {
+    /**
+     * Gespeicherte Tickets
+     */
     private TicketList tickets;
 
     /**
@@ -14,19 +20,24 @@ public class TicketManager {
      * Fügt am Ende der verwalteten Tickets das Übergebene an. Wenn kein Platz vorhanden ist, wird eine Fehlermeldung
      * ausgegeben.
      * @param ticket das hinzugefügt werden soll
+     * @see TicketList#add(Ticket)
      */
     public void add(Ticket ticket) {
+        // Ticket der Liste hinzufügen
         tickets.add(ticket);
     }
 
     /**
-     * Entfernt das Übergebene Ticket aus der Datenstruktur.
+     * Entfernt das übergebene Ticket aus der Datenstruktur.
      * @param ticket das entfernt werden soll
      */
     public void remove(Ticket ticket) {
+        // Die Liste von Tickets durchlaufen
         for(int i = 0; i < tickets.size(); i++) {
             Ticket current = tickets.get(i);
+            // Überprüfen, ob das momentane Ticket gleich dem zu löschenden ist.
             if(current.equals(ticket)) {
+                // Ticket entfernen
                 tickets.remove(i);
                 break;
             }
@@ -39,6 +50,8 @@ public class TicketManager {
      * @return TicketListe aller Tickets
      */
     public TicketList getAll() {
+        // Flache Kopie der Ticket Liste anlegen, um das Entfernen und Hinzufügen, welches nicht vom TicketManager
+        // ausgeht zu vermeiden.
         TicketList tickets = new TicketList();
         for(int i = 0; i < this.tickets.size(); i++) {
             tickets.add(this.tickets.get(i));
@@ -49,18 +62,25 @@ public class TicketManager {
     /**
      * Die Methode gibt das älteste Ticket zurück oder eine Null-Referenz, wenn kein Ticket in der Datenstruktur
      * existiert.
+     *
      * @return das älteste Ticket
      */
     public Ticket getOldest() {
+        // initialisieren der Variablen oldest, in der das älteste Ticket gespeichert werden soll
         Ticket oldest = null;
+        // Die Liste von Tickets durchlaufen
         for(int i = 0; i < tickets.size(); i++) {
             Ticket current = tickets.get(i);
+            // Wenn noch kein Ältestes zwischengespeichert wurde, dann speichern wir das momentane Ticket als Ältestes.
+            // Wenn dies nicht der Fall ist, werden die Erstellungsdaten des momentane Ältesten und es momentanen Tickets
+            // verglichen. Ist das momentane Ticket älter, dann wird es als Ältestes zwischengespeichert.
             if(oldest == null) {
                 oldest = current;
             } else if(current.getCreationDate().compareTo(oldest.getCreationDate()) < 0) {
                 oldest = current;
             }
         }
+        // das älteste Ticket wird zurückgeben, wenn eins gefunden wurde, sonst wird null zurückgegeben.
         return oldest;
     }
 
@@ -71,10 +91,18 @@ public class TicketManager {
      * @return das Ticket, welches als nächstes bearbeitet werden soll
      */
     public Ticket next() {
+        // initialisieren der Variable next, in der das nächste Ticket gespeichert werden soll
         Ticket next = null;
+        // Die Liste von Tickets durchlaufen
         for(int i = 0; i < tickets.size(); i++) {
             Ticket current = tickets.get(i);
             if(current != null) {
+                // Wenn noch kein Nächstes zwischengespeichert wurde, dann speichern wir das momentane Ticket als Nächstes.
+                // Wenn dies nicht der Fall ist, werden die Prioritäten der beiden Tickets miteinander verglichen.
+                // Ist die Priorität vom momentanen Ticket größere als vom Nächsten, dann wird diese Ticket
+                // zwischengespeichert. Sind die Prioritäten gleich, dann werden die Erstellungsdaten verglichen. Hat
+                // das momentane Ticket ein älteres Erstellungsdatum als das Nächste, wird es als Nächstes
+                // zwischengespeichert.
                 if(next == null) {
                     next = current;
                 } else if(next.getPriority() < current.getPriority()) {
@@ -86,6 +114,7 @@ public class TicketManager {
                 }
             }
         }
+        // das nächste Ticket wird zurückgeben, wenn eines gefunden wurde, sonst wird null zurückgegeben.
         return next;
     }
 }

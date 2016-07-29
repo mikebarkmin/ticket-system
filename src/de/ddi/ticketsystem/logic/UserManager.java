@@ -35,12 +35,15 @@ public class UserManager extends Manager{
     @Override
     public void save() {
         List<String> data = new List<>();
+        // die Liste aller Benutzer durchlaufen
         for(int i = 0; i < users.size(); i++) {
             User user = users.get(i);
+            // den zu speichernden String erstellen
             String sUser = i + ";" + user.saveToText();
             data.add(sUser);
         }
         try {
+            // versuchen zu speichern
             access.save(data);
         } catch (IOException e) {
             e.printStackTrace();
@@ -51,9 +54,12 @@ public class UserManager extends Manager{
     protected void load() {
         try {
             List<String> data = access.load();
+            // List der geladenen Strings durchlaufen
             for(int i = 0; i < data.size(); i++) {
                 String sUser = data.get(i);
+                // String am Semikolon aufteilen
                 String[] values = sUser.split(";");
+                // das Objekt abhängig von der Art des Benutzers erstellen
                 if(values[1].equals("EMPLOYEE")) {
                     User user = new Employee(values[2], values[3], values[4], values[5]);
                     users.add(user);

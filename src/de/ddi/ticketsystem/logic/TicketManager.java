@@ -44,15 +44,21 @@ public class TicketManager extends Manager{
     @Override
     public void save() {
         List<String> data = new List<>();
+        // Liste der Tickets durchlaufen
         for(int i = 0; i < tickets.size(); i++) {
             Ticket ticket = tickets.get(i);
+            // ID des Angestellten ermitteln
             int employeeId = userManager.indexOf(ticket.getEmployee());
+            // ID des Kunden ermitteln
             int customerId = userManager.indexOf(ticket.getCustomer());
+            // den zu speichernden String erstellen
             String sTicket = i + ";" + employeeId + ";" + customerId + ";" + ticket.saveToText();
             data.add(sTicket);
+            // die Notizen des Tickets für das Speichern vorbereiten
             noteManager.addToSave(i, ticket.getNotes());
         }
         try {
+            // versuchen zu speichern
             access.save(data);
         } catch (IOException e) {
             e.printStackTrace();
@@ -68,22 +74,29 @@ public class TicketManager extends Manager{
     protected void load() {
         try {
             List<String> data = access.load();
+            // Liste der geladenen Strings durchlaufen
             for(int i = 0; i < data.size(); i++) {
                 String sTicket = data.get(i);
+                // den String an den Semikolons aufteilen
                 String[] values = sTicket.split(";");
                 Ticket ticket;
+                // den Angestellten anhand der ID ermitteln
                 Employee employee = (Employee) userManager.get(Integer.parseInt(values[1]));
+                // den Kunden anhand der der ID ermitteln
                 Customer customer = (Customer) userManager.get(Integer.parseInt(values[2]));
                 Status status = Status.valueOf(values[5]);
                 int priority = Integer.parseInt(values[6]);
+                // das Datumsformat festlegen
                 DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.GERMANY);
                 Date creationDate;
                 try {
+                    // versuchen das Datum zu lesen
                     creationDate = formatter.parse(values[7]);
                 } catch (ParseException e) {
                     creationDate = new Date();
                     e.printStackTrace();
                 }
+                // abhängig von der Art des Tickets das Objekt erstellen
                 switch (values[3]) {
                     case "REQUEST":
                         Date date = null;

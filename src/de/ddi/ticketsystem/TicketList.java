@@ -1,9 +1,13 @@
 package de.ddi.ticketsystem;
 
-
+/**
+ * Datenstruktur zum Speichern von Tickets in einer Liste.
+ */
 public class TicketList {
 
-    // Der Listenkopf oder der Verweis/Referenz auf das erste Element der Liste
+    /**
+     * Listenkopf. Anfang der Liste.
+     */
     TicketNode head;
 
     /**
@@ -39,7 +43,12 @@ public class TicketList {
         return size;
     }
 
-    // Hilfsmethode fuer das Besorgen des Elementes an der Stell index 0 ..  size-1
+    /**
+     * Gibt die TicketNode an der Stelle index zurück. Wenn keine TicketNode an diesem Index existiert wird null
+     * zurückgegeben.
+     * @param index Index
+     * @return TicketNode an der Stelle index
+     */
     private TicketNode getNodeAt(int index) {
         if (index < 0) {
             return null;

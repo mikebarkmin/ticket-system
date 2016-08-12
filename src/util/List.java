@@ -93,6 +93,9 @@ public class List<E> {
             Node<E> prev = getNodeAt(size() - 1);
             prev.setNext(node);
         }
+        else {
+            head = node;
+        }
     }
 
     /**

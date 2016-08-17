@@ -49,7 +49,7 @@ public class TicketManager {
             // Die momentane Stelle im Array zwischenspeichern. Kann auch null sein!
             Ticket current = tickets[i];
             // Überprüfen, ob das zu löschende Ticket und die momentane Stelle das gleiche Objekt ist.
-            if(current.equals(ticket)) {
+            if(current != null && current.equals(ticket)) {
                 // Stelle im Array auf null setzten, um das Ticket aus dem Array zu löschen.
                 tickets[i] = null;
                 // Schleife abbrechen, um weitere unnötige Berechnungen zu sparen, da das Ticket schon gelöscht wurde

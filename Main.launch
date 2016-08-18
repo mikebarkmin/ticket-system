@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/ticket-system/src/de/ddi/ticketsystem/Main.java"/>
+<listEntry value="/ticket-system/src/Main.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
@@ -12,6 +12,6 @@
 <listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
 </listAttribute>
 <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
-<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="de.ddi.ticketsystem.Main"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="Main"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="ticket-system"/>
 </launchConfiguration>

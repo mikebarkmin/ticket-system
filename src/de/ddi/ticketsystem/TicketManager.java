@@ -113,7 +113,7 @@ public class TicketManager {
                 // zwischengespeichert. Sind die Prioritäten gleich, dann werden die Erstellungsdaten verglichen. Hat
                 // das momentane Ticket ein älteres Erstellungsdatum als das Nächste, wird es als Nächstes
                 // zwischengespeichert.
-                if(next != null) {
+                if(next == null) {
                     next = tickets[i];
                 } else if(next.getPriority() < tickets[i].getPriority()) {
                     next = tickets[i];

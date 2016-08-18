@@ -43,7 +43,7 @@ public class Main {
         scanner.useDelimiter("\\n");
         String input;
         do {
-            System.out.println("[T]ickets, [H]inzufügen, [E]ntfernen, [B]eenden");
+            System.out.println("[T]ickets, [H]inzufügen, [E]ntfernen, [B]eenden, [N]ächstes, [Ä]ltestes");
             input = scanner.next();
             input = input.toUpperCase();
             if(input.equals("T")) {
@@ -69,6 +69,16 @@ public class Main {
                 int ticketId = scanner.nextInt();
                 Ticket toRemove = ticketManager.getAll()[ticketId];
                 ticketManager.remove(toRemove);
+            } else if(input.equals("N")) {
+            	Ticket next = ticketManager.next();
+            	if(next != null) {
+                    System.out.println(next.getStatus() + "\t " + next.getDescription() + "\t " + next.getPriority() + "\t " + next.getCreationDate());
+                }
+            } else if(input.equals("Ä")) {
+            	Ticket oldest = ticketManager.getOldest();
+            	if(oldest != null) {
+                    System.out.println(oldest.getStatus() + "\t " + oldest.getDescription() + "\t " + oldest.getPriority() + "\t " + oldest.getCreationDate());
+                }
             }
         } while (!input.equals("B"));
 

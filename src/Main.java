@@ -81,7 +81,7 @@ public class Main {
                 }
             }
         } while (!input.equals("B"));
-
+        scanner.close();
         Ticket oldest = ticketManager.getOldest();
         System.out.println(oldest.getCreationDate());
     }

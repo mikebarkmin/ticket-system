@@ -112,6 +112,9 @@ public class List<E> {
         } else {
             head = listNode;
         }
+        else {
+            head = node;
+        }
     }
 
     /**

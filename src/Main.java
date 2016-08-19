@@ -67,16 +67,17 @@ public class Main {
                 Ticket toRemove = ticketManager.getAll().get(ticketId);
                 ticketManager.remove(toRemove);
             } else if(input.equals("N")) {
-                ticket = ticketManager.next();
-                if(ticket != null) {
-                    System.out.println(ticket.getStatus() + "\t " + ticket.getDescription() + "\t " + ticket.getPriority() + "\t " + ticket.getCreationDate());
+            	Ticket next = ticketManager.next();
+            	if(next != null) {
+                    System.out.println(next.getStatus() + "\t " + next.getDescription() + "\t " + next.getPriority() + "\t " + next.getCreationDate());
                 }
             } else if(input.equals("Ä")) {
-                ticket = ticketManager.getOldest();
-                if(ticket != null) {
-                    System.out.println(ticket.getStatus() + "\t " + ticket.getDescription() + "\t " + ticket.getPriority() + "\t " + ticket.getCreationDate());
+            	Ticket oldest = ticketManager.getOldest();
+            	if(oldest != null) {
+                    System.out.println(oldest.getStatus() + "\t " + oldest.getDescription() + "\t " + oldest.getPriority() + "\t " + oldest.getCreationDate());
                 }
             }
         } while (!input.equals("B"));
+        scanner.close();
     }
 }

@@ -52,6 +52,5 @@ public class Main {
         ticketManager.add(ticket);
 
         viewManager.run();
-
     }
 }

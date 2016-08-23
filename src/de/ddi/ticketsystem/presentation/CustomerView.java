@@ -32,6 +32,9 @@ public class CustomerView extends View {
         super.show();
     }
 
+    /**
+     * Es muss nichts ausgewertet werden.
+     */
     @Override
     public void evaluate(String input) {
 

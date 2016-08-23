@@ -30,6 +30,9 @@ public class UsersView extends View {
         };
     }
 
+    /**
+     * Zeigt alle Benutzer in Form einer Liste an.
+     */
     @Override
     public void show() {
         String text = "";

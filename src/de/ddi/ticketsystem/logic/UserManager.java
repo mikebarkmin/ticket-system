@@ -14,7 +14,7 @@ public class UserManager {
     private User current;
 
     /**
-     * Erstellt ein Objekt der Klasse UserManager, die alle Nutzer in einer Liste verwaltet
+     * Erstellt ein Objekt der Klasse UserManager, die alle Nutzer in einer Liste verwaltet.
      */
     public UserManager() {
         users = new List<>();
@@ -30,8 +30,8 @@ public class UserManager {
     }
 
     /**
-     * Wählt im UserManager einen Nutzer anhand des Vor- und Nachnamens als aktuellen Nutzer aus. Existiert
-     * kein Nutzer mit dem angegebenen Namen, passiert nichts
+     * Wählt im UserManager einen Nutzer anhand des Vor- und Nachnamens als aktuellen Nutzer aus.
+     * Existiert kein Nutzer mit dem angegebenen Namen, passiert nichts.
      * @param firstName Der Vorname des Nutzers
      * @param lastName Der Nachname des Nutzers
      */
@@ -74,7 +74,8 @@ public class UserManager {
         // Liste der Benutzer durchlaufen
         for(int i = 0; i < users.size(); i++) {
             User user = users.get(i);
-            // Wenn der momentane Benutzer eine Instanz der Klasse Customer ist, dann füge ihn der Liste hinzu.
+            // Wenn der momentane Benutzer eine Instanz der Klasse Customer ist, dann füge ihn der
+            // Liste hinzu.
             if (user instanceof Customer) {
                 customers.add((Customer) user);
             }
@@ -91,7 +92,8 @@ public class UserManager {
         // Liste der Benutzer durchlaufen
         for(int i = 0; i < users.size(); i++) {
             User user = users.get(i);
-            // Wenn der momentane Benutzer eine Instanz der Klasse Employee ist, dann füge ihn der Liste hinzu
+            // Wenn der momentane Benutzer eine Instanz der Klasse Employee ist, dann füge ihn der
+            // Liste hinzu
             if (user instanceof Employee) {
                 employees.add((Employee) user);
             }

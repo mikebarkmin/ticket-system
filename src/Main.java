@@ -3,6 +3,7 @@ import util.List;
 
 import java.util.Date;
 import java.util.Scanner;
+import java.util.logging.StreamHandler;
 
 public class Main {
     public static void main(String[] args) {
@@ -74,7 +75,7 @@ public class Main {
                 input = scanner.next().toUpperCase();
                 if(input.equals("T")) {
                     System.out.println("[B]estellung, [S]törung, [A]nforderung");
-                    input = scanner.next().toUpperCase();
+                    String ticketType = scanner.next().toUpperCase();
                     System.out.print("Beschreibung: ");
                     String description = scanner.next();
                     System.out.print("Status: ");
@@ -85,19 +86,19 @@ public class Main {
                     status = Status.valueOf(sStatus);
                     System.out.print("Priorität: ");
                     int priority = scanner.nextInt();
-                    if(input.equals("S")) {
+                    if(ticketType.equals("S")) {
                         System.out.print("Gerätservice: ");
                         String deviceService = scanner.next();
                         Ticket toAdd = new MalfunctionTicket(description, status, employee, customer, priority, deviceService);
                         ticketManager.add(toAdd);
-                    } else if(input.equals("A")) {
+                    } else if(ticketType.equals("A")) {
                         System.out.print("Datum: ");
                         Date date = new Date();
                         System.out.print("Service: ");
                         String service = scanner.next();
                         Ticket toAdd = new RequestTicket(description, status, employee, customer, priority, date, service);
                         ticketManager.add(toAdd);
-                    } else if(input.equals("B")) {
+                    } else if(ticketType.equals("B")) {
                         System.out.print("Lieferant: ");
                         String vendor = scanner.next();
                         System.out.print("Artikel: ");
@@ -176,6 +177,7 @@ public class Main {
                 System.out.println("Beschreibung: ");
                 System.out.println("\t" + ticket.getDescription());
                 List<Note> notes = ticket.getNotes();
+
                 for(int i = 0; i < notes.size(); i++) {
                     Note note = notes.get(i);
                     System.out.println(i + ") " + note.getEmployee().getLastName() + ", " + note.getEmployee().getFirstName()

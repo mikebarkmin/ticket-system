@@ -176,6 +176,9 @@ public class Main {
                 System.out.println("\t" + ticket.getCustomer().getFirstName() + " " + ticket.getCustomer().getLastName());
                 System.out.println("Beschreibung: ");
                 System.out.println("\t" + ticket.getDescription());
+
+                System.out.println(getSpecificInfo(ticket));
+
                 List<Note> notes = ticket.getNotes();
 
                 for(int i = 0; i < notes.size(); i++) {
@@ -189,5 +192,25 @@ public class Main {
             }
         } while (!input.equals("B"));
         scanner.close();
+    }
+
+    private static String getSpecificInfo(Ticket ticket) {
+        String result = "";
+        if(ticket instanceof OrderTicket)
+        {
+            result = "Verkäufer: " + ((OrderTicket)ticket).getVendor()
+                    + "\nArtikel: " + ((OrderTicket)ticket).getArticle()
+                    + "\nAdresse: " + ((OrderTicket)ticket).getAddress()
+                    + "\nAnzahl: " + ((OrderTicket)ticket).getQuantity();
+
+        }
+        else if(ticket instanceof RequestTicket) {
+            result =  "Datum: " + ((RequestTicket)ticket).getDate()
+                    + "\nService: " + ((RequestTicket)ticket).getService();
+        }
+        else if(ticket instanceof MalfunctionTicket) {
+            result = "GeräteService: " + ((MalfunctionTicket)ticket).getDeviceService();
+        }
+        return result;
     }
 }

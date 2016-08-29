@@ -40,7 +40,7 @@ public abstract class Ticket {
      * @param customer Referenz eines Objekts vom Typ Customer
      * @param priority Wichtigkeit des Tickets
      */
-    protected Ticket(String description, Status status, Employee employee, Customer customer, int priority) {
+    public Ticket(String description, Status status, Employee employee, Customer customer, int priority) {
         this.description = description;
         this.status = status;
         this.employee = employee;

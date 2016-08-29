@@ -198,15 +198,17 @@ public class Main {
         String result = "";
         if(ticket instanceof OrderTicket)
         {
-            result = "Verkäufer: " + ((OrderTicket)ticket).getVendor()
-                    + "\nArtikel: " + ((OrderTicket)ticket).getArticle()
-                    + "\nAdresse: " + ((OrderTicket)ticket).getAddress()
-                    + "\nAnzahl: " + ((OrderTicket)ticket).getQuantity();
+            OrderTicket orderTicket = (OrderTicket)ticket;
+            result = "Verkäufer: " + orderTicket.getVendor()
+                    + "\nArtikel: " + orderTicket.getArticle()
+                    + "\nAdresse: " + orderTicket.getAddress()
+                    + "\nAnzahl: " + orderTicket.getQuantity();
 
         }
         else if(ticket instanceof RequestTicket) {
-            result =  "Datum: " + ((RequestTicket)ticket).getDate()
-                    + "\nService: " + ((RequestTicket)ticket).getService();
+            RequestTicket requestTicket = (RequestTicket)ticket;
+            result =  "Datum: " + requestTicket.getDate()
+                    + "\nService: " + requestTicket.getService();
         }
         else if(ticket instanceof MalfunctionTicket) {
             result = "GeräteService: " + ((MalfunctionTicket)ticket).getDeviceService();

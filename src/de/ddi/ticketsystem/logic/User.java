@@ -92,6 +92,7 @@ public abstract class User implements Saveable, Comparable<User> {
      * lexikographisch hinter dem den übergebenen Benutzer liegt.
      * @see Comparable#compareTo(Object)
      */
+    @Override
     public int compareTo(User user) {
         return (firstName + lastName).compareTo(user.firstName + user.lastName);
     }

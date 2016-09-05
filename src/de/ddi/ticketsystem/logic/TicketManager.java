@@ -1,5 +1,6 @@
 package de.ddi.ticketsystem.logic;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import de.ddi.ticketsystem.data.Access;
 import util.BinaryTree;
 import util.List;
@@ -34,7 +35,6 @@ public class TicketManager extends Manager{
         ticketsByEmployee = new BinaryTree<>();
         this.noteManager = noteManager;
         this.userManager = userManager;
-        load();
     }
 
     /**
@@ -42,7 +42,7 @@ public class TicketManager extends Manager{
      * Zusätzlich werden dem Notizenmanager eine ID zu jedem Ticket mit den zugehörigen Tickets übergeben.n
      */
     @Override
-    public void save() {
+    public void save() throws IOException {
         List<String> data = new List<>();
         // Liste der Tickets durchlaufen
         for(int i = 0; i < tickets.size(); i++) {
@@ -71,7 +71,7 @@ public class TicketManager extends Manager{
      * hinzu.
      */
     @Override
-    protected void load() {
+    public void load() throws IOException {
         try {
             List<String> data = access.load();
             // Liste der geladenen Strings durchlaufen
@@ -87,7 +87,7 @@ public class TicketManager extends Manager{
                 Status status = Status.valueOf(values[5]);
                 int priority = Integer.parseInt(values[6]);
                 // das Datumsformat festlegen
-                DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.GERMANY);
+                DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.US);
                 Date creationDate;
                 try {
                     // versuchen das Datum zu lesen

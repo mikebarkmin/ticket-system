@@ -2,6 +2,8 @@ package de.ddi.ticketsystem.logic;
 
 import de.ddi.ticketsystem.data.Access;
 
+import java.io.IOException;
+
 /**
  * Ist für die Verwaltung von Daten zuständig. Über die Verbindung Access können die Daten gespeichert und geladen werden.
  * Der Manager muss diese dann in Objekte umwandeln.
@@ -19,10 +21,10 @@ public abstract class Manager {
     /**
      * Speichert die Daten
      */
-    public abstract void save();
+    public abstract void save() throws IOException;
 
     /**
      * Lädt die Daten
      */
-    protected abstract void load();
+    public abstract void load() throws IOException;
 }

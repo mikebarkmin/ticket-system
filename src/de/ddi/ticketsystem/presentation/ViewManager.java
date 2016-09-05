@@ -5,6 +5,8 @@ import de.ddi.ticketsystem.logic.TicketManager;
 import de.ddi.ticketsystem.logic.UserManager;
 import util.Stack;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -52,6 +54,7 @@ public class ViewManager {
      * Startet den ViewManager mit der Anzeige des Logins.
      */
     public void run() {
+        load();
         // erstelle einen LoginView und füge ihn dem ViewStack hinzu
         viewStack.push(new LoginView(this));
         // Endlosschleife, damit dass Programm sich nicht von alleine schließt
@@ -80,9 +83,7 @@ public class ViewManager {
                 viewStack.pop();
                 break;
             case "B":
-                userManager.save();
-                ticketManager.save();
-                noteManager.save();
+                save();
                 // Das System beenden
                 System.exit(0);
                 break;
@@ -92,6 +93,42 @@ public class ViewManager {
                 // Die Auswertung der Eingabe dem View überlassen
                 current.evaluate(input);
                 break;
+        }
+    }
+
+    private void load() {
+        try {
+            userManager.load();
+            noteManager.load();
+            ticketManager.load();
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("Daten nicht gefunden! Das System wird beendet.");
+            e.printStackTrace();
+            System.exit(1);
+        }
+        catch (IOException e) {
+            System.out.println("Zugriff auf Daten verweigert! Das System wird beendet.");
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+
+    private void save() {
+        try {
+            userManager.save();
+            ticketManager.save();
+            noteManager.save();
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("Speicherziel nicht gefunden! Daten gehen ggf. verloren :(");
+            e.printStackTrace();
+            System.exit(1);
+        }
+        catch (IOException e) {
+            System.out.println("Zugriff auf das Speicherziel verweigert! Daten gehen ggf. verloren :(");
+            e.printStackTrace();
+            System.exit(1);
         }
     }
 

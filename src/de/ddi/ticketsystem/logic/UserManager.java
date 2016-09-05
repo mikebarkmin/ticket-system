@@ -25,7 +25,6 @@ public class UserManager extends Manager{
         super(access);
         users = new List<>();
         current = null;
-        load();
     }
 
     /**
@@ -33,7 +32,7 @@ public class UserManager extends Manager{
      * Access an, diese zu speichern.
      */
     @Override
-    public void save() {
+    public void save() throws IOException {
         List<String> data = new List<>();
         // die Liste aller Benutzer durchlaufen
         for(int i = 0; i < users.size(); i++) {
@@ -51,7 +50,7 @@ public class UserManager extends Manager{
     }
 
     @Override
-    protected void load() {
+    public void load() throws IOException {
         try {
             List<String> data = access.load();
             // List der geladenen Strings durchlaufen

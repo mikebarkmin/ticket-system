@@ -53,7 +53,6 @@ public abstract class AccessText implements Access {
         FileWriter fw = new FileWriter(pathToFile);
         // die Datei mit einem BufferedWriter beschreiben
         BufferedWriter bw = new BufferedWriter(fw);
-
         // die Datei Zeile für Zeile beschreiben
         for(int i = 0; i < data.size(); i++) {
             String line = data.get(i);

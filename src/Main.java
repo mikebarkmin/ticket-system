@@ -3,7 +3,6 @@ import util.List;
 
 import java.util.Date;
 import java.util.Scanner;
-import java.util.logging.StreamHandler;
 
 public class Main {
     public static void main(String[] args) {
@@ -47,7 +46,7 @@ public class Main {
         ticketManager.add(ticket);
 
         Scanner scanner = new Scanner(System.in);
-        scanner.useDelimiter("\\n");
+        scanner.useDelimiter(System.lineSeparator());
         String input;
         do {
             System.out.println("[T]ickets, [A]nzeigen, [S]tatus ändern, [H]inzufügen, [E]ntfernen, [N]ächtes, [Ä]ltestes, [B]eenden");

@@ -40,7 +40,7 @@ public class Main {
         ticketManager.add(ticket);
 
         Scanner scanner = new Scanner(System.in);
-        scanner.useDelimiter("\\n");
+        scanner.useDelimiter("\\n|\\r");
         String input;
         do {
             System.out.println("[T]ickets, [H]inzufügen, [E]ntfernen, [B]eenden, [N]ächstes, [Ä]ltestes");
@@ -70,13 +70,13 @@ public class Main {
                 Ticket toRemove = ticketManager.getAll()[ticketId];
                 ticketManager.remove(toRemove);
             } else if(input.equals("N")) {
-            	Ticket next = ticketManager.next();
-            	if(next != null) {
+                Ticket next = ticketManager.next();
+                if(next != null) {
                     System.out.println(next.getStatus() + "\t " + next.getDescription() + "\t " + next.getPriority() + "\t " + next.getCreationDate());
                 }
             } else if(input.equals("Ä")) {
-            	Ticket oldest = ticketManager.getOldest();
-            	if(oldest != null) {
+                Ticket oldest = ticketManager.getOldest();
+                if(oldest != null) {
                     System.out.println(oldest.getStatus() + "\t " + oldest.getDescription() + "\t " + oldest.getPriority() + "\t " + oldest.getCreationDate());
                 }
             }

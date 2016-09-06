@@ -40,7 +40,7 @@ public class Main {
         ticketManager.add(ticket);
 
         Scanner scanner = new Scanner(System.in);
-        scanner.useDelimiter("\\n|\\r");
+        scanner.useDelimiter(System.lineSeparator());
         String input;
         do {
             System.out.println("[T]ickets, [H]inzufügen, [E]ntfernen, [B]eenden, [N]ächstes, [Ä]ltestes");

@@ -3,6 +3,7 @@ package de.ddi.ticketsystem.logic;
 import de.ddi.ticketsystem.data.Access;
 import util.List;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
 
@@ -26,7 +27,6 @@ public class NoteManager extends Manager{
      */
     public NoteManager(Access access, UserManager userManager) {
         super(access);
-        load();
         toSave = new List<>();
         this.userManager = userManager;
     }
@@ -51,26 +51,16 @@ public class NoteManager extends Manager{
      * Weist einen Zugriff vom Typ Access an, die zum Speichern vorgemerkten Notizen zu speichern
      */
     @Override
-    public void save() {
-        try {
-            // versuchen die Daten zu speichern
-            access.save(toSave);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void save() throws IOException {
+        access.save(toSave);
     }
 
     /**
      * Weißt einen Zugriff vom Typ Access an, die Notizen zu laden und speichert diese intern.
      */
     @Override
-    protected void load() {
-        try {
-            // versuchen die Daten zu laden
-            loaded = access.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void load() throws IOException {
+        loaded = access.load();
     }
 
     /**

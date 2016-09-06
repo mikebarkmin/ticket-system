@@ -4,7 +4,7 @@ import util.List;
 
 import java.util.Date;
 
-public abstract class Ticket implements Saveable{
+public abstract class Ticket implements Saveable {
     /**
      * Beschreibung des Tickets
      */

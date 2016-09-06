@@ -2,7 +2,6 @@ package de.ddi.ticketsystem.presentation;
 
 import de.ddi.ticketsystem.logic.Status;
 import de.ddi.ticketsystem.logic.Ticket;
-import de.ddi.ticketsystem.logic.UserManager;
 
 public class TicketView extends View {
 

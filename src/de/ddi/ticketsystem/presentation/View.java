@@ -57,7 +57,7 @@ public abstract class View {
         employeeOptions = new String[]{};
         this.viewManager = viewManager;
         scanner = new Scanner(System.in);
-        scanner.useDelimiter("\\n");
+        scanner.useDelimiter(System.lineSeparator());
     }
 
     /**

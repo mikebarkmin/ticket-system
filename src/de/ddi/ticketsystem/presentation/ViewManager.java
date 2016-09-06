@@ -66,6 +66,10 @@ public class ViewManager {
         }
     }
 
+    /**
+     * Zeigt den nächsten View vom viewStack an. Dabei wird der View mit vom viewStack
+     * genommen, sondern bleibt an oberster Stelle liegen.
+     */
     private void showView() {
         // ermitteln welcher View an erster Stelle auf dem Stack liegt, ohne ihm vom Stack zunehmen.
         View current = viewStack.peek();
@@ -73,6 +77,11 @@ public class ViewManager {
         current.show();
     }
 
+    /**
+     * Nimmt eine Eingabe vom Benutzer entgegen und werte diese aus. Dabei werden zunächst die
+     * globalen Optionen getestet. Wenn die Eingabe keiner globalen Option entsprach, wird
+     * die Evaluation der Eingabe an den momentanen View weitergereicht.
+     */
     private void getInput() {
         // auf die Eingabe vom Benutzer horchen und in Großbuchstaben umwandeln.
         String input = scanner.next().toUpperCase();

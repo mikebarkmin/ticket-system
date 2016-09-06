@@ -37,7 +37,7 @@ public class Main {
         ticketManager.add(ticket);
 
         Scanner scanner = new Scanner(System.in);
-        scanner.useDelimiter("\\n");
+        scanner.useDelimiter(System.lineSeparator());
         String input;
         do {
             System.out.println("[T]ickets, [S]tatus ändern, [H]inzufügen, [E]ntfernen, [N]ächtes, [Ä]ltestes, [B]eenden");

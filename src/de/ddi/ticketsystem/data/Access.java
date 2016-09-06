@@ -2,7 +2,6 @@ package de.ddi.ticketsystem.data;
 
 import util.List;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**

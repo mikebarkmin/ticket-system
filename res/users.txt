@@ -1,6 +1,2 @@
 0;EMPLOYEE;Mike;Barkmin;m@b.de;DDI;
-<<<<<<< HEAD
 1;CUSTOMER;Gero;Behler;g@b.de;Uni Due;
-=======
-1;CUSTOMER;Gero;Behler;g@b.de;Uni Due;
->>>>>>> feature/load-save

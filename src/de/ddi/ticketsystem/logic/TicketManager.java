@@ -1,6 +1,5 @@
 package de.ddi.ticketsystem.logic;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import de.ddi.ticketsystem.data.Access;
 import util.BinaryTree;
 import util.List;

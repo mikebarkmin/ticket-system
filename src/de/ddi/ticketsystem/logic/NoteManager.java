@@ -3,7 +3,6 @@ package de.ddi.ticketsystem.logic;
 import de.ddi.ticketsystem.data.Access;
 import util.List;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
 

@@ -81,7 +81,8 @@ public class NoteManager extends Manager{
             if(ticketId == id) {
                 // die notiz aus den weiteren Daten erstellen
                 Employee employee = (Employee) userManager.get(Integer.parseInt(values[2]));
-                Date creationDate = new Date(values[5]);
+                Long datetime = Long.parseLong(values[5]);
+                Date creationDate = new Date(datetime);
                 Note note = new Note(values[3], values[4], employee, creationDate);
                 // die notiz der Liste hinzufügen
                 notes.add(note);

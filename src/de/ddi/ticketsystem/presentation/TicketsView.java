@@ -1,9 +1,15 @@
 package de.ddi.ticketsystem.presentation;
 
-import de.ddi.ticketsystem.logic.*;
-import util.List;
-
 import java.util.Date;
+
+import de.ddi.ticketsystem.logic.Customer;
+import de.ddi.ticketsystem.logic.Employee;
+import de.ddi.ticketsystem.logic.MalfunctionTicket;
+import de.ddi.ticketsystem.logic.OrderTicket;
+import de.ddi.ticketsystem.logic.RequestTicket;
+import de.ddi.ticketsystem.logic.Status;
+import de.ddi.ticketsystem.logic.Ticket;
+import util.List;
 
 public class TicketsView extends View {
 
@@ -18,7 +24,7 @@ public class TicketsView extends View {
     public TicketsView(ViewManager viewManager) {
         super(viewManager);
         name = "Tickets";
-        tickets = this.viewManager.getTicketManager().getTickets();
+        tickets = this.viewManager.getTicketManager().getAll();
 
         options = new String[]{
                 "[A]uswählen",
@@ -39,10 +45,23 @@ public class TicketsView extends View {
         String text = "";
         for(int i = 0; i < tickets.size(); i++) {
             Ticket ticket = tickets.get(i);
-            text += i + ") " + ticket.getDescription() + "\t" + ticket.getPriority() + "\n";
+            text += i + ") " + abbreviate(ticket.getDescription(), 20) + "\t"
+            		+ ticket.getPriority() + "\t" 
+            		+ ticket.getCustomer().getFirstName() + " " + ticket.getCustomer().getLastName() + "\t" 
+            		+ ticket.getEmployee().getFirstName() + " " + ticket.getEmployee().getLastName()+ "\n";
         }
         this.text = text;
         super.show();
+    }
+    
+    private String abbreviate(String string, int length) {
+    	String abbrev = string;
+    	if (string.length() > length) {
+    		abbrev = string.substring(0, length - 3) + "...";
+    	} else {
+    		abbrev = String.format("%-" + length + "s", "bar");
+    	}
+    	return abbrev;
     }
 
     /**
@@ -81,6 +100,7 @@ public class TicketsView extends View {
 
     private void createTicket() {
         System.out.println("[B]estellung, [S]törung, [A]nforderung");
+        String input = scanner.next().toUpperCase();
         System.out.println("Kunden auswählen: ");
         List<Customer> customers = viewManager.getUserManager().getCustomers();
         for(int i = 0; i < customers.size(); i++) {
@@ -90,7 +110,6 @@ public class TicketsView extends View {
         }
         int customerId = scanner.nextInt();
         Customer customer = customers.get(customerId);
-        String input = scanner.next().toUpperCase();
         System.out.print("Beschreibung: ");
         String description = scanner.next();
         Status status = Status.RECORDED;

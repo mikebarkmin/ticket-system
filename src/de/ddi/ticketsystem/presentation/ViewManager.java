@@ -47,7 +47,7 @@ public class ViewManager {
         this.noteManager = noteManager;
         viewStack = new Stack<>();
         scanner = new Scanner(System.in);
-        scanner.useDelimiter("\\n");
+        scanner.useDelimiter(System.lineSeparator());
     }
 
     /**

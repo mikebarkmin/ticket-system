@@ -27,7 +27,7 @@ public class Ticket {
     /**
      * Erstellungsdatum des Tickets
      */
-    private Date creationDate;
+    private final Date creationDate;
 
     /**
      * Erzeugt ein neues Ticket, welches beim Erzeugen den momentanen Zeitstempel als Erstelldatum zugewiesen bekommen.
@@ -139,10 +139,23 @@ public class Ticket {
     }
 
     /**
+<<<<<<< HEAD
      * Gibt die Erstellungsdatum des Tickets zurück
      * @return Erstellungsdatum des Tickets
+=======
+     * Gibt das Erstelldatum zurück.
+     * @return Date das Erstelldatum
+>>>>>>> feature/ticketmanager-search
      */
     public Date getCreationDate() {
         return creationDate;
+    }
+
+    /**
+     * Konvertiert das Objekt in einen String
+     * @return String Eigenschaften des Objekts
+     */
+    public String toString() {
+        return description + ";" + status + ";" + priority + ";" + employee.toString() + ";" + customer.toString();
     }
 }

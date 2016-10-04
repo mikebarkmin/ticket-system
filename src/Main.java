@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
         // Initialisierungen
         Ticket[] tickets = new Ticket[100];
         int count = 0;

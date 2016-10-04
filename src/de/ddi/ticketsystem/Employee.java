@@ -70,7 +70,7 @@ public class Employee {
      * @return Bereich in dem der Angestellte arbeitet
      */
     public String getDepartment() {
-        return deparment;
+        return department;
     }
 
     /**
@@ -87,5 +87,9 @@ public class Employee {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String toString() {
+        return firstName + ";" + lastName + ";" + email + ";" + department;
     }
 }

@@ -1,5 +1,3 @@
-package de.ddi.ticketsystem;
-
 public class Main {
     public static void main(String[] args) {
         Ticket ticket = new Ticket(

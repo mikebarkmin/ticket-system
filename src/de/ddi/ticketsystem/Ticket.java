@@ -59,7 +59,9 @@ public class Ticket {
      * @param description Beschreibung
      */
     public void setDescription(String description) {
-        this.description = description;
+    	if (status != Status.CLOSED) {
+    		this.description = description;
+    	}
     }
 
     /**
@@ -111,7 +113,9 @@ public class Ticket {
      * @param customer Kunde
      */
     public void setCustomer(Customer customer) {
-        this.customer = customer;
+    	if (status != Status.CLOSED) {
+    		this.customer = customer;
+    	}
     }
 
     /**
@@ -134,6 +138,10 @@ public class Ticket {
         }
     }
 
+    /**
+     * Gibt die Erstellungsdatum des Tickets zurück
+     * @return Erstellungsdatum des Tickets
+     */
     public Date getCreationDate() {
         return creationDate;
     }

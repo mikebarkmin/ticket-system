@@ -1,5 +1,3 @@
-package de.ddi.ticketsystem;
-
 public class Ticket {
     /**
      * Beschreibung des Tickets

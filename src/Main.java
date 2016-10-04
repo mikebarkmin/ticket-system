@@ -1,9 +1,7 @@
-package de.ddi.ticketsystem;
-
 public class Main {
     public static void main(String[] args) {
-        Employee employee = new Employee("Mike", "Barkmin");
-        Customer customer = new Customer("Gero", "Behler", "Uni Due");
+        Employee employee = new Employee("Mike", "Barkmin", "mb@company.de", "IT");
+        Customer customer = new Customer("Gero", "Behler", "gb@uni.de", "Uni Due");
 
         int priority = 1;
 

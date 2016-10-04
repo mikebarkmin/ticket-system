@@ -1,36 +1,34 @@
-package de.ddi.ticketsystem;
-
 /**
- * Customer dient zum Bündeln von Informationen über einen Kunden
+ * Employee dient zum Bündeln von Informationen über einen Angestellten
  */
-public class Customer {
+public class Employee {
     /**
-     * Vorname des Kunden
+     * Vorname des Angestellten
      */
     private String firstName;
     /**
-     * Nachname des Kunden
+     * Nachname des Angestellten
      */
     private String lastName;
     /**
-     * Email-Adresse des Kunden
+     * Email-Adresse des Angestellten
      */
     private String email;
     /**
-     * Name der Firma für die der Kunde arbeitet
+     * Bereich in dem der Angestellte arbeitet
      */
-    private String company;
+    private String department;
 
     /**
-     * Erstellt ein Objekt vom Type Customer
-     * @param firstName Vorname des Kunden
-     * @param lastName Nachname des Kunden
-     * @param company Firma des Kunden
+     * Erstellt ein Objekt vom Typ Employee
+     * @param firstName Vorname des Angestellten
+     * @param lastName Nachname des Angestellten
      */
-    public Customer(String firstName, String lastName, String company) {
+    public Employee(String firstName, String lastName, String email, String department) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.company = company;
+        this.email = email;
+        this.department = department;
     }
 
     /**
@@ -66,6 +64,14 @@ public class Customer {
     }
 
     /**
+     * Gibt den Bereich in dem der Angestellte arbeitet zurück
+     * @return Bereich in dem der Angestellte arbeitet
+     */
+    public String getDepartment() {
+        return deparment;
+    }
+
+    /**
      * Gibt die Email-Adresse des Angestellten zurück
      * @return Email-Adresse des Angestellten
      */
@@ -79,21 +85,5 @@ public class Customer {
      */
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    /**
-     * Gibt den Namen der Firma für die der Kunde arbeitet zurück
-     * @return Name der Firma
-     */
-    public String getCompany() {
-        return company;
-    }
-
-    /**
-     * Eine neue Firma per Namen dem Kunden zuweisen
-     * @param company Name der Firma
-     */
-    public void setCompany(String company) {
-        this.company = company;
     }
 }

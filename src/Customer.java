@@ -1,30 +1,35 @@
-package de.ddi.ticketsystem;
-
 /**
- * Employee dient zum Bündeln von Informationen über einen Angestellten
+ * Customer dient zum Bündeln von Informationen über einen Kunden
  */
-public class Employee {
+public class Customer {
     /**
-     * Vorname des Angestellten
+     * Vorname des Kunden
      */
     private String firstName;
     /**
-     * Nachname des Angestellten
+     * Nachname des Kunden
      */
     private String lastName;
     /**
-     * Email-Adresse des Angestellten
+     * Email-Adresse des Kunden
      */
     private String email;
+    /**
+     * Name der Firma für die der Kunde arbeitet
+     */
+    private String company;
 
     /**
-     * Erstellt ein Objekt vom Typ Employee
-     * @param firstName Vorname des Angestellten
-     * @param lastName Nachname des Angestellten
+     * Erstellt ein Objekt vom Type Customer
+     * @param firstName Vorname des Kunden
+     * @param lastName Nachname des Kunden
+     * @param company Firma des Kunden
      */
-    public Employee(String firstName, String lastName) {
+    public Customer(String firstName, String lastName, String email, String company) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
+        this.company = company;
     }
 
     /**
@@ -73,5 +78,21 @@ public class Employee {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * Gibt den Namen der Firma für die der Kunde arbeitet zurück
+     * @return Name der Firma
+     */
+    public String getCompany() {
+        return company;
+    }
+
+    /**
+     * Eine neue Firma per Namen dem Kunden zuweisen
+     * @param company Name der Firma
+     */
+    public void setCompany(String company) {
+        this.company = company;
     }
 }

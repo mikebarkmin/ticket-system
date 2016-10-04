@@ -193,6 +193,11 @@ public class Main {
         scanner.close();
     }
 
+    /**
+     * Gibt Ticketart spezifische Eigenschaften zurück
+     * @param ticket das anzuzeigende Ticket
+     * @return Eigenschaften als String
+     */
     private static String getSpecificInfo(Ticket ticket) {
         String result = "";
         if(ticket instanceof OrderTicket)

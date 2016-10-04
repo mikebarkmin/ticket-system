@@ -4,6 +4,7 @@ package de.ddi.ticketsystem;
  * Diese Art von Tickets soll für Störungsfälle verwendet werden.
  */
 public class MalfunctionTicket extends Ticket {
+	// Das Gerät, welches eine Service benötigt
     private String deviceService;
 
     /**

@@ -4,9 +4,13 @@ package de.ddi.ticketsystem;
  * Diese Art von Tickets ist für Bestellungen vorgesehen.
  */
 public class OrderTicket extends Ticket {
+	// Der Verkäufer
     private String vendor;
+    // Der Name des Artikels
     private String article;
+    // Die Lieferadresse
     private String address;
+    // Die Anzahl der Artikel
     private int quantity;
 
     /**

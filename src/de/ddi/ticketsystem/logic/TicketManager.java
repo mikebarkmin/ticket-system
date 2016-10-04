@@ -150,8 +150,4 @@ public class TicketManager {
         // zurückgegeben.
         return next;
     }
-
-    public List<Ticket> getTickets() {
-        return tickets;
-    }
 }

@@ -30,6 +30,9 @@ public abstract class Ticket {
      * Erstellungsdatum des Tickets
      */
     private Date creationDate;
+    /**
+     * Liste der Notizen
+     */
     private List<Note> notes;
 
     /**
@@ -64,7 +67,9 @@ public abstract class Ticket {
      * @param description Beschreibung
      */
     public void setDescription(String description) {
-        this.description = description;
+    	if (status != Status.CLOSED) {
+    		this.description = description;
+    	}
     }
 
     /**
@@ -116,7 +121,9 @@ public abstract class Ticket {
      * @param customer Kunde
      */
     public void setCustomer(Customer customer) {
-        this.customer = customer;
+    	if (status != Status.CLOSED) {
+    		this.customer = customer;
+    	}
     }
 
     /**
@@ -144,7 +151,9 @@ public abstract class Ticket {
      * @param note Notiz
      */
     public void addNote(Note note) {
-        notes.add(note);
+    	if (status != Status.CLOSED) {
+    		notes.add(note);
+    	}
     }
 
     /**
@@ -152,7 +161,9 @@ public abstract class Ticket {
      * @param note Notiz
      */
     public void removeNote(Note note) {
-        notes.remove(notes.indexOf(note));
+    	if (status != Status.CLOSED) {
+    		notes.remove(notes.indexOf(note));
+    	}
     }
 
     /**

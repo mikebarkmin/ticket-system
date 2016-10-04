@@ -1,5 +1,8 @@
 package de.ddi.ticketsystem.presentation;
 
+import de.ddi.ticketsystem.logic.MalfunctionTicket;
+import de.ddi.ticketsystem.logic.OrderTicket;
+import de.ddi.ticketsystem.logic.RequestTicket;
 import de.ddi.ticketsystem.logic.Status;
 import de.ddi.ticketsystem.logic.Ticket;
 
@@ -32,8 +35,36 @@ public class TicketView extends View {
         text += "Aufgenommen\n\t" + ticket.getCreationDate() + "\n";
         text += "Status\n\t" + ticket.getStatus() + "\n";
         text += "Priorität\n\t" + ticket.getPriority() + "\n";
+        text += this.getSpecificInfo(ticket);
         this.text = text;
         super.show();
+    }
+    
+    /**
+     * Gibt Ticketart spezifische Eigenschaften zurück
+     * @param ticket das anzuzeigende Ticket
+     * @return Eigenschaften als String
+     */
+    private String getSpecificInfo(Ticket ticket) {
+        String result = "";
+        if(ticket instanceof OrderTicket)
+        {
+            OrderTicket orderTicket = (OrderTicket)ticket;
+            result = "Verkäufer\n\t" + orderTicket.getVendor()
+                    + "\nArtikel\n\t" + orderTicket.getArticle()
+                    + "\nAdresse\n\t" + orderTicket.getAddress()
+                    + "\nAnzahl\n\t" + orderTicket.getQuantity();
+
+        }
+        else if(ticket instanceof RequestTicket) {
+            RequestTicket requestTicket = (RequestTicket)ticket;
+            result =  "Datum\n\t" + requestTicket.getDate()
+                    + "\nService\n\t" + requestTicket.getService();
+        }
+        else if(ticket instanceof MalfunctionTicket) {
+            result = "GeräteService\n\t" + ((MalfunctionTicket)ticket).getDeviceService();
+        }
+        return result;
     }
 
     /**

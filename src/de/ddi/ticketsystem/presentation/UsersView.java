@@ -42,7 +42,7 @@ public class UsersView extends View {
             // Ausgabestring generieren. Bsp: 1) Heiko Topf Angestellter
             text += i + ") " + user.getFirstName() + " " + user.getLastName() + " ";
             if (user instanceof Employee) {
-                text += "Angsteller";
+                text += "Angestellter";
             } else {
                 text += "Kunde";
             }

@@ -5,11 +5,7 @@ import util.BinaryTree;
 import util.List;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * Der TicketManager ist für die Verwaltung von Tickets zuständig
@@ -56,12 +52,7 @@ public class TicketManager extends Manager{
             // die Notizen des Tickets für das Speichern vorbereiten
             noteManager.addToSave(i, ticket.getNotes());
         }
-        try {
-            // versuchen zu speichern
-            access.save(data);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        access.save(data);
     }
 
     /**
@@ -71,62 +62,45 @@ public class TicketManager extends Manager{
      */
     @Override
     public void load() throws IOException {
-        try {
-            List<String> data = access.load();
-            // Liste der geladenen Strings durchlaufen
-            for(int i = 0; i < data.size(); i++) {
-                String sTicket = data.get(i);
-                // den String an den Semikolons aufteilen
-                String[] values = sTicket.split(";");
-                Ticket ticket;
-                // den Angestellten anhand der ID ermitteln
-                Employee employee = (Employee) userManager.get(Integer.parseInt(values[1]));
-                // den Kunden anhand der der ID ermitteln
-                Customer customer = (Customer) userManager.get(Integer.parseInt(values[2]));
-                Status status = Status.valueOf(values[5]);
-                int priority = Integer.parseInt(values[6]);
-                // das Datumsformat festlegen
-                DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.US);
-                Date creationDate;
-                try {
-                    // versuchen das Datum zu lesen
-                    creationDate = formatter.parse(values[7]);
-                } catch (ParseException e) {
-                    creationDate = new Date();
-                    e.printStackTrace();
-                }
-                // abhängig von der Art des Tickets das Objekt erstellen
-                switch (values[3]) {
-                    case "REQUEST":
-                        Date date = null;
-                        try {
-                            date = formatter.parse(values[8]);
-                        } catch (ParseException e) {
-                            date = new Date();
-                            e.printStackTrace();
-                        }
-                        ticket = new RequestTicket(values[4], status, employee, customer, priority, date, values[9]);
-                        ticket.setCreationDate(creationDate);
-                        tickets.add(ticket);
-                        break;
-                    case "ORDER":
-                        int quantity = Integer.parseInt(values[11]);
-                        ticket = new OrderTicket(values[4], status, employee, customer, priority, values[8],
-                                values[9], values[10], quantity);
-                        ticket.setCreationDate(creationDate);
-                        tickets.add(ticket);
-                        break;
-                    case "MALFUNCTION":
-                        ticket = new MalfunctionTicket(values[4], status, employee, customer, priority, values[8]);
-                        ticket.setCreationDate(creationDate);
-                        tickets.add(ticket);
-                        break;
-                    default:
-                        break;
-                }
+        List<String> data = access.load();
+        // Liste der geladenen Strings durchlaufen
+        for(int i = 0; i < data.size(); i++) {
+            String sTicket = data.get(i);
+            // den String an den Semikolons aufteilen
+            String[] values = sTicket.split(";");
+            Ticket ticket;
+            // den Angestellten anhand der ID ermitteln
+            Employee employee = (Employee) userManager.get(Integer.parseInt(values[1]));
+            // den Kunden anhand der der ID ermitteln
+            Customer customer = (Customer) userManager.get(Integer.parseInt(values[2]));
+            Status status = Status.valueOf(values[5]);
+            int priority = Integer.parseInt(values[6]);
+            Long datetime = Long.parseLong(values[7]);
+            Date creationDate = new Date(datetime);
+            // abhängig von der Art des Tickets das Objekt erstellen
+            switch (values[3]) {
+                case "REQUEST":
+                	datetime = Long.parseLong(values[8]);
+                    Date date = new Date(datetime);
+                    ticket = new RequestTicket(values[4], status, employee, customer, priority, date, values[9]);
+                    ticket.setCreationDate(creationDate);
+                    tickets.add(ticket);
+                    break;
+                case "ORDER":
+                    int quantity = Integer.parseInt(values[11]);
+                    ticket = new OrderTicket(values[4], status, employee, customer, priority, values[8],
+                            values[9], values[10], quantity);
+                    ticket.setCreationDate(creationDate);
+                    tickets.add(ticket);
+                    break;
+                case "MALFUNCTION":
+                    ticket = new MalfunctionTicket(values[4], status, employee, customer, priority, values[8]);
+                    ticket.setCreationDate(creationDate);
+                    tickets.add(ticket);
+                    break;
+                default:
+                    break;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

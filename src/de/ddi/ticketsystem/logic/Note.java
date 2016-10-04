@@ -85,7 +85,7 @@ public class Note implements Saveable {
      */
     @Override
     public String saveToText() {
-        String text = title + ";" + content + ";" + creationDate + ";";
+        String text = title + ";" + content + ";" + creationDate.getTime() + ";";
         return text;
     }
 }

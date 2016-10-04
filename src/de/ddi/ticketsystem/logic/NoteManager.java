@@ -39,8 +39,10 @@ public class NoteManager extends Manager{
         // die Liste von Notizen durchlaufen
         for(int i = 0; i < notes.size(); i++) {
             Note note = notes.get(i);
+            // eine ID für die Notiz ermitteln
+            int id = toSave.size();
             // den String erstellen, welcher weitergegeben wird
-            String text = ticketId + ";" + userManager.indexOf(note.getEmployee()) + ";" + note.saveToText() + ";";
+            String text = id + ";" + ticketId + ";" + userManager.indexOf(note.getEmployee()) + ";" + note.saveToText() + ";";
 
             toSave.add(text);
         }
@@ -74,13 +76,14 @@ public class NoteManager extends Manager{
             // Den String am Semikolon aufteilen
             String[] values = loaded.get(i).split(";");
             // die ID des Tickets auslesen
-            int ticketId = Integer.parseInt(values[0]);
+            int ticketId = Integer.parseInt(values[1]);
             // überprüfen, ob die ID mit der gewünschten übereinstimmt
             if(ticketId == id) {
                 // die notiz aus den weiteren Daten erstellen
-                Employee employee = (Employee) userManager.get(Integer.parseInt(values[1]));
-                Date creationDate = new Date(values[4]);
-                Note note = new Note(values[2], values[3], employee, creationDate);
+                Employee employee = (Employee) userManager.get(Integer.parseInt(values[2]));
+                Long datetime = Long.parseLong(values[5]);
+                Date creationDate = new Date(datetime);
+                Note note = new Note(values[3], values[4], employee, creationDate);
                 // die notiz der Liste hinzufügen
                 notes.add(note);
             }

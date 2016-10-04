@@ -182,7 +182,7 @@ public abstract class Ticket implements Saveable {
      */
     @Override
     public String saveToText() {
-        String text = description + ";" + status + ";" + priority + ";" + creationDate + ";";
+        String text = description + ";" + status + ";" + priority + ";" + creationDate.getTime() + ";";
         return text;
     }
 }

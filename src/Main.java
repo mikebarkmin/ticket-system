@@ -9,8 +9,8 @@ public class Main {
     public static void main(String[] args) {
         TicketManager ticketManager = new TicketManager(10);
 
-        Employee employee = new Employee("Mike", "Barkmin");
-        Customer customer = new Customer("Gero", "Behler", "Uni Due");
+        Employee employee = new Employee("Mike", "Barkmin", "mb@company.de", "IT");
+        Customer customer = new Customer("Gero", "Behler", "gb@uni.de", "Uni Due");
 
         Ticket ticket = new Ticket(
                 "Beschreibung",

@@ -139,13 +139,8 @@ public class Ticket {
     }
 
     /**
-<<<<<<< HEAD
-     * Gibt die Erstellungsdatum des Tickets zurück
-     * @return Erstellungsdatum des Tickets
-=======
      * Gibt das Erstelldatum zurück.
      * @return Date das Erstelldatum
->>>>>>> feature/ticketmanager-search
      */
     public Date getCreationDate() {
         return creationDate;

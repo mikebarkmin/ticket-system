@@ -8,7 +8,13 @@ import java.util.Date;
 
 public class NoteManager extends Manager{
 
+    /**
+     * Liste von Strings die geladen wurden
+     */
     private List<String> loaded;
+    /**
+     * Liste von String die zu speichern sind
+     */
     private List<String> toSave;
     private UserManager userManager;
 
@@ -20,7 +26,6 @@ public class NoteManager extends Manager{
      */
     public NoteManager(Access access, UserManager userManager) {
         super(access);
-        load();
         toSave = new List<>();
         this.userManager = userManager;
     }
@@ -31,10 +36,14 @@ public class NoteManager extends Manager{
      * @param notes Eine Liste von Notizen
      */
     public void addToSave(int ticketId, List<Note> notes) {
+        // die Liste von Notizen durchlaufen
         for(int i = 0; i < notes.size(); i++) {
             Note note = notes.get(i);
+            // eine ID für die Notiz ermitteln
             int id = toSave.size();
+            // den String erstellen, welcher weitergegeben wird
             String text = id + ";" + ticketId + ";" + userManager.indexOf(note.getEmployee()) + ";" + note.saveToText() + ";";
+
             toSave.add(text);
         }
     }
@@ -43,24 +52,16 @@ public class NoteManager extends Manager{
      * Weist einen Zugriff vom Typ Access an, die zum Speichern vorgemerkten Notizen zu speichern
      */
     @Override
-    public void save() {
-        try {
-            access.save(toSave);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void save() throws IOException {
+        access.save(toSave);
     }
 
     /**
      * Weißt einen Zugriff vom Typ Access an, die Notizen zu laden und speichert diese intern.
      */
     @Override
-    protected void load() {
-        try {
-            loaded = access.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void load() throws IOException {
+        loaded = access.load();
     }
 
     /**
@@ -70,13 +71,20 @@ public class NoteManager extends Manager{
      */
     public List<Note> getForTicketId(int id) {
         List<Note> notes = new List<>();
+        // Liste von Notizen als Strings durchlaufen
         for(int i = 0; i < loaded.size(); i++) {
+            // Den String am Semikolon aufteilen
             String[] values = loaded.get(i).split(";");
+            // die ID des Tickets auslesen
             int ticketId = Integer.parseInt(values[1]);
+            // überprüfen, ob die ID mit der gewünschten übereinstimmt
             if(ticketId == id) {
+                // die notiz aus den weiteren Daten erstellen
                 Employee employee = (Employee) userManager.get(Integer.parseInt(values[2]));
-                Date creationDate = new Date(values[5]);
+                Long datetime = Long.parseLong(values[5]);
+                Date creationDate = new Date(datetime);
                 Note note = new Note(values[3], values[4], employee, creationDate);
+                // die notiz der Liste hinzufügen
                 notes.add(note);
             }
         }

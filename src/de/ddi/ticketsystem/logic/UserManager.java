@@ -7,7 +7,13 @@ import java.io.IOException;
 
 public class UserManager extends Manager{
 
+    /**
+     * Liste aller Benutzer
+     */
     private List<User> users;
+    /**
+     * momentan angemeldeter Benutzer
+     */
     private User current;
 
     /**
@@ -19,7 +25,6 @@ public class UserManager extends Manager{
         super(access);
         users = new List<>();
         current = null;
-        load();
     }
 
     /**
@@ -27,14 +32,17 @@ public class UserManager extends Manager{
      * Access an, diese zu speichern.
      */
     @Override
-    public void save() {
+    public void save() throws IOException {
         List<String> data = new List<>();
+        // die Liste aller Benutzer durchlaufen
         for(int i = 0; i < users.size(); i++) {
             User user = users.get(i);
+            // den zu speichernden String erstellen
             String sUser = i + ";" + user.saveToText();
             data.add(sUser);
         }
         try {
+            // versuchen zu speichern
             access.save(data);
         } catch (IOException e) {
             e.printStackTrace();
@@ -42,12 +50,15 @@ public class UserManager extends Manager{
     }
 
     @Override
-    protected void load() {
+    public void load() throws IOException {
         try {
             List<String> data = access.load();
+            // List der geladenen Strings durchlaufen
             for(int i = 0; i < data.size(); i++) {
                 String sUser = data.get(i);
+                // String am Semikolon aufteilen
                 String[] values = sUser.split(";");
+                // das Objekt abhängig von der Art des Benutzers erstellen
                 if(values[1].equals("EMPLOYEE")) {
                     User user = new Employee(values[2], values[3], values[4], values[5]);
                     users.add(user);
@@ -90,14 +101,16 @@ public class UserManager extends Manager{
     }
 
     /**
-     * Wählt im UserManager einen Nutzer anhand des Vor- und Nachnamens als aktuellen Nutzer aus. Existiert
-     * kein Nutzer mit dem angegebenen Namen, passiert nichts
+     * Wählt im UserManager einen Nutzer anhand des Vor- und Nachnamens als aktuellen Nutzer aus.
+     * Existiert kein Nutzer mit dem angegebenen Namen, passiert nichts.
      * @param firstName Der Vorname des Nutzers
      * @param lastName Der Nachname des Nutzers
      */
     public void login(String firstName, String lastName) {
+        // Liste alle Benutzer durchlaufen
         for(int i = 0; i < users.size(); i++) {
             User user = users.get(i);
+            // Überprüfen, ob der Vor- und Nachname mit dem momentanen Benutzer übereinstimmt.
             if(user.getFirstName().equals(firstName) && user.getLastName().equals(lastName)) {
                 current = user;
             }
@@ -129,8 +142,11 @@ public class UserManager extends Manager{
      */
     public List<Customer> getCustomers() {
         List<Customer> customers = new List<>();
+        // Liste der Benutzer durchlaufen
         for(int i = 0; i < users.size(); i++) {
             User user = users.get(i);
+            // Wenn der momentane Benutzer eine Instanz der Klasse Customer ist, dann füge ihn der
+            // Liste hinzu.
             if (user instanceof Customer) {
                 customers.add((Customer) user);
             }
@@ -144,8 +160,11 @@ public class UserManager extends Manager{
      */
     public List<Employee> getEmployees() {
         List<Employee> employees = new List<>();
+        // Liste der Benutzer durchlaufen
         for(int i = 0; i < users.size(); i++) {
             User user = users.get(i);
+            // Wenn der momentane Benutzer eine Instanz der Klasse Employee ist, dann füge ihn der
+            // Liste hinzu
             if (user instanceof Employee) {
                 employees.add((Employee) user);
             }

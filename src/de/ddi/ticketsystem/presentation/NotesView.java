@@ -3,7 +3,6 @@ package de.ddi.ticketsystem.presentation;
 import de.ddi.ticketsystem.logic.Employee;
 import de.ddi.ticketsystem.logic.Note;
 import de.ddi.ticketsystem.logic.Ticket;
-import de.ddi.ticketsystem.logic.UserManager;
 import util.List;
 
 public class NotesView extends View {
@@ -63,6 +62,9 @@ public class NotesView extends View {
         }
     }
 
+    /**
+     * Anhand der Notiznummer eine Notiz löschen
+     */
     private void deleteNote() {
         System.out.print("Notiznummer: ");
         int noteId = scanner.nextInt();
@@ -70,6 +72,9 @@ public class NotesView extends View {
         ticket.removeNote(note);
     }
 
+    /**
+     * Eine neue Notiz anlegen
+     */
     private void createNote() {
         System.out.print("Titel: ");
         String title = scanner.next();

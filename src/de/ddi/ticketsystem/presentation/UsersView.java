@@ -7,6 +7,9 @@ import util.List;
 
 public class UsersView extends View {
 
+    /**
+     * List der Benutzer
+     */
     private List<User> users;
 
     /**
@@ -27,20 +30,26 @@ public class UsersView extends View {
         };
     }
 
+    /**
+     * Zeigt alle Benutzer in Form einer Liste an.
+     */
     @Override
     public void show() {
         String text = "";
+        // Liste der Benutzer durchlaufen
         for(int i = 0; i < users.size(); i++) {
             User user = users.get(i);
+            // Ausgabestring generieren. Bsp: 1) Heiko Topf Angestellter
             text += i + ") " + user.getFirstName() + " " + user.getLastName() + " ";
             if (user instanceof Employee) {
-                text += "Angsteller";
+                text += "Angestellter";
             } else {
                 text += "Kunde";
             }
             text += "\n";
         }
         this.text = text;
+        // die show Methode von der Oberklasse View aufrufen
         super.show();
     }
 
@@ -55,28 +64,45 @@ public class UsersView extends View {
     public void evaluate(String input) {
         switch (input) {
             case "A":
+                // einen Benutzer auswählen und dann anzeigen
                 showUser(selectUser());
                 break;
             case "H":
+                // einen neuen Benutzer anlegen
                 createUser();
                 break;
         }
     }
 
+    /**
+     * Den übergebenen Benutzer anzeigen
+     * @param user Benutzer
+     */
     private void showUser(User user) {
+        // Überprüfen, ob ein Employee oder ein Customer angezeigt werden soll
         if (user instanceof Employee) {
+            // user auf den Typ Employee casten, einen EmployeeView erstellen und als nächsten View setzten
             viewManager.setNextView(new EmployeeView(viewManager, (Employee) user));
         } else {
+            // user auf den Typ Customer casten, einen CustomerView erstellen und als nächsten View setzten
             viewManager.setNextView(new CustomerView(viewManager, (Customer) user));
         }
     }
 
+    /**
+     * Auf die Usernummer horchen und dann den passenden Benutzer zurückgeben
+     * @return User
+     */
     private User selectUser() {
+        // auf die Usernummer horchen
         System.out.print("Usernummer: ");
         int userId = scanner.nextInt();
         return users.get(userId);
     }
 
+    /**
+     * Einen neuen Kunden oder Angestellten anlegen
+     */
     private void createUser() {
         System.out.println("[A]ngestellter, [K]unde");
         String input = scanner.next().toUpperCase();

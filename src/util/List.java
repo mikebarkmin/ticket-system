@@ -4,7 +4,9 @@ import java.util.Comparator;
 
 public class List<E> {
 
-    // Der Listenkopf oder der Verweis/Referenz auf das erste Element der Liste
+    /**
+     * Listenkopf. Anfang der Liste.
+     */
     ListNode<E> head;
 
     /**
@@ -40,7 +42,12 @@ public class List<E> {
         return size;
     }
 
-    // Hilfsmethode fuer das Besorgen des Elementes an der Stell index 0 ..  size-1
+    /**
+     * Gibt die Node an der Stelle index zurück. Wenn keine Node an diesem Index existiert wird null
+     * zurückgegeben.
+     * @param index Index
+     * @return Node an der Stelle index
+     */
     private ListNode<E> getNodeAt(int index) {
         if (index < 0) {
             return null;
@@ -68,7 +75,7 @@ public class List<E> {
     public E get(int index) {
         ListNode<E> listNode = getNodeAt(index); // hole das Element (im Container ListNode) an der Stelle index
 
-        if (isEmpty()) {
+        if (isEmpty() || index > size()) {
             // da gab es keins an der Stelle index
             return null;
         } else {
@@ -193,15 +200,17 @@ public class List<E> {
         }
     }
 
+    /**
+     * Die Methode sortiert die List nach dem Übergebenen Sortierkriterium.
+     * @param c das Sortierkriterium
+     */
     public void sort(Comparator<E> c) {
         for (int i = size() - 1; i >= 0; i--) {
             for (int j = 0; j < i; j++) {
                 if (c.compare(get(j), get(j + 1)) > 0) {
-                    E temp = get(j);
-                    remove(j);
-                    add(j, get(j + 1));
-                    remove(j + 1);
-                    add(j + 1, temp);
+                    E temp2 = get(j + 1);
+                    remove(j+1);
+                    add(j, temp2);
                 }
             }
         }

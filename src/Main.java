@@ -10,8 +10,8 @@ public class Main {
         Customer customer = new Customer("Gero", "Behler", "gb@uni.de", "Uni Due");
 
         Ticket ticket = new Ticket(
-                "Beschreibung",
-                "In Bearbeitung",
+                "Fehler im System",
+                "Fertig",
                 employee,
                 customer,
                 2);
@@ -19,7 +19,7 @@ public class Main {
         ticketManager.add(ticket);
 
         ticket = new Ticket(
-                "Beschreibung",
+                "Bug korrigieren",
                 "In Bearbeitung",
                 employee,
                 customer,
@@ -28,8 +28,8 @@ public class Main {
         ticketManager.add(ticket);
 
         ticket = new Ticket(
-                "Beschreibung",
-                "In Bearbeitung",
+                "System aufräumen",
+                "Geschlossen",
                 employee,
                 customer,
                 3);
@@ -40,18 +40,13 @@ public class Main {
         scanner.useDelimiter(System.getProperty("line.separator"));
         String input;
         do {
-            System.out.println("[T]ickets, [H]inzufügen, [E]ntfernen, [N]ächtes, [Ä]ltestes, [B]eenden");
+            System.out.println("[T]ickets, [H]inzufügen, [E]ntfernen,  [S]uchen, [N]ächtes, [Ä]ltestes, [B]eenden");
             input = scanner.next();
             input = input.toUpperCase();
             if(input.equals("T")) {
                 TicketList tickets = ticketManager.getAll();
+                showTicketList(tickets);
                 // for(Ticket ticket : tickets) {
-                for(int i = 0; i < tickets.size(); i++) {
-                    Ticket current = tickets.get(i);
-                    if(current != null) {
-                        System.out.println(i + ") " + current.getStatus() + "\t " + current.getDescription() + "\t " + current.getPriority() + "\t " + current.getCreationDate());
-                    }
-                }
             } else if(input.equals("H")) {
                 System.out.print("Beschreibung: ");
                 String description = scanner.next();
@@ -76,8 +71,23 @@ public class Main {
                 if(oldest != null) {
                     System.out.println(oldest.getStatus() + "\t " + oldest.getDescription() + "\t " + oldest.getPriority() + "\t " + oldest.getCreationDate());
                 }
+            } else if(input.equals("S")) {
+                System.out.println("Suchbegriff: ");
+                String search = scanner.next();
+                TicketList tickets = ticketManager.search(search);
+                showTicketList(tickets);
             }
         } while (!input.equals("B"));
         scanner.close();
+    }
+
+    public static void showTicketList(TicketList tickets) {
+        for(int i = 0; i < tickets.size(); i++) {
+            Ticket current = tickets.get(i);
+            if(current != null) {
+                System.out.println(i + ") " + current.getStatus() + "\t " + current.getDescription() + "\t " +
+                                   current.getPriority() + "\t " + current.getCreationDate());
+            }
+        }
     }
 }

@@ -24,7 +24,10 @@ public class Ticket {
      * Priorität des Tickets
      */
     private int priority;
-    private Date creationDate;
+    /**
+     * Erstelldatum des Tickets
+     */
+    private final Date creationDate;
 
     /**
      * Erzeugt ein neues Ticket, welches beim Erzeugen den momentanen Zeitstempel als Erstelldatum zugewiesen bekommen.
@@ -127,7 +130,19 @@ public class Ticket {
         }
     }
 
+    /**
+     * Gibt das Erstelldatum zurück.
+     * @return Date das Erstelldatum
+     */
     public Date getCreationDate() {
         return creationDate;
+    }
+
+    /**
+     * Konvertiert das Objekt in einen String
+     * @return String Eigenschaften des Objekts
+     */
+    public String toString() {
+        return description + ";" + status + ";" + priority + ";" + employee.toString() + ";" + customer.toString();
     }
 }

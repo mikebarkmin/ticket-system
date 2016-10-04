@@ -16,15 +16,21 @@ public class Employee implements Comparable<Employee> {
      * Email-Adresse des Angestellten
      */
     private String email;
+    /**
+     * Bereich in dem der Angestellte arbeitet
+     */
+    private String department;
 
     /**
      * Erstellt ein Objekt vom Typ Employee
      * @param firstName Vorname des Angestellten
      * @param lastName Nachname des Angestellten
      */
-    public Employee(String firstName, String lastName) {
+    public Employee(String firstName, String lastName, String email, String department) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
+        this.department = department;
     }
 
     /**
@@ -60,6 +66,14 @@ public class Employee implements Comparable<Employee> {
     }
 
     /**
+     * Gibt den Bereich in dem der Angestellte arbeitet zurück
+     * @return Bereich in dem der Angestellte arbeitet
+     */
+    public String getDepartment() {
+        return deparment;
+    }
+
+    /**
      * Gibt die Email-Adresse des Angestellten zurück
      * @return Email-Adresse des Angestellten
      */
@@ -75,6 +89,12 @@ public class Employee implements Comparable<Employee> {
         this.email = email;
     }
 
+    /**
+     * Vergleicht zwei Objekte vom Typ employee
+     * @param employee Angestellter mit dem verglichen werden soll
+     * @return 0 sie sind gleich, -1 employee ist größer als dieser, 1 dieser ist größer als employee
+     * @see Comparable#compareTo(Object)
+     */
     @Override
     public int compareTo(Employee employee) {
         return (firstName + lastName).compareTo(employee.firstName + employee.lastName);

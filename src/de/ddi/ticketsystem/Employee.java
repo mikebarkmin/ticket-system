@@ -16,15 +16,21 @@ public class Employee {
      * Email-Adresse des Angestellten
      */
     private String email;
+    /**
+     * Bereich in dem der Angestellte arbeitet
+     */
+    private String department;
 
     /**
      * Erstellt ein Objekt vom Typ Employee
      * @param firstName Vorname des Angestellten
      * @param lastName Nachname des Angestellten
      */
-    public Employee(String firstName, String lastName) {
+    public Employee(String firstName, String lastName, String email, String department) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
+        this.department = department;
     }
 
     /**
@@ -57,6 +63,14 @@ public class Employee {
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    /**
+     * Gibt den Bereich in dem der Angestellte arbeitet zurück
+     * @return Bereich in dem der Angestellte arbeitet
+     */
+    public String getDepartment() {
+        return deparment;
     }
 
     /**

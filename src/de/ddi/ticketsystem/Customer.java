@@ -27,9 +27,10 @@ public class Customer {
      * @param lastName Nachname des Kunden
      * @param company Firma des Kunden
      */
-    public Customer(String firstName, String lastName, String company) {
+    public Customer(String firstName, String lastName, String email, String company) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
         this.company = company;
     }
 

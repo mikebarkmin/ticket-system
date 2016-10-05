@@ -50,4 +50,13 @@ public class Customer extends User {
     public void setCompany(String company) {
         this.company = company;
     }
+
+    /**
+     * Konvertiert das Objekt in einen String
+     * @return String Eigenschaften des Objekts
+     */
+    public String toString() {
+        return firstName + ";" + lastName + ";" + email + ";" + company;
+    }
 }
+

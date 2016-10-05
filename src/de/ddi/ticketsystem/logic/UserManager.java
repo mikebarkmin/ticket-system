@@ -41,36 +41,26 @@ public class UserManager extends Manager{
             String sUser = i + ";" + user.saveToText();
             data.add(sUser);
         }
-        try {
-            // versuchen zu speichern
-            access.save(data);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        access.save(data);
     }
 
     @Override
     public void load() throws IOException {
-        try {
-            List<String> data = access.load();
-            // List der geladenen Strings durchlaufen
-            for(int i = 0; i < data.size(); i++) {
-                String sUser = data.get(i);
-                // String am Semikolon aufteilen
-                String[] values = sUser.split(";");
-                // das Objekt abhängig von der Art des Benutzers erstellen
-                if(values[1].equals("EMPLOYEE")) {
-                    User user = new Employee(values[2], values[3], values[4], values[5]);
-                    users.add(user);
-                } else if(values[1].equals("CUSTOMER")){
-                    User user = new Customer(values[2], values[3], values[4], values[5]);
-                    users.add(user);
-                }
+        List<String> data = access.load();
+        // List der geladenen Strings durchlaufen
+        for(int i = 0; i < data.size(); i++) {
+            String sUser = data.get(i);
+            // String am Semikolon aufteilen
+            String[] values = sUser.split(";");
+            // das Objekt abhängig von der Art des Benutzers erstellen
+            if(values[1].equals("EMPLOYEE")) {
+                User user = new Employee(values[2], values[3], values[4], values[5]);
+                users.add(user);
+            } else if(values[1].equals("CUSTOMER")){
+                User user = new Customer(values[2], values[3], values[4], values[5]);
+                users.add(user);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-
     }
 
     /**

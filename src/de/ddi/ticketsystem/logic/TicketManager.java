@@ -34,7 +34,7 @@ public class TicketManager extends Manager{
 
     /**
      * Lädt alle Tickets ";"-getrennt in eine Liste und weist einen Zugriff vom Typ Access an, diese zu speichern.
-     * Zusätzlich werden dem Notizenmanager eine ID zu jedem Ticket mit den zugehörigen Tickets übergeben.n
+     * Zusätzlich werden dem Notizenmanager eine ID zu jedem Ticket mit den zugehörigen Tickets übergeben.
      */
     @Override
     public void save() throws IOException {
@@ -231,9 +231,5 @@ public class TicketManager extends Manager{
         // das nächste Ticket wird zurückgeben, wenn eines gefunden wurde, sonst wird null
         // zurückgegeben.
         return next;
-    }
-
-    public List<Ticket> getTickets() {
-        return tickets;
     }
 }

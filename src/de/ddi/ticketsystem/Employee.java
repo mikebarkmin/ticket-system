@@ -52,6 +52,7 @@ public class Employee extends User implements Comparable<Employee> {
     @Override
     public int compareTo(Employee employee) {
         return (firstName + lastName).compareTo(employee.firstName + employee.lastName);
+    }
 
     public String toString() {
         return firstName + ";" + lastName + ";" + email + ";" + department;

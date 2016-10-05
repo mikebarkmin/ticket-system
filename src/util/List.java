@@ -49,7 +49,7 @@ public class List<E> {
         return search(search, head);
     }
 
-    private List<E> search(String search, Node<E> current) {
+    private List<E> search(String search, ListNode<E> current) {
         if (current == null) {
             return new List<>();
         } else if (current.getValue().toString().contains(search)) {

@@ -6,7 +6,7 @@ package de.ddi.ticketsystem.logic;
  */
 public class Employee extends User {
     /**
-     * Name der Abteilung des Angestellten
+     * Bereich in dem der Angestellte arbeitet
      */
     private String department;
 

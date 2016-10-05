@@ -14,7 +14,7 @@ import util.List;
 
 public class TicketsView extends View {
 
-    private List<Ticket> tickets;
+    protected List<Ticket> tickets;
 
     /**
      * Erstellt eine Anzeige, die alle Tickets ausgibt und Optionen zur Auswahl eines Tickets,
@@ -29,7 +29,8 @@ public class TicketsView extends View {
 
         options = new String[]{
                 "[A]uswählen",
-                "[Ä]ltestes"
+                "[Ä]ltestes",
+                "[F]inden"
         };
         employeeOptions = new String[]{
                 "[N]ächstes",
@@ -114,14 +115,33 @@ public class TicketsView extends View {
                 break;
             case "S":
                 sort();
+            case "F":
+                searchTickets();
+                break;
             default:
                 break;
         }
     }
 
+    /**
+     * Methode zum Suchen nach einem Ticket
+     */
+    private void searchTickets() {
+        System.out.println("Suchbegriff: ");
+        String search = scanner.next();
+        List<Ticket> filteredTickets = tickets.search(search);
+        viewManager.setNextView(new TicketsSearchView(viewManager, filteredTickets));
+    }
+
+    /**
+     * Methode zum Erstellen eines neuen Tickets
+     */
     private void createTicket() {
+    	// Art
         System.out.println("[B]estellung, [S]törung, [A]nforderung");
         String input = scanner.next().toUpperCase();
+        
+        // Kunde
         System.out.println("Kunden auswählen: ");
         List<Customer> customers = viewManager.getUserManager().getCustomers();
         for(int i = 0; i < customers.size(); i++) {
@@ -131,11 +151,19 @@ public class TicketsView extends View {
         }
         int customerId = scanner.nextInt();
         Customer customer = customers.get(customerId);
+        
+        // Beschreibung
         System.out.print("Beschreibung: ");
         String description = scanner.next();
+        
+        // Status wird automatisch gesetzt
         Status status = Status.RECORDED;
+        
+        // Priorität
         System.out.print("Priorität: ");
         int priority = scanner.nextInt();
+        
+        // Angestellten auswählen
         System.out.println("Angestellen auswählen: ");
         List<Employee> employees = viewManager.getUserManager().getEmployees();
         for(int i = 0; i < employees.size(); i++) {
@@ -145,6 +173,8 @@ public class TicketsView extends View {
         }
         int employeeId = scanner.nextInt();
         Employee employee = employees.get(employeeId);
+        
+        // Art spezifische Eigenschaften abfragen
         switch (input) {
             case "S": {
                 System.out.print("Gerätservice: ");
@@ -179,26 +209,44 @@ public class TicketsView extends View {
         }
     }
 
+    /**
+     * Weist den TicketManager an ein Ticket zu löschen
+     * @param ticket das zulöschende Ticket
+     */
     private void deleteTicket(Ticket ticket) {
         viewManager.getTicketManager().remove(ticket);
     }
 
+    /**
+     * Wählt ein Ticket aus einer Liste aus.
+     * @return das ausgewählte Ticket
+     */
     private Ticket selectTicket() {
         System.out.println("Ticketnummer: ");
         int ticketId = scanner.nextInt();
         return tickets.get(ticketId);
     }
 
+    /**
+     * Zeige das als nächstes zu bearbeitende Ticket an
+     */
     private void showNext() {
         Ticket ticket = viewManager.getTicketManager().next();
         showTicket(ticket);
     }
 
+    /**
+     * Zeige das älteste Ticket an
+     */
     private void showOldest() {
         Ticket ticket = viewManager.getTicketManager().getOldest();
         showTicket(ticket);
     }
 
+    /**
+     * Zeige ein Ticket an.
+     * @param ticket das anzuzeigende Ticket
+     */
     private void showTicket(Ticket ticket) {
         viewManager.setNextView(new TicketView(viewManager, ticket));
     }

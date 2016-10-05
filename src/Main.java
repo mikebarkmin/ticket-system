@@ -18,7 +18,7 @@ public class Main {
         userManager.add(customer);
 
         Ticket ticket = new RequestTicket(
-                "Beschreibung",
+                "Fehler im System",
                 Status.RECORDED,
                 employee,
                 customer,
@@ -29,7 +29,7 @@ public class Main {
         ticketManager.add(ticket);
 
         ticket = new MalfunctionTicket(
-                "Beschreibung",
+                "Bug korrigieren",
                 Status.RECORDED,
                 employee,
                 customer,
@@ -39,7 +39,7 @@ public class Main {
         ticketManager.add(ticket);
 
         ticket = new OrderTicket(
-                "Beschreibung",
+                "System aufräumen",
                 Status.RECORDED,
                 employee,
                 customer,

@@ -31,7 +31,7 @@ public abstract class Ticket {
      */
     private Date creationDate;
     /**
-     * Liste der Notizen
+     * Liste von Notizen
      */
     private List<Note> notes;
 
@@ -43,7 +43,7 @@ public abstract class Ticket {
      * @param customer Referenz eines Objekts vom Typ Customer
      * @param priority Wichtigkeit des Tickets
      */
-    protected Ticket(String description, Status status, Employee employee, Customer customer, int priority) {
+    public Ticket(String description, Status status, Employee employee, Customer customer, int priority) {
         this.description = description;
         this.status = status;
         this.employee = employee;
@@ -182,4 +182,11 @@ public abstract class Ticket {
         return creationDate;
     }
 
+    /**
+     * Konvertiert das Objekt in einen String
+     * @return String Eigenschaften des Objekts
+     */
+    public String toString() {
+        return description + ";" + status + ";" + priority + ";" + employee.toString() + ";" + customer.toString();
+    }
 }

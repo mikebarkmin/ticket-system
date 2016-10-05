@@ -29,7 +29,10 @@ public abstract class Ticket {
     /**
      * Erstellungsdatum des Tickets
      */
-    private Date creationDate;
+    private final Date creationDate;
+    /**
+     * Liste von Notizen
+     */
     private List<Note> notes;
 
     /**
@@ -176,5 +179,13 @@ public abstract class Ticket {
      */
     public Date getCreationDate() {
         return creationDate;
+    }
+
+    /**
+     * Konvertiert das Objekt in einen String
+     * @return String Eigenschaften des Objekts
+     */
+    public String toString() {
+        return description + ";" + status + ";" + priority + ";" + employee.toString() + ";" + customer.toString();
     }
 }

@@ -12,7 +12,7 @@ public class Main {
         Customer customer = new Customer("Gero", "Behler", "g@b.de", "Uni Due");
 
         Ticket ticket = new RequestTicket(
-                "Beschreibung",
+                "Fehler im System",
                 Status.RECORDED,
                 employee,
                 customer,
@@ -23,7 +23,7 @@ public class Main {
         ticketManager.add(ticket);
 
         ticket = new MalfunctionTicket(
-                "Beschreibung",
+                "Bug korrigieren",
                 Status.RECORDED,
                 employee,
                 customer,
@@ -33,7 +33,7 @@ public class Main {
         ticketManager.add(ticket);
 
         ticket = new OrderTicket(
-                "Beschreibung",
+                "System aufräumen",
                 Status.RECORDED,
                 employee,
                 customer,
@@ -49,7 +49,7 @@ public class Main {
         scanner.useDelimiter(System.lineSeparator());
         String input;
         do {
-            System.out.println("[T]ickets, [A]nzeigen, [S]tatus ändern, [H]inzufügen, [E]ntfernen, [N]ächtes, [Ä]ltestes, [B]eenden");
+            System.out.println("[T]ickets, [A]nzeigen, [S]tatus ändern, [F]inden, [H]inzufügen, [E]ntfernen, [N]ächtes, [Ä]ltestes, [B]eenden");
             input = scanner.next();
             input = input.toUpperCase();
             if(input.equals("T")) {
@@ -62,13 +62,7 @@ public class Main {
                 } else if(input.equals("M")) {
                     tickets = ticketManager.getFromEmployee(employee);
                 }
-                for(int i = 0; i < tickets.size(); i++) {
-                    Ticket current = tickets.get(i);
-                    if(current != null) {
-                        System.out.println(i + ") " + current.getStatus() + "\t " + current.getDescription() + "\t "
-                                + current.getPriority() + "\t " + current.getCreationDate());
-                    }
-                }
+                showTicketList(tickets);
             } else if(input.equals("H")) {
                 System.out.println("[T]icket, [N]otiz");
                 input = scanner.next().toUpperCase();
@@ -149,8 +143,8 @@ public class Main {
                     System.out.println(next.getStatus() + "\t " + next.getDescription() + "\t " + next.getPriority() + "\t " + next.getCreationDate());
                 }
             } else if(input.equals("Ä")) {
-            	Ticket oldest = ticketManager.getOldest();
-            	if(oldest != null) {
+                Ticket oldest = ticketManager.getOldest();
+                if(oldest != null) {
                     System.out.println(oldest.getStatus() + "\t " + oldest.getDescription() + "\t " + oldest.getPriority() + "\t " + oldest.getCreationDate());
                 }
             } else if(input.equals("S")) {
@@ -187,7 +181,11 @@ public class Main {
                     System.out.println("\t" + note.getTitle());
                     System.out.println("\t" + note.getContent());
                 }
-
+            } else if(input.equals("F")) {
+                System.out.println("Suchbegriff: ");
+                String search = scanner.next();
+                List<Ticket> tickets = ticketManager.search(search);
+                showTicketList(tickets);
             }
         } while (!input.equals("B"));
         scanner.close();
@@ -218,5 +216,15 @@ public class Main {
             result = "GeräteService: " + ((MalfunctionTicket)ticket).getDeviceService();
         }
         return result;
+    }
+    
+    public static void showTicketList(List<Ticket> tickets) {
+        for(int i = 0; i < tickets.size(); i++) {
+            Ticket current = tickets.get(i);
+            if(current != null) {
+                System.out.println(i + ") " + current.getStatus() + "\t " + current.getDescription() + "\t " +
+                                   current.getPriority() + "\t " + current.getCreationDate());
+            }
+        }
     }
 }

@@ -6,7 +6,7 @@ package de.ddi.ticketsystem.logic;
  */
 public class Employee extends User {
     /**
-     * Name der Abteilung des Angestellten
+     * Bereich in dem der Angestellte arbeitet
      */
     private String department;
 
@@ -31,9 +31,10 @@ public class Employee extends User {
     }
 
     /**
-     * Gibt eine ";"-getrennte Zeichenkette mit den Informationen des Angestellten zurück. Reihenfolge:
-     * Nutzertyp;Fachbereich;Vorname;Nachname;Emailadresse;
-     * @return Ein ";"-getrennter String mit den Daten des Nutzers
+     * Vergleicht zwei Objekte vom Typ employee
+     * @param employee Angestellter mit dem verglichen werden soll
+     * @return 0 sie sind gleich, -1 employee ist größer als dieser, 1 dieser ist größer als employee
+     * @see Comparable#compareTo(Object)
      */
     @Override
     public String saveToText() {
@@ -41,5 +42,9 @@ public class Employee extends User {
         text += super.saveToText();
         text += department + ";";
         return text;
+    }
+
+    public String toString() {
+        return firstName + ";" + lastName + ";" + email + ";" + department;
     }
 }

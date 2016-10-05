@@ -34,7 +34,7 @@ public class TicketManager extends Manager{
 
     /**
      * Lädt alle Tickets ";"-getrennt in eine Liste und weist einen Zugriff vom Typ Access an, diese zu speichern.
-     * Zusätzlich werden dem Notizenmanager eine ID zu jedem Ticket mit den zugehörigen Tickets übergeben.n
+     * Zusätzlich werden dem Notizenmanager eine ID zu jedem Ticket mit den zugehörigen Tickets übergeben.
      */
     @Override
     public void save() throws IOException {
@@ -141,8 +141,16 @@ public class TicketManager extends Manager{
     }
 
     /**
-     * Gibt alle Tickets aus der Datenstruktur zurück. Sind keine Tickets vorhanden, wird eine
-     * leere Liste zurückgeben.
+     * Gibt alle Tickets zurück, die den Suchbegriff beinhalten
+     * @param search Suchbegriff
+     * @return TicketList Liste von Tickets, die den Suchbegriff beinhalten
+     */
+    public List<Ticket> search(String search) {
+        return tickets.search(search);
+    }
+
+    /**
+     * Gibt alle Tickets aus der Datenstruktur zurück. Sind keine Tickets vorhanden wird eine leere Liste zurückgeben.
      * @return List<Ticket> aller Tickets
      */
     public List<Ticket> getAll() {
@@ -231,9 +239,5 @@ public class TicketManager extends Manager{
         // das nächste Ticket wird zurückgeben, wenn eines gefunden wurde, sonst wird null
         // zurückgegeben.
         return next;
-    }
-
-    public List<Ticket> getTickets() {
-        return tickets;
     }
 }

@@ -30,6 +30,9 @@ public abstract class Ticket implements Saveable {
      * Erstellungsdatum des Tickets
      */
     private Date creationDate;
+    /**
+     * Liste von Notizen
+     */
     private List<Note> notes;
 
     /**
@@ -40,7 +43,7 @@ public abstract class Ticket implements Saveable {
      * @param customer Referenz eines Objekts vom Typ Customer
      * @param priority Wichtigkeit des Tickets
      */
-    protected Ticket(String description, Status status, Employee employee, Customer customer, int priority) {
+    public Ticket(String description, Status status, Employee employee, Customer customer, int priority) {
         this.description = description;
         this.status = status;
         this.employee = employee;
@@ -64,7 +67,9 @@ public abstract class Ticket implements Saveable {
      * @param description Beschreibung
      */
     public void setDescription(String description) {
-        this.description = description;
+    	if (status != Status.CLOSED) {
+    		this.description = description;
+    	}
     }
 
     /**
@@ -116,7 +121,9 @@ public abstract class Ticket implements Saveable {
      * @param customer Kunde
      */
     public void setCustomer(Customer customer) {
-        this.customer = customer;
+    	if (status != Status.CLOSED) {
+    		this.customer = customer;
+    	}
     }
 
     /**
@@ -144,7 +151,9 @@ public abstract class Ticket implements Saveable {
      * @param note Notiz
      */
     public void addNote(Note note) {
-        notes.add(note);
+    	if (status != Status.CLOSED) {
+    		notes.add(note);
+    	}
     }
 
     /**
@@ -152,7 +161,9 @@ public abstract class Ticket implements Saveable {
      * @param note Notiz
      */
     public void removeNote(Note note) {
-        notes.remove(notes.indexOf(note));
+    	if (status != Status.CLOSED) {
+    		notes.remove(notes.indexOf(note));
+    	}
     }
 
     /**
@@ -184,5 +195,13 @@ public abstract class Ticket implements Saveable {
     public String saveToText() {
         String text = description + ";" + status + ";" + priority + ";" + creationDate.getTime() + ";";
         return text;
+    }
+    
+    /**
+     * Konvertiert das Objekt in einen String
+     * @return String Eigenschaften des Objekts
+     */
+    public String toString() {
+        return description + ";" + status + ";" + priority + ";" + employee.toString() + ";" + customer.toString();
     }
 }

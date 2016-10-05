@@ -54,13 +54,11 @@ public class TicketView extends View {
                     + "\nAdresse\n\t" + orderTicket.getAddress()
                     + "\nAnzahl\n\t" + orderTicket.getQuantity();
 
-        }
-        else if(ticket instanceof RequestTicket) {
+        } else if(ticket instanceof RequestTicket) {
             RequestTicket requestTicket = (RequestTicket)ticket;
             result =  "Datum\n\t" + requestTicket.getDate()
                     + "\nService\n\t" + requestTicket.getService();
-        }
-        else if(ticket instanceof MalfunctionTicket) {
+        } else if(ticket instanceof MalfunctionTicket) {
             result = "GeräteService\n\t" + ((MalfunctionTicket)ticket).getDeviceService();
         }
         return result;

@@ -16,6 +16,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         scanner.useDelimiter(System.lineSeparator());
         String input;
+        List<Ticket> tickets = new List<>();
         do {
             System.out.println("[T]ickets, [A]nzeigen, [S]tatus ändern, [F]inden, [H]inzufügen, [E]ntfernen, [N]ächtes, [Ä]ltestes, [B]eenden");
             input = scanner.next();
@@ -23,7 +24,6 @@ public class Main {
             if(input.equals("T")) {
                 System.out.println("[A]lle, [M]eine");
                 input = scanner.next().toUpperCase();
-                List<Ticket> tickets = new List<>();
                 if(input.equals("A")) {
                     tickets = ticketManager.getAll();
                     // for(Ticket ticket : tickets) {
@@ -130,7 +130,7 @@ public class Main {
             } else if(input.equals("A")) {
                 System.out.print("Ticketnummer: ");
                 int ticketId = scanner.nextInt();
-                Ticket ticket = ticketManager.getAll().get(ticketId);
+                Ticket ticket = tickets.get(ticketId);
                 System.out.println("Angesteller: ");
                 System.out.println("\t" + ticket.getEmployee().getFirstName() + " " + ticket.getEmployee().getLastName());
                 System.out.println("Customer: ");
@@ -152,7 +152,7 @@ public class Main {
             } else if(input.equals("F")) {
                 System.out.println("Suchbegriff: ");
                 String search = scanner.next();
-                List<Ticket> tickets = ticketManager.search(search);
+                tickets = ticketManager.search(search);
                 showTicketList(tickets);
             }
         } while (!input.equals("B"));

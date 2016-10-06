@@ -115,7 +115,12 @@ public class TicketManager {
      * @return List<Ticket> mit den Tickets des Mitarbeiters
      */
     public List<Ticket> getFromEmployee(Employee employee) {
-        return ticketsByEmployee.get(employee);
+        List<Ticket> list = ticketsByEmployee.get(employee);
+        if (list == null) {
+            list = new List<Ticket>();
+        }
+        return list;
+    }
     }
 
     /**

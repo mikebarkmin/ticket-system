@@ -40,7 +40,6 @@ public class UserManager {
         for(int i = 0; i < users.size(); i++) {
             User user = users.get(i);
             // Überprüfen, ob der Vor- und Nachname mit dem momentanen Benutzer übereinstimmt.
-            System.out.println(user.getFirstName() + " " + user.getLastName());
             if(user.getFirstName().equals(firstName) && user.getLastName().equals(lastName)) {
                 current = user;
             }

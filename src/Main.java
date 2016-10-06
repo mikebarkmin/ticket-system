@@ -6,45 +6,21 @@ public class Main {
     public static void main(String[] args) {
         TicketManager ticketManager = new TicketManager();
 
-        Employee employee = new Employee("Mike", "Barkmin", "mb@company.de", "IT");
-        Customer customer = new Customer("Gero", "Behler", "gb@uni.de", "Uni Due");
+        DataGenerator.fillTicketManager(ticketManager);
 
-        Ticket ticket = new Ticket(
-                "Fehler im System",
-                Status.RECORDED,
-                employee,
-                customer,
-                2);
-
-        ticketManager.add(ticket);
-
-        ticket = new Ticket(
-                "Bug korrigieren",
-                Status.RECORDED,
-                employee,
-                customer,
-                1);
-
-        ticketManager.add(ticket);
-
-        ticket = new Ticket(
-                "System aufräumen",
-                Status.RECORDED,
-                employee,
-                customer,
-                3);
-
-        ticketManager.add(ticket);
+        Employee employee = DataGenerator.employee;
+        Customer customer = DataGenerator.customer;
 
         Scanner scanner = new Scanner(System.in);
         scanner.useDelimiter(System.lineSeparator());
         String input;
+        TicketList tickets = new TicketList();
         do {
             System.out.println("[T]ickets, [S]tatus ändern, [F]inden, [H]inzufügen, [E]ntfernen, [N]ächtes, [Ä]ltestes, [B]eenden");
             input = scanner.next();
             input = input.toUpperCase();
             if(input.equals("T")) {
-                TicketList tickets = ticketManager.getAll();
+                tickets = ticketManager.getAll();
                 showTicketList(tickets);
             } else if(input.equals("H")) {
                 System.out.print("Beschreibung: ");
@@ -77,7 +53,7 @@ public class Main {
             } else if(input.equals("S")) {
                 System.out.print("Ticketnummer: ");
                 int ticketId = scanner.nextInt();
-                ticket = ticketManager.getAll().get(ticketId);
+                Ticket ticket = ticketManager.getAll().get(ticketId);
                 System.out.println("Aktueller Status: " + ticket.getStatus());
                 Status status;
                 System.out.print("Neuer Status: ");
@@ -89,7 +65,7 @@ public class Main {
             } else if(input.equals("F")) {
                 System.out.println("Suchbegriff: ");
                 String search = scanner.next();
-                TicketList tickets = ticketManager.search(search);
+                tickets = ticketManager.search(search);
                 showTicketList(tickets);
             }
         } while (!input.equals("B"));

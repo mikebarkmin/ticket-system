@@ -8,33 +8,7 @@ public class Main {
 
         Employee employee = new Employee("Mike", "Barkmin", "mb@company.de", "IT");
         Customer customer = new Customer("Gero", "Behler", "gb@uni.de", "Uni Due");
-
-        Ticket ticket = new Ticket(
-                "Fehler im System",
-                "Fertig",
-                employee,
-                customer,
-                2);
-
-        ticketManager.add(ticket);
-
-        ticket = new Ticket(
-                "Bug korrigieren",
-                "In Bearbeitung",
-                employee,
-                customer,
-                1);
-
-        ticketManager.add(ticket);
-
-        ticket = new Ticket(
-                "System aufräumen",
-                "Geschlossen",
-                employee,
-                customer,
-                3);
-
-        ticketManager.add(ticket);
+        DataGenerator.fillTicketManager(ticketManager);
 
         Scanner scanner = new Scanner(System.in);
         scanner.useDelimiter(System.getProperty("line.separator"));

@@ -55,12 +55,12 @@ public class TicketList {
     private TicketList search(String search, TicketNode current) {
         if (current == null) {
             return new TicketList();
-        } else if (current.getValue().toString().contains(search)) {
-            TicketList ticketList = search(search, current.getNext());
-            ticketList.add(current.getValue()); 
-            return ticketList;
         } else {
-            return search(search, current.getNext());
+            TicketList ticketList = search(search, current.getNext());
+            if (current.getValue().toString().contains(search)) {
+                ticketList.add(current.getValue()); 
+            }    
+            return ticketList;
         }
     }
 

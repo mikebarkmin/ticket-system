@@ -6,19 +6,21 @@ public class Main {
     public static void main(String[] args) {
         TicketManager ticketManager = new TicketManager();
 
-        Employee employee = new Employee("Mike", "Barkmin", "mb@company.de", "IT");
-        Customer customer = new Customer("Gero", "Behler", "gb@uni.de", "Uni Due");
         DataGenerator.fillTicketManager(ticketManager);
+
+        Employee employee = DataGenerator.employee;
+        Customer customer = DataGenerator.customer;
 
         Scanner scanner = new Scanner(System.in);
         scanner.useDelimiter(System.getProperty("line.separator"));
         String input;
+        TicketList tickets = new TicketList();
         do {
             System.out.println("[T]ickets, [H]inzufügen, [E]ntfernen,  [S]uchen, [N]ächtes, [Ä]ltestes, [B]eenden");
             input = scanner.next();
             input = input.toUpperCase();
             if(input.equals("T")) {
-                TicketList tickets = ticketManager.getAll();
+                tickets = ticketManager.getAll();
                 showTicketList(tickets);
                 // for(Ticket ticket : tickets) {
             } else if(input.equals("H")) {
@@ -48,7 +50,7 @@ public class Main {
             } else if(input.equals("S")) {
                 System.out.println("Suchbegriff: ");
                 String search = scanner.next();
-                TicketList tickets = ticketManager.search(search);
+                tickets = ticketManager.search(search);
                 showTicketList(tickets);
             }
         } while (!input.equals("B"));

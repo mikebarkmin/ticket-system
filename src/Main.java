@@ -8,43 +8,11 @@ public class Main {
     public static void main(String[] args) {
         TicketManager ticketManager = new TicketManager();
 
-        Employee employee = new Employee("Mike", "Barkmin", "m@b.de", "ddi");
-        Customer customer = new Customer("Gero", "Behler", "g@b.de", "Uni Due");
+        DataGenerator.fillTicketManager(ticketManager);
 
-        Ticket ticket = new RequestTicket(
-                "Fehler im System",
-                Status.RECORDED,
-                employee,
-                customer,
-                2,
-                new Date(),
-                "repair");
-
-        ticketManager.add(ticket);
-
-        ticket = new MalfunctionTicket(
-                "Bug korrigieren",
-                Status.RECORDED,
-                employee,
-                customer,
-                1,
-                "reboot");
-
-        ticketManager.add(ticket);
-
-        ticket = new OrderTicket(
-                "System aufräumen",
-                Status.RECORDED,
-                employee,
-                customer,
-                3,
-                "dingssoft",
-                "doors",
-                "Plastic Valley",
-                19);
-
-        ticketManager.add(ticket);
-
+        Employee employee = DataGenerator.employee;
+        Customer customer = DataGenerator.customer;
+        
         Scanner scanner = new Scanner(System.in);
         scanner.useDelimiter(System.lineSeparator());
         String input;
@@ -107,7 +75,7 @@ public class Main {
                 } else if(input.equals("N")) {
                     System.out.print("Ticketnummer: ");
                     int ticketId = scanner.nextInt();
-                    ticket = ticketManager.getAll().get(ticketId);
+                    Ticket ticket = ticketManager.getAll().get(ticketId);
                     System.out.print("Titel: ");
                     String title = scanner.next();
                     System.out.print("Inhalt: ");
@@ -120,7 +88,7 @@ public class Main {
                 input = scanner.next().toUpperCase();
                 System.out.print("Ticketnummer: ");
                 int ticketId = scanner.nextInt();
-                ticket = ticketManager.getAll().get(ticketId);
+                Ticket ticket = ticketManager.getAll().get(ticketId);
                 if(input.equals("T")) {
                     ticketManager.remove(ticket);
                 } else if(input.equals("N")) {
@@ -150,7 +118,7 @@ public class Main {
             } else if(input.equals("S")) {
                 System.out.print("Ticketnummer: ");
                 int ticketId = scanner.nextInt();
-                ticket = ticketManager.getAll().get(ticketId);
+                Ticket ticket = ticketManager.getAll().get(ticketId);
                 System.out.println("Aktueller Status: " + ticket.getStatus());
                 Status status;
                 System.out.print("Neuer Status: ");
@@ -162,7 +130,7 @@ public class Main {
             } else if(input.equals("A")) {
                 System.out.print("Ticketnummer: ");
                 int ticketId = scanner.nextInt();
-                ticket = ticketManager.getAll().get(ticketId);
+                Ticket ticket = ticketManager.getAll().get(ticketId);
                 System.out.println("Angesteller: ");
                 System.out.println("\t" + ticket.getEmployee().getFirstName() + " " + ticket.getEmployee().getLastName());
                 System.out.println("Customer: ");

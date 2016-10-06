@@ -6,35 +6,10 @@ public class Main {
     public static void main(String[] args) {
         TicketManager ticketManager = new TicketManager();
 
-        Employee employee = new Employee("Mike", "Barkmin", "mb@company.de", "IT");
-        Customer customer = new Customer("Gero", "Behler", "gb@uni.de", "Uni Due");
-
-        Ticket ticket = new Ticket(
-                "Beschreibung",
-                "In Bearbeitung",
-                employee,
-                customer,
-                2);
-
-        ticketManager.add(ticket);
-
-        ticket = new Ticket(
-                "Beschreibung",
-                "In Bearbeitung",
-                employee,
-                customer,
-                1);
-
-        ticketManager.add(ticket);
-
-        ticket = new Ticket(
-                "Beschreibung",
-                "In Bearbeitung",
-                employee,
-                customer,
-                3);
-
-        ticketManager.add(ticket);
+        DataGenerator.fillTicketManager(ticketManager);
+        
+        Employee employee = DataGenerator.employee;
+        Customer customer = DataGenerator.customer;
 
         Scanner scanner = new Scanner(System.in);
         scanner.useDelimiter(System.getProperty("line.separator"));

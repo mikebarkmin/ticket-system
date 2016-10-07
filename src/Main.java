@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
         // Initialisierungen
         Ticket[] tickets = new Ticket[100];
         int count = 0;
@@ -9,21 +10,26 @@ public class Main {
         scanner.useDelimiter(System.lineSeparator());
         String input;
 
+        // Ein Beispiel-Angestellter
+        Employee employee = new Employee("Mike", "Barkmin", "mb@company.de", "IT");
+        // Ein Beispiel-Kunde
+        Customer customer = new Customer("Gero", "Behler", "gb@uni.de", "Uni Due");
+
         // Zwei Beispieltickets
         tickets[count] = new Ticket(
                 "Beschreibung",
-                "In Bearbeitung",
-                "Mike Barkmin",
-                "Paluno",
+                "Aufgenommen",
+                employee,
+                customer,
                 1);
         count++;
 
         tickets[count] = new Ticket(
                 "Beschreibung",
                 "In Bearbeitung",
-                "Gero Behler",
-                "Paluno",
-                1);
+                employee,
+                customer,
+                3);
         count++;
 
         // Schleife zur Nutzerinteraktion
@@ -39,8 +45,9 @@ public class Main {
                         if (ticket != null) {
                             if(ticket != null) {
                                 System.out.println(ticket.getStatus() + "\t " + ticket.getDescription() + "\t "
-                                        + ticket.getPriority() + "\t " + ticket.getEmployee() + "\t"
-                                        + ticket.getCustomer());
+                                        + ticket.getPriority() + "\t "
+                                        + ticket.getEmployee().getFirstName() + " " + ticket.getEmployee().getLastName() + "\t"
+                                        + ticket.getCustomer().getFirstName() + " " + ticket.getCustomer().getLastName());
                             }
                         }
                     }
@@ -54,10 +61,6 @@ public class Main {
                     String status = scanner.next();
                     System.out.print("Priorität: ");
                     int priority = scanner.nextInt();
-                    System.out.println("Angestellter: ");
-                    String employee = scanner.next();
-                    System.out.println("Kunde: ");
-                    String customer = scanner.next();
 
                     // Ticket zum Array hinzufügen und Zähler inkrementieren
                     Ticket toAdd = new Ticket(description, status, employee, customer, priority);

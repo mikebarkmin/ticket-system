@@ -9,13 +9,13 @@ public class Ticket {
      */
     private String status;
     /**
-     * Name des Angestellten, der das Ticket bearbeiten soll
+     * zugewiesener Angestellte
      */
-    private String employee;
+    private Employee employee;
     /**
-     * Name des Kunden, der das Ticket in Auftrag gegeben hat
+     * Kunden für den das Ticket bearbeitet wird
      */
-    private String customer;
+    private Customer customer;
     /**
      * Priorität des Tickets
      */
@@ -25,11 +25,11 @@ public class Ticket {
      * Erzeugt ein neues Ticket
      * @param description Beschreibung des Tickets
      * @param status Status aus (RECORDED, PROCESSED, WAITING_FOR_FEEDBACK, SOLVED, CLOSED)
-     * @param employee Name des Angestellten
-     * @param customer Name des Kunden
+     * @param employee Referenz eines Objekts vom Typ Emloyee
+     * @param customer Referenz eines Objekts vom Typ Customer
      * @param priority Wichtigkeit des Tickets
      */
-    public Ticket(String description, String status, String employee, String customer, int priority) {
+    public Ticket(String description, String status, Employee employee, Customer customer, int priority) {
         this.description = description;
         this.status = status;
         this.employee = employee;
@@ -70,34 +70,34 @@ public class Ticket {
     }
 
     /**
-     * Gibt den Namen des zugewiesenen Angestellten zurück
-     * @return Name des Angestellten
+     * Gibt den zugewiesenen Angestellten zurück
+     * @return zugewiesener Angestellte
      */
-    public String getEmployee() {
+    public Employee getEmployee() {
         return employee;
     }
 
     /**
-     * Dem Ticket einen neuen Angestellten per Namen zuweisen
-     * @param employee Name des Angestellten
+     * Dem Ticket einen neuen Angestellten zuweisen
+     * @param employee Angestellter
      */
-    public void setEmployee(String employee) {
+    public void setEmployee(Employee employee) {
         this.employee = employee;
     }
 
     /**
-     * Gibt den Namen des Kunden zurück für den das Ticket bearbeitet wird
-     * @return Name des Kunden
+     * Gibt den Kunden zurück für den das Ticket bearbeitet wird
+     * @return Kunde
      */
-    public String getCustomer() {
+    public Customer getCustomer() {
         return customer;
     }
 
     /**
-     * Dem Ticket einen neuen Kunden per Namen zuweisen
-     * @param customer Name des Kunden
+     * Dem Ticket einen neuen Kunden zuweisen
+     * @param customer Kunde
      */
-    public void setCustomer(String customer) {
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 

@@ -70,7 +70,7 @@ public class Employee {
      * @return Bereich in dem der Angestellte arbeitet
      */
     public String getDepartment() {
-        return deparment;
+        return department;
     }
 
     /**

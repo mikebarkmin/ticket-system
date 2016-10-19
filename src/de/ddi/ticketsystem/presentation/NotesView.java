@@ -18,14 +18,7 @@ public class NotesView extends View {
      */
     public NotesView(ViewManager viewManager, Ticket ticket) {
         super(viewManager);
-        this.ticket = ticket;
-        name = "Notizen";
-        notes = this.ticket.getNotes();
-
-        employeeOptions = new String[]{
-                "[L]öschen",
-                "[N]eu",
-        };
+        // TODO
     }
 
     /**
@@ -34,12 +27,7 @@ public class NotesView extends View {
     @Override
     public void show() {
         String text = "";
-        for(int i = 0; i < notes.size(); i++) {
-            Note note = notes.get(i);
-            text += i + ") " + note.getEmployee().getFirstName() + " " + note.getEmployee().getLastName() + " - "
-                    + note.getTitle() + " (" + note.getCreationDate() + ")\n";
-            text += "\t" + note.getContent() + "\n\n";
-        }
+        // TODO
         this.text = text;
         super.show();
     }
@@ -52,35 +40,20 @@ public class NotesView extends View {
      */
     @Override
     public void evaluate(String input) {
-        switch (input) {
-            case "L":
-                deleteNote();
-                break;
-            case "N":
-                createNote();
-                break;
-        }
+        // TODO
     }
 
     /**
      * Anhand der Notiznummer eine Notiz löschen
      */
     private void deleteNote() {
-        System.out.print("Notiznummer: ");
-        int noteId = scanner.nextInt();
-        Note note = notes.get(noteId);
-        ticket.removeNote(note);
+        // TODO
     }
 
     /**
      * Eine neue Notiz anlegen
      */
     private void createNote() {
-        System.out.print("Titel: ");
-        String title = scanner.next();
-        System.out.print("Inhalt: ");
-        String content = scanner.next();
-        Note note = new Note(title, content, (Employee) currentUser);
-        ticket.addNote(note);
+        // TODO
     }
 }

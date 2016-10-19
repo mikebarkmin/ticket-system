@@ -1,8 +1,5 @@
-import de.ddi.ticketsystem.logic.Status;
 import de.ddi.ticketsystem.logic.*;
 import de.ddi.ticketsystem.presentation.ViewManager;
-
-import java.util.Date;
 
 public class Main {
     public static void main(String[] args) {

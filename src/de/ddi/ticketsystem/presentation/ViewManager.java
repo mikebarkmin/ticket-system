@@ -20,9 +20,9 @@ public class ViewManager {
      */
     private TicketManager ticketManager;
     /**
-     * Historie der aufgerufenen Views
+     * Aktuelle View
      */
-    private Stack<View> viewStack;
+    private View currentView;
     /**
      * Scanner, um die Eingaben des Benutzer abzufangen
      */
@@ -36,7 +36,6 @@ public class ViewManager {
     public ViewManager(UserManager userManager, TicketManager ticketManager) {
         this.userManager = userManager;
         this.ticketManager = ticketManager;
-        viewStack = new Stack<>();
         scanner = new Scanner(System.in);
         scanner.useDelimiter(System.lineSeparator());
     }
@@ -45,15 +44,15 @@ public class ViewManager {
      * Startet den ViewManager mit der Anzeige des Logins.
      */
     public void run() {
-        // erstelle einen LoginView und füge ihn dem ViewStack hinzu
-        viewStack.push(new LoginView(this));
+        // erstelle einen LoginView und verwende sie als aktuelle View
+
         // Endlosschleife, damit dass Programm sich nicht von alleine schließt
-        while(true) {
-            // den nächsten View anzeigen
-            showView();
+
+            // die aktuelle View anzeigen
+
             // auf die Eingabe des Benutzers horchen
-            getInput();
-        }
+
+
     }
 
     /**
@@ -61,10 +60,8 @@ public class ViewManager {
      * genommen, sondern bleibt an oberster Stelle liegen.
      */
     private void showView() {
-        // ermitteln welcher View an erster Stelle auf dem Stack liegt, ohne ihm vom Stack zunehmen.
-        View current = viewStack.peek();
-        // diesen View anzeigen
-        current.show();
+        // Akutelle View anzeigen
+
     }
 
     /**
@@ -77,29 +74,23 @@ public class ViewManager {
         String input = scanner.next().toUpperCase();
         // entscheiden anhand der Eingabe was als nächstes passieren soll
         switch (input) {
-            case "Z":
-                // Den ersten View vom Stack entfernen, sodass in der Historie zurückgegangen wird.
-                viewStack.pop();
-                break;
             case "B":
                 // Das System beenden
                 System.exit(0);
                 break;
             default:
-                // Den momentanen View ermitteln
-                View current = viewStack.peek();
-                // Die Auswertung der Eingabe dem View überlassen
-                current.evaluate(input);
+                // Die Auswertung der Eingabe der View überlassen
+                currentView.evaluate(input);
                 break;
         }
     }
 
     /**
-     * Einen View auf den ViewStack legen, sodass dieser als nächstes angezeigt wird.
+     * Die übergebene View als aktuelle View setzen
      * @param view View
      */
     public void setNextView(View view) {
-        viewStack.push(view);
+
     }
 
     /**

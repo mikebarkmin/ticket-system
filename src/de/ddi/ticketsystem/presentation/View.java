@@ -30,7 +30,7 @@ public abstract class View {
     /**
      * Globale Optionen, die nichts mit dem View zutun haben
      */
-    private String[] globalOptions = {"[Z]urück", "[B]eenden"};
+    private String[] globalOptions = {"[B]eenden"};
     /**
      * Der ViewManager, der die Views verwaltet
      */

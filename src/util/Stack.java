@@ -7,7 +7,7 @@ public class Stack<E> {
     private List<E> stack;
 
     public Stack() {
-        stack = new List<>();
+        // TODO
     }
 
     /**
@@ -15,7 +15,7 @@ public class Stack<E> {
      * @param entry Eintrag
      */
     public void push(E entry) {
-        stack.add(entry);
+        // TODO
     }
 
     /**
@@ -23,10 +23,8 @@ public class Stack<E> {
      * @return Eintrag
      */
     public E pop() {
-        int lastIndex = stack.size() - 1;
-        E entry = stack.get(lastIndex);
-        stack.remove(lastIndex);
-        return entry;
+        // TODO
+        return null;
     }
 
     /**
@@ -34,7 +32,8 @@ public class Stack<E> {
      * @return Eintrag
      */
     public E peek() {
-        return stack.get(stack.size() - 1);
+        // TODO
+        return null;
     }
 
 }

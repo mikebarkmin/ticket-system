@@ -2,6 +2,7 @@ package de.ddi.ticketsystem.presentation;
 
 import de.ddi.ticketsystem.logic.Employee;
 import de.ddi.ticketsystem.logic.Customer;
+import de.ddi.ticketsystem.logic.User;
 
 public class UserView extends View {
 
@@ -12,7 +13,7 @@ public class UserView extends View {
      * @param viewManager ViewManager, der die Anzeige verwaltet
      * @param employee Mitarbeiter, dessen Daten angezeigt werden sollen
      */
-    public EmployeeView(ViewManager viewManager, User user) {
+    public UserView(ViewManager viewManager, User user) {
         super(viewManager);
         name = "Nutzer";
         this.user = user;

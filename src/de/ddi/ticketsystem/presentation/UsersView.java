@@ -79,14 +79,7 @@ public class UsersView extends View {
      * @param user Benutzer
      */
     private void showUser(User user) {
-        // Überprüfen, ob ein Employee oder ein Customer angezeigt werden soll
-        if (user instanceof Employee) {
-            // user auf den Typ Employee casten, einen EmployeeView erstellen und als nächsten View setzten
-            viewManager.setNextView(new EmployeeView(viewManager, (Employee) user));
-        } else {
-            // user auf den Typ Customer casten, einen CustomerView erstellen und als nächsten View setzten
-            viewManager.setNextView(new CustomerView(viewManager, (Customer) user));
-        }
+        viewManager.setNextView(new UserView(viewManagaer, user));
     }
 
     /**

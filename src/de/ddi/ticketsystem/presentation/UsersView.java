@@ -79,7 +79,7 @@ public class UsersView extends View {
      * @param user Benutzer
      */
     private void showUser(User user) {
-        viewManager.setNextView(new UserView(viewManagaer, user));
+        viewManager.setNextView(new UserView(viewManager, user));
     }
 
     /**

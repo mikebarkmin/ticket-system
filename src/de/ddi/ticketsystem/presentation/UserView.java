@@ -11,7 +11,7 @@ public class UserView extends View {
     /**
      * Erstellt eine Anzeige, die die Daten zu einem Mitarbeiter anzeigt
      * @param viewManager ViewManager, der die Anzeige verwaltet
-     * @param employee Mitarbeiter, dessen Daten angezeigt werden sollen
+     * @param user Mitarbeiter, dessen Daten angezeigt werden sollen
      */
     public UserView(ViewManager viewManager, User user) {
         super(viewManager);
@@ -25,9 +25,9 @@ public class UserView extends View {
     @Override
     public void show() {
         String text = "Name\n";
-        text += "\t" + employee.getFirstName() + " " + employee.getLastName() + "\n";
+        text += "\t" + user.getFirstName() + " " + user.getLastName() + "\n";
         text += "Email\n";
-        text += "\t" + employee.getEmail() + "\n";
+        text += "\t" + user.getEmail() + "\n";
         text += this.getSpecificInfo(user);
         this.text = text;
         super.show();
@@ -35,13 +35,13 @@ public class UserView extends View {
 
     private String getSpecificInfo(User user) {
         String result = "";
-        if (user instanceOf Employee) {
+        if (user instanceof Employee) {
             Employee employee = (Employee)user;
             result = "Rolle\n"
                 + "\tAngestellter\n"
                 + "Abteilung\n"
                 + "\t" + employee.getDepartment() + "\n";
-        } else if (user instanceOf Customer) {
+        } else if (user instanceof Customer) {
             Customer customer = (Customer)user;
             result = "Rolle\n"
                 + "\tKunde\n"

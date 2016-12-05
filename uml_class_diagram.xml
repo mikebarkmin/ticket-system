@@ -1,4 +1,5 @@
 <checkerrules>
+<!-- TICKET -->
     <!-- ATTRIBUTE -->
     <!-- -description:String -->
     <rule type="presence" points="4">
@@ -16,7 +17,6 @@
         </query>
         <feedback prefix="UML Klassendiagramm">
             Das Attribut "private String description" in der Klasse "Ticket" fehlt.
-            Hast du die vorgegebene Attributsignatur veraendert?
         </feedback>
     </rule>
     <!-- -status:String -->
@@ -35,10 +35,9 @@
         </query>
         <feedback prefix="UML Klassendiagramm">
             Das Attribut "private String status" in der Klasse "Ticket" fehlt.
-            Hast du die vorgegebene Attributsignatur veraendert?
         </feedback>
     </rule>
-    <!-- -employee:String -->
+    <!-- -employee:Employee -->
     <rule type="presence" points="4">
         <query>
             from t : V{TypeDeclaration}, f : V{FieldDeclaration}, m : V{Modifier}, st : V{SimpleType}, vdf: V{VariableDeclarationFragment} with
@@ -47,17 +46,16 @@
                 f -->{FieldDeclarationModifiers} m and
                 m.name="private" and
                 f -->{FieldDeclarationType} st and
-                st.name="String" and
+                st.name="Employee" and
                 f -->{FieldDeclarationFragments} vdf and
                 vdf.name="employee"
             report 0 end
         </query>
         <feedback prefix="UML Klassendiagramm">
             Das Attribut "private String employee" in der Klasse "Ticket" fehlt.
-            Hast du die vorgegebene Attributsignatur veraendert?
         </feedback>
     </rule>
-    <!-- -customer:String -->
+    <!-- -customer:Customer -->
     <rule type="presence" points="4">
         <query>
             from t : V{TypeDeclaration}, f : V{FieldDeclaration}, m : V{Modifier}, st : V{SimpleType}, vdf: V{VariableDeclarationFragment} with
@@ -66,14 +64,13 @@
                 f -->{FieldDeclarationModifiers} m and
                 m.name="private" and
                 f -->{FieldDeclarationType} st and
-                st.name="String" and
+                st.name="Customer" and
                 f -->{FieldDeclarationFragments} vdf and
                 vdf.name="customer"
             report 0 end
         </query>
         <feedback prefix="UML Klassendiagramm">
             Das Attribut "private String customer" in der Klasse "Ticket" fehlt.
-            Hast du die vorgegebene Attributsignatur veraendert?
         </feedback>
     </rule>
     <!-- -priority:int -->
@@ -92,12 +89,11 @@
         </query>
         <feedback prefix="UML Klassendiagramm">
             Das Attribut "private int priority" in der Klasse "Ticket" fehlt.
-            Hast du die vorgegebene Attributsignatur veraendert?
         </feedback>
     </rule>
     <!--- KONSTRUKTOREN -->
-    <!-- +Ticket(description:String, status:String, employee:String,
-      customer:String, priority:int -->
+    <!-- +Ticket(description:String, status:String, employee:Employee,
+      customer:Customer, priority:int -->
     <rule type="presence" points="4">
         <!-- description:String -->
         <query>
@@ -135,7 +131,7 @@
                 m -->{MethodDeclarationParameters} svd and
                 svd.name="employee" and
                 svd -->{SingleVariableDeclarationType} st and
-                st.name="String"
+                st.name="Employee"
             report 0 end
         </query>
         <!-- employee:String -->
@@ -148,7 +144,7 @@
                 m -->{MethodDeclarationParameters} svd and
                 svd.name="customer" and
                 svd -->{SingleVariableDeclarationType} st and
-                st.name="String"
+                st.name="Customer"
             report 0 end
         </query>
         <!-- priority:int -->
@@ -167,8 +163,7 @@
         <feedback prefix="UML Klassendiagramm">
             Der Konstruktor "public Ticket(String description, String status,
             String employee, String customer, int priority)" in der Klasse
-            "Ticket" fehlt.  Hast du die vorgegebene Konstruktorsignatur
-            veraendert?
+            "Ticket" fehlt.
         </feedback>
     </rule>
     <!-- METHODEN -->
@@ -183,7 +178,6 @@
         </query>
         <feedback prefix="UML Klassendiagramm">
             Die Methode "public String getDescription()" in der Klasse "Ticket" fehlt.
-            Hast du die vorgegebene Methodensignatur veraendert?
         </feedback>
     </rule>
     <!-- +getStatus():String -->
@@ -197,35 +191,32 @@
         </query>
         <feedback prefix="UML Klassendiagramm">
             Die Methode "public String getStatus()" in der Klasse "Ticket" fehlt.
-            Hast du die vorgegebene Methodensignatur veraendert?
         </feedback>
     </rule>
-    <!-- +getEmployee():String -->
+    <!-- +getEmployee():Employee -->
     <rule type="presence" points="4">
         <query>
             from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
                 t.name="Ticket" and
                 t -->{TypeDeclarationBodyDeclarations2} m and
-                hasSignature(m, "public String getEmployee()")
+                hasSignature(m, "public Employee getEmployee()")
             report 0 end
         </query>
         <feedback prefix="UML Klassendiagramm">
-            Die Methode "public String getEmployee()" in der Klasse "Ticket" fehlt.
-            Hast du die vorgegebene Methodensignatur veraendert?
+            Die Methode "public Employee getEmployee()" in der Klasse "Ticket" fehlt.
         </feedback>
     </rule>
-    <!-- +getCustomer():String -->
+    <!-- +getCustomer():Customer -->
     <rule type="presence" points="4">
         <query>
             from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
                 t.name="Ticket" and
                 t -->{TypeDeclarationBodyDeclarations2} m and
-                hasSignature(m, "public String getCustomer()")
+                hasSignature(m, "public Customer getCustomer()")
             report 0 end
         </query>
         <feedback prefix="UML Klassendiagramm">
-            Die Methode "public String getCustomer()" in der Klasse "Ticket" fehlt.
-            Hast du die vorgegebene Methodensignatur veraendert?
+            Die Methode "public Customer getCustomer()" in der Klasse "Ticket" fehlt.
         </feedback>
     </rule>
     <!-- +getPriority():int -->
@@ -239,7 +230,6 @@
         </query>
         <feedback prefix="UML Klassendiagramm">
             Die Methode "public int getPriority()" in der Klasse "Ticket" fehlt.
-            Hast du die vorgegebene Methodensignatur veraendert?
         </feedback>
     </rule>
     <!-- +setPriority(int):void -->
@@ -253,7 +243,6 @@
         </query>
         <feedback prefix="UML Klassendiagramm">
             Die Methode "public void setPriority(int)" in der Klasse "Ticket" fehlt.
-            Hast du die vorgegebene Methodensignatur veraendert?
         </feedback>
     </rule>
     <!-- +setStatus(String):void -->
@@ -267,21 +256,393 @@
         </query>
         <feedback prefix="UML Klassendiagramm">
             Die Methode "public void setStatus(String)" in der Klasse "Ticket" fehlt.
-            Hast du die vorgegebene Methodensignatur veraendert?
         </feedback>
     </rule>
-    <!-- +setEmployee(String):void -->
+    <!-- +setEmployee(Employee):void -->
     <rule type="presence" points="4">
         <query>
             from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
                 t.name="Ticket" and
                 t -->{TypeDeclarationBodyDeclarations2} m and
-                hasSignature(m, "public void setEmployee(String)")
+                hasSignature(m, "public void setEmployee(Employee)")
             report 0 end
         </query>
         <feedback prefix="UML Klassendiagramm">
-            Die Methode "public void setEmployee(String)" in der Klasse "Ticket" fehlt.
-            Hast du die vorgegebene Methodensignatur veraendert?
+            Die Methode "public void setEmployee(Employee)" in der Klasse "Ticket" fehlt.
+        </feedback>
+    </rule>
+<!-- CUSTOMER -->
+	<!-- ATTRIBUTE -->
+	<!-- -email:String -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, f : V{FieldDeclaration}, m : V{Modifier}, st : V{SimpleType}, vdf: V{VariableDeclarationFragment} with
+                t.name="Customer" and
+                t -->{TypeDeclarationBodyDeclarations1} f and
+                f -->{FieldDeclarationModifiers} m and
+                m.name="private" and
+                f -->{FieldDeclarationType} st and
+                st.name="String" and
+                f -->{FieldDeclarationFragments} vdf and
+                vdf.name="email"
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Das Attribut "private String email" in der Klasse "Customer" fehlt.
+        </feedback>
+    </rule>
+    <!-- -firstName:String -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, f : V{FieldDeclaration}, m : V{Modifier}, st : V{SimpleType}, vdf: V{VariableDeclarationFragment} with
+                t.name="Customer" and
+                t -->{TypeDeclarationBodyDeclarations1} f and
+                f -->{FieldDeclarationModifiers} m and
+                m.name="private" and
+                f -->{FieldDeclarationType} st and
+                st.name="String" and
+                f -->{FieldDeclarationFragments} vdf and
+                vdf.name="firstName"
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Das Attribut "private String firstName" in der Klasse "Customer" fehlt.
+        </feedback>
+    </rule>
+    <!-- -lastName:String -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, f : V{FieldDeclaration}, m : V{Modifier}, st : V{SimpleType}, vdf: V{VariableDeclarationFragment} with
+                t.name="Customer" and
+                t -->{TypeDeclarationBodyDeclarations1} f and
+                f -->{FieldDeclarationModifiers} m and
+                m.name="private" and
+                f -->{FieldDeclarationType} st and
+                st.name="String" and
+                f -->{FieldDeclarationFragments} vdf and
+                vdf.name="lastName"
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Das Attribut "private String lastName" in der Klasse "Customer" fehlt.
+        </feedback>
+    </rule>
+	<!-- -company:String -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, f : V{FieldDeclaration}, m : V{Modifier}, st : V{SimpleType}, vdf: V{VariableDeclarationFragment} with
+                t.name="Customer" and
+                t -->{TypeDeclarationBodyDeclarations1} f and
+                f -->{FieldDeclarationModifiers} m and
+                m.name="private" and
+                f -->{FieldDeclarationType} st and
+                st.name="String" and
+                f -->{FieldDeclarationFragments} vdf and
+                vdf.name="company"
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Das Attribut "private String company" in der Klasse "Customer" fehlt.
+        </feedback>
+    </rule>
+    <!--- KONSTRUKTOREN -->
+    <!-- +Customer(String firstName, String lastName, String email, String company) -->
+    <rule type="presence" points="4">
+        <!-- firstName:String -->
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration}, svd : V{SingleVariableDeclaration}, st : V{SimpleType} with
+                t.name="Customer" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                m.constructor=true and
+                m.name="Customer" and
+                m -->{MethodDeclarationParameters} svd and
+                svd.name="firstName" and
+                svd -->{SingleVariableDeclarationType} st and
+                st.name="String"
+            report 0 end
+        </query>
+        <!-- lastName:String -->
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration}, svd : V{SingleVariableDeclaration}, st : V{SimpleType} with
+                t.name="Customer" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                m.constructor=true and
+                m.name="Customer" and
+                m -->{MethodDeclarationParameters} svd and
+                svd.name="lastName" and
+                svd -->{SingleVariableDeclarationType} st and
+                st.name="String"
+            report 0 end
+        </query>
+        <!-- email:String -->
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration}, svd : V{SingleVariableDeclaration}, st : V{SimpleType} with
+                t.name="Customer" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                m.constructor=true and
+                m.name="Customer" and
+                m -->{MethodDeclarationParameters} svd and
+                svd.name="email" and
+                svd -->{SingleVariableDeclarationType} st and
+                st.name="String"
+            report 0 end
+        </query>
+        <!-- company:String -->
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration}, svd : V{SingleVariableDeclaration}, st : V{SimpleType} with
+                t.name="Customer" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                m.constructor=true and
+                m.name="Customer" and
+                m -->{MethodDeclarationParameters} svd and
+                svd.name="company" and
+                svd -->{SingleVariableDeclarationType} st and
+                st.name="String"
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Der Konstruktor "public Customer(String firstName, String lastName,
+            String email, String company)" in der Klasse "Customer" fehlt.
+        </feedback>
+    </rule>
+    <!-- METHODEN -->
+    <!-- +getEmail():String -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
+                t.name="Customer" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                hasSignature(m, "public String getEmail()")
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Die Methode "public String getEmail()" in der Klasse "Customer" fehlt.
+        </feedback>
+    </rule>
+    <!-- +getFirstName():String -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
+                t.name="Customer" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                hasSignature(m, "public String getFirstName()")
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Die Methode "public String getFirstName()" in der Klasse "Customer" fehlt.
+        </feedback>
+    </rule>
+    <!-- +getLastName():String -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
+                t.name="Customer" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                hasSignature(m, "public String getLastName()")
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Die Methode "public String getLastName()" in der Klasse "Customer" fehlt.
+        </feedback>
+    </rule>
+    <!-- +getCompany():String -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
+                t.name="Customer" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                hasSignature(m, "public String getCompany()")
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Die Methode "public String getCompany()" in der Klasse "Customer" fehlt.
+        </feedback>
+    </rule>
+<!-- EMPLOYEE -->
+	<!-- ATTRIBUTE -->
+	<!-- -email:String -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, f : V{FieldDeclaration}, m : V{Modifier}, st : V{SimpleType}, vdf: V{VariableDeclarationFragment} with
+                t.name="Employee" and
+                t -->{TypeDeclarationBodyDeclarations1} f and
+                f -->{FieldDeclarationModifiers} m and
+                m.name="private" and
+                f -->{FieldDeclarationType} st and
+                st.name="String" and
+                f -->{FieldDeclarationFragments} vdf and
+                vdf.name="email"
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Das Attribut "private String email" in der Klasse "Employee" fehlt.
+        </feedback>
+    </rule>
+    <!-- -firstName:String -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, f : V{FieldDeclaration}, m : V{Modifier}, st : V{SimpleType}, vdf: V{VariableDeclarationFragment} with
+                t.name="Employee" and
+                t -->{TypeDeclarationBodyDeclarations1} f and
+                f -->{FieldDeclarationModifiers} m and
+                m.name="private" and
+                f -->{FieldDeclarationType} st and
+                st.name="String" and
+                f -->{FieldDeclarationFragments} vdf and
+                vdf.name="firstName"
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Das Attribut "private String firstName" in der Klasse "Employee" fehlt.
+        </feedback>
+    </rule>
+    <!-- -lastName:String -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, f : V{FieldDeclaration}, m : V{Modifier}, st : V{SimpleType}, vdf: V{VariableDeclarationFragment} with
+                t.name="Employee" and
+                t -->{TypeDeclarationBodyDeclarations1} f and
+                f -->{FieldDeclarationModifiers} m and
+                m.name="private" and
+                f -->{FieldDeclarationType} st and
+                st.name="String" and
+                f -->{FieldDeclarationFragments} vdf and
+                vdf.name="lastName"
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Das Attribut "private String lastName" in der Klasse "Employee" fehlt.
+        </feedback>
+    </rule>
+	<!-- -department:String -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, f : V{FieldDeclaration}, m : V{Modifier}, st : V{SimpleType}, vdf: V{VariableDeclarationFragment} with
+                t.name="Employee" and
+                t -->{TypeDeclarationBodyDeclarations1} f and
+                f -->{FieldDeclarationModifiers} m and
+                m.name="private" and
+                f -->{FieldDeclarationType} st and
+                st.name="String" and
+                f -->{FieldDeclarationFragments} vdf and
+                vdf.name="department"
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Das Attribut "private String department" in der Klasse "Employee" fehlt.
+        </feedback>
+    </rule>
+    <!--- KONSTRUKTOREN -->
+    <!-- +Employee(String firstName, String lastName, String email, String company) -->
+    <rule type="presence" points="4">
+        <!-- firstName:String -->
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration}, svd : V{SingleVariableDeclaration}, st : V{SimpleType} with
+                t.name="Employee" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                m.constructor=true and
+                m.name="Employee" and
+                m -->{MethodDeclarationParameters} svd and
+                svd.name="firstName" and
+                svd -->{SingleVariableDeclarationType} st and
+                st.name="String"
+            report 0 end
+        </query>
+        <!-- lastName:String -->
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration}, svd : V{SingleVariableDeclaration}, st : V{SimpleType} with
+                t.name="Employee" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                m.constructor=true and
+                m.name="Employee" and
+                m -->{MethodDeclarationParameters} svd and
+                svd.name="lastName" and
+                svd -->{SingleVariableDeclarationType} st and
+                st.name="String"
+            report 0 end
+        </query>
+        <!-- email:String -->
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration}, svd : V{SingleVariableDeclaration}, st : V{SimpleType} with
+                t.name="Employee" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                m.constructor=true and
+                m.name="Employee" and
+                m -->{MethodDeclarationParameters} svd and
+                svd.name="email" and
+                svd -->{SingleVariableDeclarationType} st and
+                st.name="String"
+            report 0 end
+        </query>
+        <!-- department:String -->
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration}, svd : V{SingleVariableDeclaration}, st : V{SimpleType} with
+                t.name="Employee" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                m.constructor=true and
+                m.name="Employee" and
+                m -->{MethodDeclarationParameters} svd and
+                svd.name="department" and
+                svd -->{SingleVariableDeclarationType} st and
+                st.name="String"
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Der Konstruktor "public Employee(String firstName, String lastName,
+            String email, String department)" in der Klasse "Employee" fehlt.
+        </feedback>
+    </rule>
+    <!-- METHODEN -->
+    <!-- +getEmail():String -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
+                t.name="Employee" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                hasSignature(m, "public String getEmail()")
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Die Methode "public String getEmail()" in der Klasse "Employee" fehlt.
+        </feedback>
+    </rule>
+    <!-- +getFirstName():String -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
+                t.name="Employee" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                hasSignature(m, "public String getFirstName()")
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Die Methode "public String getFirstName()" in der Klasse "Employee" fehlt.
+        </feedback>
+    </rule>
+    <!-- +getLastName():String -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
+                t.name="Employee" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                hasSignature(m, "public String getLastName()")
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Die Methode "public String getLastName()" in der Klasse "Employee" fehlt.
+        </feedback>
+    </rule>
+    <!-- +getDepartment():String -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
+                t.name="Employee" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                hasSignature(m, "public String getDepartment()")
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Die Methode "public String getDeparment()" in der Klasse "Employee" fehlt.
         </feedback>
     </rule>
 </checkerrules>

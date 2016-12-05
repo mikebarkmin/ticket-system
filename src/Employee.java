@@ -1,5 +1,5 @@
 /**
- * Employee dient zum Bündeln von Informationen über einen Angestellten
+ * Employee dient zum Buendeln von Informationen ueber einen Angestellten
  */
 public class Employee {
     /**
@@ -32,7 +32,7 @@ public class Employee {
     }
 
     /**
-     * Gibt den Vornamen des Angestellten zurück
+     * Gibt den Vornamen des Angestellten zurueck
      * @return Vorname des Angestellten
      */
     public String getFirstName() {
@@ -40,7 +40,7 @@ public class Employee {
     }
 
     /**
-     * Einen neuen Vorname für den Angestellten setzten
+     * Einen neuen Vorname fuer den Angestellten setzten
      * @param firstName Vorname des Angestellten
      */
     public void setFirstName(String firstName) {
@@ -48,7 +48,7 @@ public class Employee {
     }
 
     /**
-     * Gibt den Nachnamen des Angestellten zurück
+     * Gibt den Nachnamen des Angestellten zurueck
      * @return Nachname des Angestellten
      */
     public String getLastName() {
@@ -56,7 +56,7 @@ public class Employee {
     }
 
     /**
-     * Einen neuen Nachnamen für den Angestellten setzten
+     * Einen neuen Nachnamen fuer den Angestellten setzten
      * @param lastName Nachname des Angestellten
      */
     public void setLastName(String lastName) {
@@ -64,15 +64,15 @@ public class Employee {
     }
 
     /**
-     * Gibt den Bereich in dem der Angestellte arbeitet zurück
+     * Gibt den Bereich in dem der Angestellte arbeitet zurueck
      * @return Bereich in dem der Angestellte arbeitet
      */
     public String getDepartment() {
-        return deparment;
+        return department;
     }
 
     /**
-     * Gibt die Email-Adresse des Angestellten zurück
+     * Gibt die Email-Adresse des Angestellten zurueck
      * @return Email-Adresse des Angestellten
      */
     public String getEmail() {
@@ -80,7 +80,7 @@ public class Employee {
     }
 
     /**
-     * Eine neue Email-Adresse für den Angestellten setzten
+     * Eine neue Email-Adresse fuer den Angestellten setzten
      * @param email Email-Adresse des Angestellten
      */
     public void setEmail(String email) {

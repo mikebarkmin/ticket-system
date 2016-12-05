@@ -1,5 +1,5 @@
 /**
- * Customer dient zum Bündeln von Informationen über einen Kunden
+ * Customer dient zum Buendeln von Informationen ueber einen Kunden
  */
 public class Customer {
     /**
@@ -15,7 +15,7 @@ public class Customer {
      */
     private String email;
     /**
-     * Name der Firma für die der Kunde arbeitet
+     * Name der Firma fuer die der Kunde arbeitet
      */
     private String company;
 
@@ -33,7 +33,7 @@ public class Customer {
     }
 
     /**
-     * Gibt den Vornamen des Angestellten zurück
+     * Gibt den Vornamen des Angestellten zurueck
      * @return Vorname des Angestellten
      */
     public String getFirstName() {
@@ -41,7 +41,7 @@ public class Customer {
     }
 
     /**
-     * Einen neuen Vorname für den Angestellten setzten
+     * Einen neuen Vorname fuer den Angestellten setzten
      * @param firstName Vorname des Angestellten
      */
     public void setFirstName(String firstName) {
@@ -49,7 +49,7 @@ public class Customer {
     }
 
     /**
-     * Gibt den Nachnamen des Angestellten zurück
+     * Gibt den Nachnamen des Angestellten zurueck
      * @return Nachname des Angestellten
      */
     public String getLastName() {
@@ -57,7 +57,7 @@ public class Customer {
     }
 
     /**
-     * Einen neuen Nachnamen für den Angestellten setzten
+     * Einen neuen Nachnamen fuer den Angestellten setzten
      * @param lastName Nachname des Angestellten
      */
     public void setLastName(String lastName) {
@@ -65,7 +65,7 @@ public class Customer {
     }
 
     /**
-     * Gibt die Email-Adresse des Angestellten zurück
+     * Gibt die Email-Adresse des Angestellten zurueck
      * @return Email-Adresse des Angestellten
      */
     public String getEmail() {
@@ -73,7 +73,7 @@ public class Customer {
     }
 
     /**
-     * Eine neue Email-Adresse für den Angestellten setzten
+     * Eine neue Email-Adresse fuer den Angestellten setzten
      * @param email Email-Adresse des Angestellten
      */
     public void setEmail(String email) {
@@ -81,7 +81,7 @@ public class Customer {
     }
 
     /**
-     * Gibt den Namen der Firma für die der Kunde arbeitet zurück
+     * Gibt den Namen der Firma fuer die der Kunde arbeitet zurueck
      * @return Name der Firma
      */
     public String getCompany() {

@@ -1,0 +1,42 @@
+<checkerrules>
+    <!-- großgeschriebener Methodennamen -->
+    <rule type="absence" points="0">
+        <query>from x : V{MethodDeclaration} with
+            x.name=capitalizeFirst(x.name) and
+            x.constructor="false"
+            report 0 end
+        </query>
+        <feedback prefix="Programmierstil">
+            Du verwendest Methodennamen, die mit einem Großbuchstaben beginnen.
+            Das ist möglich, aber es entspricht nicht dem üblichen
+            Programmierstil für Java.
+        </feedback>
+    </rule>
+    <!-- kleingeschriebener Klassenname -->
+    <rule type="absence" points="0">
+        <query>from x : V{TypeDeclaration} with
+            not (x.name=capitalizeFirst(x.name))
+            report 0 end
+        </query>
+        <feedback prefix="Programmierstil">
+            Du verwendest Klassennamen, die nicht mit einem Großbuchstaben
+            beginnen. Das ist möglich, aber es entspricht nicht dem üblichen
+            Programmierstil für Java.
+        </feedback>
+    </rule>
+    <!-- großgeschriebener Variablenname, außer final oder static -->
+    <rule type="absence" points="0">
+        <query>from x : V{VariableDeclarationFragment} with
+            x.name=capitalizeFirst(x.name) and
+            isEmpty(from m : V{Modifier} with x &lt;--&amp;{FieldDeclaration}
+            --&gt; m and (m.name="final" or m.name="static")
+            report m end)
+            report 0 end
+        </query>
+        <feedback prefix="Programmierstil">
+            Du verwendest Variablennamen, die mit einem Großbuchstaben
+            beginnen. Das ist möglich, aber es entspricht nicht dem üblichen
+            Programmierstil für Java.
+        </feedback>
+    </rule>
+</checkerrules>

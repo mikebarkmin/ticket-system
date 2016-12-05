@@ -4,7 +4,7 @@ public class Ticket {
      */
     private String description;
     /**
-     * Bearbeitungsstatus kann sein RECORDED (Aufgenommen), PROCESSED (Bearbeitet), WAITING_FOR_FEEDBACK (Auf Rückmeldung
+     * Bearbeitungsstatus kann sein RECORDED (Aufgenommen), PROCESSED (Bearbeitet), WAITING_FOR_FEEDBACK (Auf Rueckmeldung
      * warten), SOLVED (Erledigt) und CLOSED (abgeschlossen)
      */
     private String status;
@@ -13,11 +13,11 @@ public class Ticket {
      */
     private Employee employee;
     /**
-     * Kunden für den das Ticket bearbeitet wird
+     * Kunden fuer den das Ticket bearbeitet wird
      */
     private Customer customer;
     /**
-     * Priorität des Tickets
+     * Prioritaet des Tickets
      */
     private int priority;
 
@@ -38,7 +38,7 @@ public class Ticket {
     }
 
     /**
-     * Gibt die Beschreibung des Tickets zurück
+     * Gibt die Beschreibung des Tickets zurueck
      * @return Beschreibung
      */
     public String getDescription() {
@@ -54,7 +54,7 @@ public class Ticket {
     }
 
     /**
-     * Gibt den Status des Tickets zurück
+     * Gibt den Status des Tickets zurueck
      * @return Status des Tickets
      */
     public String getStatus() {
@@ -70,7 +70,7 @@ public class Ticket {
     }
 
     /**
-     * Gibt den zugewiesenen Angestellten zurück
+     * Gibt den zugewiesenen Angestellten zurueck
      * @return zugewiesener Angestellte
      */
     public Employee getEmployee() {
@@ -86,7 +86,7 @@ public class Ticket {
     }
 
     /**
-     * Gibt den Kunden zurück für den das Ticket bearbeitet wird
+     * Gibt den Kunden zurueck fuer den das Ticket bearbeitet wird
      * @return Kunde
      */
     public Customer getCustomer() {
@@ -102,20 +102,20 @@ public class Ticket {
     }
 
     /**
-     * Gibt die Priorität des Tickets zurück
-     * @return Priorität des Tickets
+     * Gibt die Prioritaet des Tickets zurueck
+     * @return Prioritaet des Tickets
      */
     public int getPriority() {
         return priority;
     }
 
     /**
-     * Setzten einer neunen Priorität. Es werden nur Prioritäten größer als 0 erlaubt. Wenn ein Wert kleiner 0 gesetzt
+     * Setzten einer neunen Prioritaet. Es werden nur Prioritaeten groesser als 0 erlaubt. Wenn ein Wert kleiner 0 gesetzt
      * werden soll, passiert nichts.
-     * @param priority Priorität des Tickets
+     * @param priority Prioritaet des Tickets
      */
     public void setPriority(int priority) {
-        // Überprüfung, ob die Priorität größer als 0 ist
+        // Ueberpruefung, ob die Prioritaet groesser als 0 ist
         if (priority > 0) {
             this.priority = priority;
         }

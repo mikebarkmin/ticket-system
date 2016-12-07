@@ -13,7 +13,9 @@ public class TicketTest {
 
     @Test(name="Getter")
     public void getter() {
-        Ticket ticket = new Ticket("Beschreibung", "Status", "Employee", "Customer", 0);
+        Employee employee = new Employee("Gero", "Behler", "g@b.de", "DDI");
+        Customer customer = new Customer("Mike", "Barkmin", "m@b.de", "Paluno");
+        Ticket ticket = new Ticket("Beschreibung", "Status", employee, customer, 0);
         if (!ticket.getDescription().equals("Beschreibung")) {
             punkte -= 5;
             TracingFramework.printError("Die Methode getDescription gibt einen falschen Wert zurück. Erwartet: Beschreibung - Bekommen: " + ticket.getDescription());
@@ -22,13 +24,13 @@ public class TicketTest {
             punkte -= 5;
             TracingFramework.printError("Die Methode getStatus gibt einen falschen Wert zurück. Erwartet: Status - Bekommen: " + ticket.getStatus());
         }
-        if (!ticket.getEmployee().equals("Employee")) {
+        if (ticket.getEmployee() != employee) {
             punkte -= 5;
-            TracingFramework.printError("Die Methode getEmployee gibt einen falschen Wert zurück. Erwartet: Employee - Bekommen: " + ticket.getEmployee());
+            TracingFramework.printError("Die Methode getEmployee gibt einen falschen Wert zurück.");
         }
-        if (!ticket.getCustomer().equals("Customer")) {
+        if (ticket.getCustomer() != customer) {
             punkte -= 5;
-            TracingFramework.printError("Die Methode getCustomer gibt einen falschen Wert zurück. Erwartet: Customer - Bekommen: " + ticket.getCustomer());
+            TracingFramework.printError("Die Methode getCustomer gibt einen falschen Wert zurück.");
         }
         if (ticket.getPriority() != 0) {
             punkte -= 5;
@@ -38,16 +40,19 @@ public class TicketTest {
 
     @Test(name="Setter")
     public void setter() {
-        Ticket ticket = new Ticket("Beschreibung", "Status", "Employee", "Customer", 0);
+        Employee employee = new Employee("Gero", "Behler", "g@b.de", "DDI");
+        Customer customer = new Customer("Mike", "Barkmin", "m@b.de", "Paluno");
+        Ticket ticket = new Ticket("Beschreibung", "Status", employee, customer, 0);
         ticket.setStatus("Status2");
         String status = (String) getValueFromField(ticket, "status");
         if(!status.equals("Status2")) {
             punkte -= 5;
             TracingFramework.printError("Das Attribut status wurde durch die Methode setStatus nicht geändert");
         }
-        ticket.setEmployee("Employee2");
-        String employee = (String) getValueFromField(ticket, "employee");
-        if(!employee.equals("Employee2")) {
+        Employee employee2 = new Employee("Gero", "Behler", "g@b.de", "DDI");
+        ticket.setEmployee(employee2);
+        Employee ticketEmployee = (Employee) getValueFromField(ticket, "employee");
+        if(ticketEmployee != employee2) {
             punkte -= 5;
             TracingFramework.printError("Das Attribut employee wurde durch die Methode setEmployee nicht geändert");
         }
@@ -69,6 +74,6 @@ public class TicketTest {
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
             TracingFramework.printError("Das Attribut " + name + " wurde nicht gefunden");
         }
-       return null;
+        return null;
     }
 }

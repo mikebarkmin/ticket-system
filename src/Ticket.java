@@ -114,10 +114,10 @@ public class Ticket {
      * werden soll, passiert nichts.
      * @param priority Prioritaet des Tickets
      */
-    //public void setPriority(int priority) {
-    //    // Ueberpruefung, ob die Prioritaet groesser als 0 ist
-    //    if (priority > 0) {
-    //        this.priority = priority;
-    //    }
-    //}
+    public void setPriority(int priority) {
+        // Ueberpruefung, ob die Prioritaet groesser als 0 ist
+        if (priority > 0) {
+            this.priority = priority;
+        }
+    }
 }

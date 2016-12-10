@@ -21,7 +21,13 @@ public class Main {
             input = input.toUpperCase();
             if(input.equals("T")) {
                 tickets = ticketManager.getAll();
-                showTicketList(tickets);
+                for(int i = 0; i < tickets.size(); i++) {
+                    Ticket current = tickets.get(i);
+                    if(current != null) {
+                        System.out.println(i + ") " + current.getStatus() + "\t " + current.getDescription() + "\t " +
+                                           current.getPriority() + "\t " + current.getCreationDate());
+                    }
+                }
             } else if(input.equals("H")) {
                 System.out.print("Beschreibung: ");
                 String description = scanner.next();
@@ -65,15 +71,5 @@ public class Main {
             } 
         } while (!input.equals("B"));
         scanner.close();
-    }
-
-    public static void showTicketList(TicketList tickets) {
-        for(int i = 0; i < tickets.size(); i++) {
-            Ticket current = tickets.get(i);
-            if(current != null) {
-                System.out.println(i + ") " + current.getStatus() + "\t " + current.getDescription() + "\t " +
-                                   current.getPriority() + "\t " + current.getCreationDate());
-            }
-        }
     }
 }

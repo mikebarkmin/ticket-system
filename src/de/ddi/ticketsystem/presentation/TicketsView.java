@@ -29,8 +29,7 @@ public class TicketsView extends View {
 
         options = new String[]{
                 "[A]uswählen",
-                "[Ä]ltestes",
-                "[F]inden"
+                "[Ä]ltestes"
         };
         employeeOptions = new String[]{
                 "[N]ächstes",
@@ -115,22 +114,9 @@ public class TicketsView extends View {
                 break;
             case "S":
                 sort();
-            case "F":
-                searchTickets();
-                break;
             default:
                 break;
         }
-    }
-
-    /**
-     * Methode zum Suchen nach einem Ticket
-     */
-    private void searchTickets() {
-        System.out.println("Suchbegriff: ");
-        String search = scanner.next();
-        List<Ticket> filteredTickets = tickets.search(search);
-        viewManager.setNextView(new TicketsSearchView(viewManager, filteredTickets));
     }
 
     /**

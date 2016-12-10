@@ -16,7 +16,7 @@ public class Main {
         String input;
         TicketList tickets = new TicketList();
         do {
-            System.out.println("[T]ickets, [S]tatus ändern, [F]inden, [H]inzufügen, [E]ntfernen, [N]ächtes, [Ä]ltestes, [B]eenden");
+            System.out.println("[T]ickets, [S]tatus ändern, [H]inzufügen, [E]ntfernen, [N]ächtes, [Ä]ltestes, [B]eenden");
             input = scanner.next();
             input = input.toUpperCase();
             if(input.equals("T")) {
@@ -62,12 +62,7 @@ public class Main {
                 String sStatus = scanner.next();
                 status = Status.valueOf(sStatus);
                 ticket.setStatus(status);
-            } else if(input.equals("F")) {
-                System.out.println("Suchbegriff: ");
-                String search = scanner.next();
-                tickets = ticketManager.search(search);
-                showTicketList(tickets);
-            }
+            } 
         } while (!input.equals("B"));
         scanner.close();
     }

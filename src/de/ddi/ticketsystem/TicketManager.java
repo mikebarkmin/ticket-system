@@ -121,7 +121,6 @@ public class TicketManager {
         }
         return list;
     }
-    }
 
     /**
      * Gibt das nächste zu bearbeitende Ticket zurück. Das erste Kriterium ist die Priorität, das zweite das

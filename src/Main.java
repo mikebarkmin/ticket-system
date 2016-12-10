@@ -18,7 +18,7 @@ public class Main {
         String input;
         List<Ticket> tickets = new List<>();
         do {
-            System.out.println("[T]ickets, [A]nzeigen, [S]tatus ändern, [F]inden, [H]inzufügen, [E]ntfernen, [N]ächtes, [Ä]ltestes, [B]eenden");
+            System.out.println("[T]ickets, [A]nzeigen, [S]tatus ändern, [H]inzufügen, [E]ntfernen, [N]ächtes, [Ä]ltestes, [B]eenden");
             input = scanner.next();
             input = input.toUpperCase();
             if(input.equals("T")) {
@@ -30,7 +30,13 @@ public class Main {
                 } else if(input.equals("M")) {
                     tickets = ticketManager.getFromEmployee(employee);
                 }
-                showTicketList(tickets);
+                for(int i = 0; i < tickets.size(); i++) {
+                    Ticket current = tickets.get(i);
+                    if(current != null) {
+                        System.out.println(i + ") " + current.getStatus() + "\t " + current.getDescription() + "\t " +
+                                           current.getPriority() + "\t " + current.getCreationDate());
+                    }
+                }
             } else if(input.equals("H")) {
                 System.out.println("[T]icket, [N]otiz");
                 input = scanner.next().toUpperCase();
@@ -149,11 +155,6 @@ public class Main {
                     System.out.println("\t" + note.getTitle());
                     System.out.println("\t" + note.getContent());
                 }
-            } else if(input.equals("F")) {
-                System.out.println("Suchbegriff: ");
-                String search = scanner.next();
-                tickets = ticketManager.search(search);
-                showTicketList(tickets);
             }
         } while (!input.equals("B"));
         scanner.close();
@@ -184,15 +185,5 @@ public class Main {
             result = "GeräteService: " + ((MalfunctionTicket)ticket).getDeviceService();
         }
         return result;
-    }
-    
-    public static void showTicketList(List<Ticket> tickets) {
-        for(int i = 0; i < tickets.size(); i++) {
-            Ticket current = tickets.get(i);
-            if(current != null) {
-                System.out.println(i + ") " + current.getStatus() + "\t " + current.getDescription() + "\t " +
-                                   current.getPriority() + "\t " + current.getCreationDate());
-            }
-        }
     }
 }

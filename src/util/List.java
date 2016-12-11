@@ -5,7 +5,7 @@ public class List<E> {
     /**
      * Listenkopf. Anfang der Liste.
      */
-    Node<E> head;
+    ListNode<E> head;
 
     /**
      * Leert die Liste
@@ -29,7 +29,7 @@ public class List<E> {
      */
     public int size() {
         int size = 0; // lokale Variable zum mitzaehlen, wie viele Elemente in der List sind
-        Node<E> node = head; // lokale Variable zum Durchlaufen der Listenelement
+        ListNode<E> node = head; // lokale Variable zum Durchlaufen der Listenelement
         while (node != null) {
             node = node.getNext(); // gehe zum naechsten Element
             // das kann(!) null sein, wenn node auf das
@@ -49,7 +49,7 @@ public class List<E> {
         return search(search, head);
     }
 
-    private List<E> search(String search, Node<E> current) {
+    private List<E> search(String search, ListNode<E> current) {
         if (current == null) {
             return new List<>();
         } else if (current.getValue().toString().contains(search)) {
@@ -67,13 +67,13 @@ public class List<E> {
      * @param index Index
      * @return Node an der Stelle index
      */
-    private Node<E> getNodeAt(int index) {
+    private ListNode<E> getNodeAt(int index) {
         if (index < 0) {
             return null;
         } // falls negativer index => es gibt kein Element, das diese Bedingung erfuellt
 
         int currPos = 0;  // Hilfszaehler fuer das Mitzaehlen der Position beim Durchlaufen
-        Node<E> node = head; // Intialisierung des Durchlaufs der Liste
+        ListNode<E> node = head; // Intialisierung des Durchlaufs der Liste
         while (currPos < index  // noch in der Liste aber noch nicht an der richtigen Stelle
                 &&
                 node != null // sind ausserhalb der Liste angekommen
@@ -92,7 +92,7 @@ public class List<E> {
      * @return Element an der angebenden Position
      */
     public E get(int index) {
-        Node<E> node = getNodeAt(index); // hole das Element (im Container Node) an der Stelle index
+        ListNode<E> node = getNodeAt(index); // hole das Element (im Container Node) an der Stelle index
 
         if (isEmpty()) {
             // da gab es keins an der Stelle index
@@ -108,10 +108,10 @@ public class List<E> {
      * @param element zu speichernde Element
      */
     public void add(E element) {
-        Node<E> node = new Node<>();
+        ListNode<E> node = new ListNode<>();
         node.setValue(element);
         if (!isEmpty()) {
-            Node<E> prev = getNodeAt(size() - 1);
+            ListNode<E> prev = getNodeAt(size() - 1);
             prev.setNext(node);
         }
         else {
@@ -126,7 +126,7 @@ public class List<E> {
      * @return der Index des übergebenen Elements
      */
     public int indexOf(E element) {
-        Node<E> node = head;
+        ListNode<E> node = head;
         int index = 0;
         while(node != null) {
             if(node.getValue().equals(element)) {
@@ -164,12 +164,12 @@ public class List<E> {
             if (index > 0) // nur sinnvolle Werte fuer index betrachten
             {
                 // besorge das Element, das zu entfernen ist
-                Node<E> node = getNodeAt(index);
+                ListNode<E> node = getNodeAt(index);
                 // nun noch das Vorgaengerelement, aber nur falls node!=null
                 // d.h. node verweist auf ein Element in der Liste
                 if (node != null) {
                     // jetzt kann der Vorgaenger besorgt werden
-                    Node<E> prev = getNodeAt(index - 1);
+                    ListNode<E> prev = getNodeAt(index - 1);
                     // jetzt noch node aus der Liste ausketten
                     prev.setNext(node.getNext());
                 }

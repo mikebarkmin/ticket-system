@@ -1,6 +1,6 @@
 package util;
 
-public class Node<E> {
+public class ListNode<E> {
 
     /**
      * Gespeichertes Element
@@ -10,7 +10,7 @@ public class Node<E> {
     /**
      * Nachfolgende Node
      */
-    private Node<E> next;
+    private ListNode<E> next;
 
     /**
      * Gibt das gespeicherte Element zurück
@@ -32,7 +32,7 @@ public class Node<E> {
      * Gibt die nachfolgende Node zurück
      * @return nachfolgende Node
      */
-    public Node<E> getNext() {
+    public ListNode<E> getNext() {
         return next;
     }
 
@@ -40,7 +40,7 @@ public class Node<E> {
      * Setzt die nachfolgende Node
      * @param n Node
      */
-    public void setNext(Node<E> n) {
+    public void setNext(ListNode<E> n) {
         next = n;
     }
 

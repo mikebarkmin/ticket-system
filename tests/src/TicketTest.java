@@ -71,4 +71,15 @@ public class TicketTest {
         }
        return null;
     }
+
+    private void setValueToField(Object o, String name, Object content) {
+        Field field;
+        try {
+            field = o.getClass().getDeclaredField(name);
+            field.setAccessible(true);
+            field.set(o, content);
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+            TracingFramework.printError("Das Attribut " + name + " wurde nicht gefunden");
+        }
+    }
 }

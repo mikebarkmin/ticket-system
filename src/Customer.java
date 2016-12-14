@@ -57,14 +57,6 @@ public class Customer {
     }
 
     /**
-     * Einen neuen Nachnamen fuer den Angestellten setzten
-     * @param lastName Nachname des Angestellten
-     */
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    /**
      * Gibt die Email-Adresse des Angestellten zurueck
      * @return Email-Adresse des Angestellten
      */
@@ -73,26 +65,10 @@ public class Customer {
     }
 
     /**
-     * Eine neue Email-Adresse fuer den Angestellten setzten
-     * @param email Email-Adresse des Angestellten
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
      * Gibt den Namen der Firma fuer die der Kunde arbeitet zurueck
      * @return Name der Firma
      */
     public String getCompany() {
         return company;
-    }
-
-    /**
-     * Eine neue Firma per Namen dem Kunden zuweisen
-     * @param company Name der Firma
-     */
-    public void setCompany(String company) {
-        this.company = company;
     }
 }

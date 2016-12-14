@@ -40,27 +40,11 @@ public class Employee {
     }
 
     /**
-     * Einen neuen Vorname fuer den Angestellten setzten
-     * @param firstName Vorname des Angestellten
-     */
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    /**
      * Gibt den Nachnamen des Angestellten zurueck
      * @return Nachname des Angestellten
      */
     public String getLastName() {
         return lastName;
-    }
-
-    /**
-     * Einen neuen Nachnamen fuer den Angestellten setzten
-     * @param lastName Nachname des Angestellten
-     */
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     /**
@@ -77,13 +61,5 @@ public class Employee {
      */
     public String getEmail() {
         return email;
-    }
-
-    /**
-     * Eine neue Email-Adresse fuer den Angestellten setzten
-     * @param email Email-Adresse des Angestellten
-     */
-    public void setEmail(String email) {
-        this.email = email;
     }
 }

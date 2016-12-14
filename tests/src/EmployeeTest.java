@@ -30,7 +30,7 @@ public class EmployeeTest {
         } else {
             TracingFramework.printError("Im Konstruktor wird das Attribut email nicht richtig gesetzt.");
         }
-        String department = (String) StaticMethods.getValueFromField(employee, "IT");
+        String department = (String) StaticMethods.getValueFromField(employee, "department");
         if (department.equals("IT")) {
         	punkte += 1;
         } else {

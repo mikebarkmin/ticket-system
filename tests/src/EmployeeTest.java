@@ -48,7 +48,7 @@ public class EmployeeTest {
             TracingFramework.printError("Die Methode getFirstName gibt einen falschen Wert zurück. Erwartet: Carla - Bekommen: " + employee.getFirstName());
         }
         StaticMethods.setValueToField(employee, "lastName", "Meyer");
-        if (employee.getLastName().equals("Status")) {
+        if (employee.getLastName().equals("Meyer")) {
             punkte += 5;
         } else {
             TracingFramework.printError("Die Methode getLastName gibt einen falschen Wert zurück. Erwartet: Meyer - Bekommen: " + employee.getLastName());

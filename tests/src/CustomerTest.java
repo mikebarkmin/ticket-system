@@ -1,6 +1,8 @@
 import de.uni_due.s3.jack2.backend.checkers.tracingchecker.framework.TracingFramework;
 import de.uni_due.s3.jack2.backend.checkers.tracingchecker.framework.TracingFramework.Test;
 
+import de.ddi.ticketsystem.Customer;
+
 public class CustomerTest {
 
 	int punkte = 0;

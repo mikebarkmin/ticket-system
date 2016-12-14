@@ -66,37 +66,4 @@ public class CustomerTest {
             TracingFramework.printError("Die Methode getCompany gibt einen falschen Wert zurück. Erwartet: Behler - Bekommen: " + customer.getCompany());
         }
     }
-
-    @Test(name="Setter")
-    public void setter() {
-        Customer customer = new Customer("Mike", "Barkmin", "m@b.de", "Paluno");
-        customer.setCompany("DDI");
-        String company = (String) StaticMethods.getValueFromField(customer, "company");
-        if(company.equals("DDI")) {
-            punkte += 5;
-        } else {
-            TracingFramework.printError("Das Attribut company wurde durch die Methode setCompany nicht geändert");
-        }
-        customer.setFirstName("Gero");
-        String firstName = (String) StaticMethods.getValueFromField(customer, "firstName");
-        if(firstName.equals("Gero")) {
-            punkte += 5;
-        } else {
-            TracingFramework.printError("Das Attribut firstName wurde durch die Methode setFirstName nicht geändert");
-        }
-        customer.setLastName("Behler");
-        String lastName = (String) StaticMethods.getValueFromField(customer, "lastName");
-        if(lastName.equals("Behler")) {
-            punkte += 5;
-        } else {
-            TracingFramework.printError("Das Attribut lastName wurde durch die Methode setLastName nicht geändert");
-        }
-        customer.setEmail("g@b.de");
-        String email = (String) StaticMethods.getValueFromField(customer, "email");
-        if(email.equals("g@b.de")) {
-            punkte += 5;
-        } else {
-            TracingFramework.printError("Das Attribut email wurde durch die Methode setEmail nicht geändert");
-        }
-    }
 }

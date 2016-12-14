@@ -19,10 +19,10 @@ public class CustomerTest {
             TracingFramework.printError("Im Konstruktor wird das Attribut firstName nicht richtig gesetzt.");
         }
         String lastName = (String) StaticMethods.getValueFromField(customer, "lastName");
-        if (lastName.equals("Status")) {
+        if (lastName.equals("Barkmin")) {
         	punkte += 1;
         } else {
-            TracingFramework.printError("Im Konstruktor wird das Attribut status nicht richtig gesetzt.");
+            TracingFramework.printError("Im Konstruktor wird das Attribut lastName nicht richtig gesetzt.");
         }
         String email = (String) StaticMethods.getValueFromField(customer, "email");
         if (email.equals("m@b.de")) {
@@ -54,13 +54,13 @@ public class CustomerTest {
             TracingFramework.printError("Die Methode getLastName gibt einen falschen Wert zurück. Erwartet: Behler - Bekommen: " + customer.getLastName());
         }
         StaticMethods.setValueToField(customer, "email", "g@b.de");
-        if (customer.getLastName().equals("g@b.de")) {
+        if (customer.getEmail().equals("g@b.de")) {
             punkte += 5;
         } else {
             TracingFramework.printError("Die Methode getEmail gibt einen falschen Wert zurück. Erwartet: Behler - Bekommen: " + customer.getEmail());
         }
         StaticMethods.setValueToField(customer, "company", "DDI");
-        if (customer.getLastName().equals("DDI")) {
+        if (customer.getCompany().equals("DDI")) {
             punkte += 5;
         } else {
             TracingFramework.printError("Die Methode getCompany gibt einen falschen Wert zurück. Erwartet: Behler - Bekommen: " + customer.getCompany());

@@ -91,6 +91,24 @@
             Das Attribut "private int priority" in der Klasse "Ticket" fehlt.
         </feedback>
     </rule>
+    <!-- -creationDate:Date -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, f : V{FieldDeclaration}, m : V{Modifier}, st : V{SimpleType}, vdf: V{VariableDeclarationFragment} with
+                t.name="Ticket" and
+                t -->{TypeDeclarationBodyDeclarations1} f and
+                f -->{FieldDeclarationModifiers} m and
+                m.name="private" and
+                f -->{FieldDeclarationType} st and
+                st.name="Date" and
+                f -->{FieldDeclarationFragments} vdf and
+                vdf.name="creationDate"
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Das Attribut "private Date creationDate" in der Klasse "Ticket" fehlt.
+        </feedback>
+    </rule>
     <!--- KONSTRUKTOREN -->
     <!-- +Ticket(description:String, status:String, employee:Employee,
       customer:Customer, priority:int -->
@@ -213,6 +231,19 @@
                 t.name="Ticket" and
                 t -->{TypeDeclarationBodyDeclarations2} m and
                 hasSignature(m, "public Customer getCustomer()")
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Die Methode "public Customer getCustomer()" in der Klasse "Ticket" fehlt.
+        </feedback>
+    </rule>
+    <!-- +getCreationDate():Date -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
+                t.name="Ticket" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                hasSignature(m, "public Date getCreationDate()")
             report 0 end
         </query>
         <feedback prefix="UML Klassendiagramm">
@@ -643,6 +674,109 @@
         </query>
         <feedback prefix="UML Klassendiagramm">
             Die Methode "public String getDeparment()" in der Klasse "Employee" fehlt.
+        </feedback>
+    </rule>
+<!-- TICKETMANAGER -->
+	<!-- ATTRIBUTE -->
+	<!-- -tickets:Ticket[] -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, f : V{FieldDeclaration}, m : V{Modifier}, st : V{SimpleType}, vdf: V{VariableDeclarationFragment} with
+                t.name="TicketManager" and
+                t -->{TypeDeclarationBodyDeclarations1} f and
+                f -->{FieldDeclarationModifiers} m and
+                m.name="private" and
+                f -->{FieldDeclarationType} st and
+                st.name="Ticket[]" and
+                f -->{FieldDeclarationFragments} vdf and
+                vdf.name="tickets"
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Das Attribut "private Ticket[] tickets" in der Klasse "Employee" fehlt.
+        </feedback>
+    </rule>
+    <!--- KONSTRUKTOREN -->
+    <!-- +TicketManager(int size) -->
+    <rule type="presence" points="4">
+        <!-- size:int -->
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration}, svd : V{SingleVariableDeclaration}, st : V{SimpleType} with
+                t.name="TicketManager" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                m.constructor=true and
+                m.name="TicketManager" and
+                m -->{MethodDeclarationParameters} svd and
+                svd.name="size" and
+                svd -->{SingleVariableDeclarationType} st and
+                st.name="int"
+            report 0 end
+        </query>
+    </rule>
+    <!-- METHODEN -->
+    <!-- +getAll():Ticket[] -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
+                t.name="TicketManager" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                hasSignature(m, "public Ticket[] getAll()")
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Die Methode "public Ticket[] getAll()" in der Klasse "TicketManager" fehlt.
+        </feedback>
+    </rule>
+    <!-- +getOldest():Ticket -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
+                t.name="TicketManager" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                hasSignature(m, "public Ticket getOldest()")
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Die Methode "public Ticket getOldest()" in der Klasse "TicketManager" fehlt.
+        </feedback>
+    </rule>
+    <!-- +next():Ticket -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
+                t.name="TicketManager" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                hasSignature(m, "public Ticket next()")
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Die Methode "public Ticket next()" in der Klasse "TicketManager" fehlt.
+        </feedback>
+    </rule>
+    <!-- +add(Ticket) -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
+                t.name="TicketManager" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                hasSignature(m, "public void add(Ticket)")
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Die Methode "public void add(Ticket)" in der Klasse "TicketManager" fehlt.
+        </feedback>
+    </rule>
+    <!-- +remove(Ticket) -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
+                t.name="TicketManager" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                hasSignature(m, "public void remove(Ticket)")
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Die Methode "public void remove(Ticket)" in der Klasse "TicketManager" fehlt.
         </feedback>
     </rule>
 </checkerrules>

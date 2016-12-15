@@ -9,7 +9,7 @@ public class TicketManagerTest {
     public int getResult() {
         return punkte;
     }
-    
+    // bla
     @Test(name="Konstruktor")
     public void constructur() {
     	int size = 20;

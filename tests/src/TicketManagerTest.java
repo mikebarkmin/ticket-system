@@ -3,6 +3,8 @@ import de.ddi.ticketsystem.TicketManager;
 import de.uni_due.s3.jack2.backend.checkers.tracingchecker.framework.TracingFramework;
 import de.uni_due.s3.jack2.backend.checkers.tracingchecker.framework.TracingFramework.Test;
 
+import java.util.Date;
+
 public class TicketManagerTest {
     int punkte = 0;
 
@@ -109,5 +111,51 @@ public class TicketManagerTest {
     		}
     	}
     	punkte += removePoints;
+    }
+    
+    @Test(name="getOldest")
+    public void getOldest() {
+    	TicketManager ticketManager = new TicketManager(3);
+    	Ticket ticket1 = new Ticket(null, null, null, null, 3);
+    	StaticMethods.setValueToField(ticket1, "priority", 2);
+    	StaticMethods.setValueToField(ticket1, "creationDate", new Date(1));
+    	Ticket ticket2 = new Ticket(null, null, null, null, 5);
+    	StaticMethods.setValueToField(ticket2, "priority", 0);
+    	StaticMethods.setValueToField(ticket2, "creationDate", new Date(0));
+    	Ticket ticket3 = new Ticket(null, null, null, null, 0);
+    	StaticMethods.setValueToField(ticket3, "priority", 3);
+    	StaticMethods.setValueToField(ticket3, "creationDate", new Date(10));
+    	Ticket[] tickets = {ticket1, ticket2, ticket3};
+    	StaticMethods.setValueToField(ticketManager, "tickets", tickets);
+    	
+    	Ticket oldest = ticketManager.getOldest();
+    	if(oldest == ticket2) {
+    		punkte += 10;
+    	} else {
+    		TracingFramework.printError("Die Methode getOldest in der Klasse TicketManager gibt ein falsches Ticket zurück");
+    	}
+    }
+    
+    @Test(name="next")
+    public void next() {
+    	TicketManager ticketManager = new TicketManager(3);
+    	Ticket ticket1 = new Ticket(null, null, null, null, 3);
+    	StaticMethods.setValueToField(ticket1, "priority", 3);
+    	StaticMethods.setValueToField(ticket1, "creationDate", new Date(100));
+    	Ticket ticket2 = new Ticket(null, null, null, null, 5);
+    	StaticMethods.setValueToField(ticket2, "priority", 0);
+    	StaticMethods.setValueToField(ticket2, "creationDate", new Date(0));
+    	Ticket ticket3 = new Ticket(null, null, null, null, 0);
+    	StaticMethods.setValueToField(ticket3, "priority", 3);
+    	StaticMethods.setValueToField(ticket3, "creationDate", new Date(10));
+    	Ticket[] tickets = {ticket1, ticket2, ticket3};
+    	StaticMethods.setValueToField(ticketManager, "tickets", tickets);
+    	
+    	Ticket oldest = ticketManager.next();
+    	if(oldest == ticket3) {
+    		punkte += 10;
+    	} else {
+    		TracingFramework.printError("Die Methode next in der Klasse TicketManager gibt ein falsches Ticket zurück");
+    	}
     }
 }

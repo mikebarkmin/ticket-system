@@ -37,8 +37,6 @@ public class Main {
                 customer,
                 3);
 
-        ticketManager.add(ticket);
-
         Scanner scanner = new Scanner(System.in);
         scanner.useDelimiter(System.lineSeparator());
         String input;

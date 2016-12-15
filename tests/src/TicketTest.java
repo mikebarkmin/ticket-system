@@ -1,6 +1,8 @@
 import de.uni_due.s3.jack2.backend.checkers.tracingchecker.framework.TracingFramework;
 import de.uni_due.s3.jack2.backend.checkers.tracingchecker.framework.TracingFramework.Test;
 
+import java.util.Date;
+
 import de.ddi.ticketsystem.Ticket;
 import de.ddi.ticketsystem.Employee;
 import de.ddi.ticketsystem.Customer;
@@ -48,6 +50,12 @@ public class TicketTest {
         } else {
             TracingFramework.printError("Im Konstruktor wird das Attribut priority nicht richtig gesetzt.");
         }
+        Date creationDate = (Date) StaticMethods.getValueFromField(ticket, "creationDate");
+        if (creationDate != null) {
+        	punkte += 1;
+        } else {
+            TracingFramework.printError("Im Konstruktor wird das Attribut creationDate nicht richtig gesetzt.");
+        }
     }
 
     @Test(name="Getter")
@@ -85,6 +93,14 @@ public class TicketTest {
         } else {
             TracingFramework.printError("Die Methode getPriority gibt einen falschen Wert zurück. Erwartet: 1 - Bekommen: " + ticket.getPriority());
         }
+        Date creationDate = new Date();
+        StaticMethods.setValueToField(ticket, "creationDate", creationDate);
+        if (ticket.getCreationDate() == creationDate) {
+        	punkte += 5;
+        } else {
+            TracingFramework.printError("Die Methode getCreationDate gibt einen falschen Wert zurück.");
+        }
+
     }
 
     @Test(name="Setter")

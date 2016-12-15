@@ -30,7 +30,7 @@ public class TicketManager {
         // Zunächst wird überprüft, ob noch Platz in Array vorhanden ist, um ein weiteres Ticket zu speichern.
         // Wenn die Länge des Arrays mindestens ein Platz kleiner ist als die momentane Anzahl der gespeicherten
         // Tickets, dann wird das Ticket abgespeichert. Sonst wird eine Fehlerausgabe erzeugt.
-        if (count < tickets.length - 1) {
+        if (count < tickets.length) {
             // Anzahl der gespeicherten Tickets erhöhen und das Ticket an dieser Stelle im Array hinterlegen.
             tickets[count++] = ticket;
         } else {

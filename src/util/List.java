@@ -99,26 +99,6 @@ public class List<E> {
     }
 
     /**
-     * Gibt den Index des übergebenen Elements zurück, wenn dieses in der Datenstruktur enthalten ist, sonst wird 0
-     * zurückgegeben.
-     * @param element dessen Index zurückgegeben werden soll
-     * @return der Index des übergebenen Elements
-     */
-    public int indexOf(E element) {
-        ListNode<E> node = head;
-        int index = 0;
-        while(node != null) {
-            if(node.getValue().equals(element)) {
-                break;
-            } else {
-                index++;
-                node = node.getNext();
-            }
-        }
-        return index;
-    }
-
-    /**
      * Löscht ein Element anhand des Index aus der Datenstruktur. Ist kein Element an diesem Index vorhanden passiert
      * nichts.
      * @param index des Element, welches gelöscht werden soll

@@ -58,15 +58,6 @@ public class TicketManager {
     }
 
     /**
-     * Gibt alle Tickets zurück, die den Suchbegriff beinhalten
-     * @param search Suchbegriff
-     * @return TicketList Liste von Tickets, die den Suchbegriff beinhalten
-     */
-    public List<Ticket> search(String search) {
-        return tickets.search(search);
-    }
-
-    /**
      * Gibt alle Tickets aus der Datenstruktur zurück. Sind keine Tickets vorhanden wird eine leere Liste zurückgeben.
      * @return List<Ticket> aller Tickets
      */

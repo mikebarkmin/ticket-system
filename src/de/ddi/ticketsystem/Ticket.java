@@ -141,7 +141,12 @@ public class Ticket {
      */
     public void removeNote(Note note) {
     	if (status != Status.CLOSED) {
-    		notes.remove(notes.indexOf(note));
+            for(int i = 0; i < notes.size(); i++) {
+    		    if(notes.get(i).equals(note)) {
+                    notes.remove(i);
+                    break;
+                }
+            }
     	}
     }
 

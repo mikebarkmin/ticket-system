@@ -42,27 +42,11 @@ public class Employee implements Comparable<Employee> {
     }
 
     /**
-     * Einen neuen Vorname für den Angestellten setzten
-     * @param firstName Vorname des Angestellten
-     */
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    /**
      * Gibt den Nachnamen des Angestellten zurück
      * @return Nachname des Angestellten
      */
     public String getLastName() {
         return lastName;
-    }
-
-    /**
-     * Einen neuen Nachnamen für den Angestellten setzten
-     * @param lastName Nachname des Angestellten
-     */
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     /**
@@ -82,14 +66,6 @@ public class Employee implements Comparable<Employee> {
     }
 
     /**
-     * Eine neue Email-Adresse für den Angestellten setzten
-     * @param email Email-Adresse des Angestellten
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
      * Vergleicht zwei Objekte vom Typ employee
      * @param employee Angestellter mit dem verglichen werden soll
      * @return 0 sie sind gleich, -1 employee ist größer als dieser, 1 dieser ist größer als employee
@@ -98,9 +74,5 @@ public class Employee implements Comparable<Employee> {
     @Override
     public int compareTo(Employee employee) {
         return (firstName + lastName).compareTo(employee.firstName + employee.lastName);
-    }
-
-    public String toString() {
-        return firstName + ";" + lastName + ";" + email + ";" + department;
     }
 }

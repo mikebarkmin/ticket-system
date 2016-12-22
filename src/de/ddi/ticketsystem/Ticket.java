@@ -62,16 +62,6 @@ public class Ticket {
     }
 
     /**
-     * Setzten einer neuen Beschreibung
-     * @param description Beschreibung
-     */
-    public void setDescription(String description) {
-    	if (status != Status.CLOSED) {
-    		this.description = description;
-    	}
-    }
-
-    /**
      * Gibt den Status des Tickets zurück
      * @return Status des Tickets
      */
@@ -113,16 +103,6 @@ public class Ticket {
      */
     public Customer getCustomer() {
         return customer;
-    }
-
-    /**
-     * Dem Ticket einen neuen Kunden zuweisen
-     * @param customer Kunde
-     */
-    public void setCustomer(Customer customer) {
-    	if (status != Status.CLOSED) {
-    		this.customer = customer;
-    	}
     }
 
     /**
@@ -179,13 +159,5 @@ public class Ticket {
      */
     public Date getCreationDate() {
         return creationDate;
-    }
-
-    /**
-     * Konvertiert das Objekt in einen String
-     * @return String Eigenschaften des Objekts
-     */
-    public String toString() {
-        return description + ";" + status + ";" + priority + ";" + employee.toString() + ";" + customer.toString();
     }
 }

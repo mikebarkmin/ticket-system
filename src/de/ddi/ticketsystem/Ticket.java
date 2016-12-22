@@ -52,14 +52,6 @@ public class Ticket {
     }
 
     /**
-     * Setzten einer neuen Beschreibung
-     * @param description Beschreibung
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
      * Gibt den Status des Tickets zurück
      * @return Status des Tickets
      */
@@ -100,14 +92,6 @@ public class Ticket {
     }
 
     /**
-     * Dem Ticket einen neuen Kunden zuweisen
-     * @param customer Kunde
-     */
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    /**
      * Gibt die Priorität des Tickets zurück
      * @return Priorität des Tickets
      */
@@ -127,6 +111,10 @@ public class Ticket {
         }
     }
 
+    /**
+     * Gibt das Erstelldatum des Tickets zurück
+     * @return Erstelldatum des Tickets
+     */
     public Date getCreationDate() {
         return creationDate;
     }

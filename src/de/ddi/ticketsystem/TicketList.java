@@ -44,27 +44,6 @@ public class TicketList {
     }
 
     /**
-     * Gibt eine Liste von Tickets zurück auf die der übergebene Suchbegriff zutrifft.
-     * @param search der String nach dem gesucht werden soll
-     * @return TicketList eine Liste von Tickets auf denen der Suchbegriff zutrifft
-     */
-    public TicketList search(String search) {
-        return search(search, head);
-    }
-
-    private TicketList search(String search, TicketNode current) {
-        if (current == null) {
-            return new TicketList();
-        } else if (current.getValue().toString().contains(search)) {
-            TicketList ticketList = search(search, current.getNext());
-            ticketList.add(current.getValue()); 
-            return ticketList;
-        } else {
-            return search(search, current.getNext());
-        }
-    }
-
-    /**
      * Gibt die TicketNode an der Stelle index zurück. Wenn keine TicketNode an diesem Index existiert wird null
      * zurückgegeben.
      * @param index Index

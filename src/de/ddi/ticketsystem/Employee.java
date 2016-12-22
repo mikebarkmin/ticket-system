@@ -39,22 +39,8 @@ public class Employee extends User implements Comparable<Employee> {
      * @return 0 sie sind gleich, -1 employee ist größer als dieser, 1 dieser ist größer als employee
      * @see Comparable#compareTo(Object)
      */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
-     * Vergleicht zwei Objekte vom Typ employee
-     * @param employee Angestellter mit dem verglichen werden soll
-     * @return 0 sie sind gleich, -1 employee ist größer als dieser, 1 dieser ist größer als employee
-     * @see Comparable#compareTo(Object)
-     */
     @Override
     public int compareTo(Employee employee) {
         return (firstName + lastName).compareTo(employee.firstName + employee.lastName);
-    }
-
-    public String toString() {
-        return firstName + ";" + lastName + ";" + email + ";" + department;
     }
 }

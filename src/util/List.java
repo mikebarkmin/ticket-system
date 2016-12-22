@@ -41,27 +41,6 @@ public class List<E> {
     }
 
     /**
-     * Gibt eine Liste von Einträgen zurück auf die der übergebene Suchbegriff zutrifft.
-     * @param search der String nach dem gesucht werden soll
-     * @return List eine Liste von Einträgen auf denen der Suchbegriff zutrifft
-     */
-    public List<E> search(String search) {
-        return search(search, head);
-    }
-
-    private List<E> search(String search, ListNode<E> current) {
-        if (current == null) {
-            return new List<>();
-        } else if (current.getValue().toString().contains(search)) {
-            List<E> list = search(search, current.getNext());
-            list.add(current.getValue()); 
-            return list;
-        } else {
-            return search(search, current.getNext());
-        }
-    }
-
-    /**
      * Gibt die Node an der Stelle index zurück. Wenn keine Node an diesem Index existiert wird null
      * zurückgegeben.
      * @param index Index
@@ -103,23 +82,6 @@ public class List<E> {
     }
 
     /**
-     * Gibt die Liste als String repräsentation zurück
-     * @return String, der die Liste darstellt in geschweiften Klammern
-     */
-    public String toString() {
-        String tempStr = "{"; // temporaere String-Variable zum Aufsammeln
-        ListNode<E> listNode = head;   // listNode ist die temporaere Laufvariable zum Durchlaufen der Liste
-        while (listNode != null)  // solange noch nicht am Ende
-        {
-            tempStr = tempStr + listNode; // erst Knoten verarbeiten
-            listNode = listNode.getNext();    // auf zum naechsten Knoten in der Liste (falls vorhanden!)
-        }
-
-        return tempStr + "}";
-
-    }
-
-    /**
      * Fügt das übergebende Element der Datenstruktur am Ende hinzu. Ist die Datenstruktur leer, ist das hinzugefügte
      * Element anschließend zudem das erste Element.
      * @param element zu speichernde Element
@@ -134,27 +96,6 @@ public class List<E> {
             head = listNode;
         }
     }
-
-    /**
-     * Gibt den Index des übergebenen Elements zurück, wenn dieses in der Datenstruktur enthalten ist, sonst wird 0
-     * zurückgegeben.
-     * @param element dessen Index zurückgegeben werden soll
-     * @return der Index des übergebenen Elements
-     */
-    public int indexOf(E element) {
-        ListNode<E> listNode = head;
-        int index = 0;
-        while (listNode != null) {
-            if (listNode.getValue().equals(element)) {
-                break;
-            } else {
-                index++;
-                listNode = listNode.getNext();
-            }
-        }
-        return index;
-    }
-
 
     /**
      * Löscht ein Element anhand des Index aus der Datenstruktur. Ist kein Element an diesem Index vorhanden passiert

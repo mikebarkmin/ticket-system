@@ -34,7 +34,9 @@ public class Ticket {
         this.status = status;
         this.employee = employee;
         this.customer = customer;
-        this.priority = priority;
+        if (priority > 0) {
+            this.priority = priority;
+        }
     }
 
     /**
@@ -43,14 +45,6 @@ public class Ticket {
      */
     public String getDescription() {
         return description;
-    }
-
-    /**
-     * Setzten einer neuen Beschreibung
-     * @param description Beschreibung
-     */
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     /**
@@ -91,14 +85,6 @@ public class Ticket {
      */
     public Customer getCustomer() {
         return customer;
-    }
-
-    /**
-     * Dem Ticket einen neuen Kunden zuweisen
-     * @param customer Kunde
-     */
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
     }
 
     /**

@@ -8,7 +8,7 @@ public class TicketList {
     /**
      * Listenkopf. Anfang der Liste.
      */
-    TicketNode head;
+    private TicketNode head;
 
     /**
      * Leert die Liste

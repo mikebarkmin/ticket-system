@@ -61,10 +61,10 @@ public class TicketListTest {
         for (int i = 1; i <= 100; i++) {
             TicketNode ticketNode = new TicketNode();
             TicketNode current = (TicketNode) StaticMethods.getValueFromField(ticketList, "head");
-            if (current != null) {
+            if (current == null) {
                 StaticMethods.setValueToField(ticketList, "head", ticketNode);
             } else {
-                while (current != null) {
+                while (current.getNext() != null) {
                     current = (TicketNode) StaticMethods.getValueFromField(current, "next");
                 }
                 StaticMethods.setValueToField(current, "next", ticketNode);
@@ -97,10 +97,10 @@ public class TicketListTest {
             for (int i = 0; i < 10; i++) {
                 TicketNode ticketNode = new TicketNode();
                 TicketNode current = (TicketNode) StaticMethods.getValueFromField(ticketList, "head");
-                if (current != null) {
+                if (current == null) {
                     StaticMethods.setValueToField(ticketList, "head", ticketNode);
                 } else {
-                    while (current != null) {
+                    while (current.getNext() != null) {
                         current = (TicketNode) StaticMethods.getValueFromField(current, "next");
                     }
                     StaticMethods.setValueToField(current, "next", ticketNode);
@@ -143,7 +143,7 @@ public class TicketListTest {
             Ticket ticket = new Ticket(null, null, null, null, 0);
             ticketList.add(ticket);
             TicketNode current = (TicketNode) StaticMethods.getValueFromField(ticketList, "head");
-            while (current != null) {
+            while (current.getNext() != null) {
                 current = (TicketNode) StaticMethods.getValueFromField(current, "next");
             }
             if (StaticMethods.getValueFromField(current, "value") != ticket) {
@@ -162,10 +162,10 @@ public class TicketListTest {
         for (int i = 0; i < 10; i++) {
             TicketNode ticketNode = new TicketNode();
             TicketNode current = (TicketNode) StaticMethods.getValueFromField(ticketList, "head");
-            if (current != null) {
+            if (current == null) {
                 StaticMethods.setValueToField(ticketList, "head", ticketNode);
             } else {
-                while (current != null) {
+                while (current.getNext() != null) {
                     current = (TicketNode) StaticMethods.getValueFromField(current, "next");
                 }
                 StaticMethods.setValueToField(current, "next", ticketNode);
@@ -185,6 +185,7 @@ public class TicketListTest {
                 TracingFramework.printError("Die Methode remove entfernt das Element am index nicht.");
                 return;
             }
+            curr = curr.getNext();
         }
     }
 }

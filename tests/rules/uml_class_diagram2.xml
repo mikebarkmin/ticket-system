@@ -1,0 +1,301 @@
+<checkerrules>
+<!-- TICKET -->
+    <!-- ATTRIBUTE -->
+    <!-- -description:String -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, f : V{FieldDeclaration}, m : V{Modifier}, st : V{SimpleType}, vdf: V{VariableDeclarationFragment} with
+                t.name="Ticket" and
+                t -->{TypeDeclarationBodyDeclarations1} f and f -->{FieldDeclarationModifiers} m and m.name="private" and f -->{FieldDeclarationType} st and st.name="String" and
+                f -->{FieldDeclarationFragments} vdf and
+                vdf.name="description"
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Das Attribut "private String description" in der Klasse "Ticket" fehlt.
+        </feedback>
+    </rule>
+    <!-- -status:Status -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, f : V{FieldDeclaration}, m : V{Modifier}, st : V{SimpleType}, vdf: V{VariableDeclarationFragment} with
+                t.name="Ticket" and
+                t -->{TypeDeclarationBodyDeclarations1} f and
+                f -->{FieldDeclarationModifiers} m and
+                m.name="private" and
+                f -->{FieldDeclarationType} st and
+                st.name="Status" and
+                f -->{FieldDeclarationFragments} vdf and
+                vdf.name="status"
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Das Attribut "private Status status" in der Klasse "Ticket" fehlt.
+        </feedback>
+    </rule>
+    <!-- -employee:Employee -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, f : V{FieldDeclaration}, m : V{Modifier}, st : V{SimpleType}, vdf: V{VariableDeclarationFragment} with
+                t.name="Ticket" and
+                t -->{TypeDeclarationBodyDeclarations1} f and
+                f -->{FieldDeclarationModifiers} m and
+                m.name="private" and
+                f -->{FieldDeclarationType} st and
+                st.name="Employee" and
+                f -->{FieldDeclarationFragments} vdf and
+                vdf.name="employee"
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Das Attribut "private String employee" in der Klasse "Ticket" fehlt.
+        </feedback>
+    </rule>
+    <!-- -customer:Customer -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, f : V{FieldDeclaration}, m : V{Modifier}, st : V{SimpleType}, vdf: V{VariableDeclarationFragment} with
+                t.name="Ticket" and
+                t -->{TypeDeclarationBodyDeclarations1} f and
+                f -->{FieldDeclarationModifiers} m and
+                m.name="private" and
+                f -->{FieldDeclarationType} st and
+                st.name="Customer" and
+                f -->{FieldDeclarationFragments} vdf and
+                vdf.name="customer"
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Das Attribut "private String customer" in der Klasse "Ticket" fehlt.
+        </feedback>
+    </rule>
+    <!-- -priority:int -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, f : V{FieldDeclaration}, m : V{Modifier}, pt : V{PrimitiveType}, vdf: V{VariableDeclarationFragment} with
+                t.name="Ticket" and
+                t -->{TypeDeclarationBodyDeclarations1} f and
+                f -->{FieldDeclarationModifiers} m and
+                m.name="private" and
+                f -->{FieldDeclarationType} pt and
+                pt.name="int" and
+                f -->{FieldDeclarationFragments} vdf and
+                vdf.name="priority"
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Das Attribut "private int priority" in der Klasse "Ticket" fehlt.
+        </feedback>
+    </rule>
+    <!-- -creationDate:Date -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, f : V{FieldDeclaration}, m : V{Modifier}, st : V{SimpleType}, vdf: V{VariableDeclarationFragment} with
+                t.name="Ticket" and
+                t -->{TypeDeclarationBodyDeclarations1} f and
+                f -->{FieldDeclarationModifiers} m and
+                m.name="private" and
+                f -->{FieldDeclarationType} st and
+                st.name="Date" and
+                f -->{FieldDeclarationFragments} vdf and
+                vdf.name="creationDate"
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Das Attribut "private Date creationDate" in der Klasse "Ticket" fehlt.
+        </feedback>
+    </rule>
+    <!--- KONSTRUKTOREN -->
+    <!-- +Ticket(description:String, status:Status, employee:Employee,
+      customer:Customer, priority:int -->
+    <rule type="presence" points="4">
+        <!-- description:String -->
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration}, svd : V{SingleVariableDeclaration}, st : V{SimpleType} with
+                t.name="Ticket" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                m.constructor=true and
+                m.name="Ticket" and
+                m -->{MethodDeclarationParameters} svd and
+                svd.name="description" and
+                svd -->{SingleVariableDeclarationType} st and
+                st.name="String"
+            report 0 end
+        </query>
+        <!-- status:String -->
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration}, svd : V{SingleVariableDeclaration}, st : V{SimpleType} with
+                t.name="Ticket" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                m.constructor=true and
+                m.name="Ticket" and
+                m -->{MethodDeclarationParameters} svd and
+                svd.name="status" and
+                svd -->{SingleVariableDeclarationType} st and
+                st.name="Status"
+            report 0 end
+        </query>
+        <!-- employee:String -->
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration}, svd : V{SingleVariableDeclaration}, st : V{SimpleType} with
+                t.name="Ticket" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                m.constructor=true and
+                m.name="Ticket" and
+                m -->{MethodDeclarationParameters} svd and
+                svd.name="employee" and
+                svd -->{SingleVariableDeclarationType} st and
+                st.name="Employee"
+            report 0 end
+        </query>
+        <!-- employee:String -->
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration}, svd : V{SingleVariableDeclaration}, st : V{SimpleType} with
+                t.name="Ticket" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                m.constructor=true and
+                m.name="Ticket" and
+                m -->{MethodDeclarationParameters} svd and
+                svd.name="customer" and
+                svd -->{SingleVariableDeclarationType} st and
+                st.name="Customer"
+            report 0 end
+        </query>
+        <!-- priority:int -->
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration}, svd : V{SingleVariableDeclaration}, st : V{SimpleType} with
+                t.name="Ticket" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                m.constructor=true and
+                m.name="Ticket" and
+                m -->{MethodDeclarationParameters} svd and
+                svd.name="priority" and
+                svd -->{SingleVariableDeclarationType} st and
+                st.name="int"
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Der Konstruktor "public Ticket(String description, Status status,
+            String employee, String customer, int priority)" in der Klasse
+            "Ticket" fehlt.
+        </feedback>
+    </rule>
+    <!-- METHODEN -->
+    <!-- +getDescription():String -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
+                t.name="Ticket" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                hasSignature(m, "public String getDescription()")
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Die Methode "public String getDescription()" in der Klasse "Ticket" fehlt.
+        </feedback>
+    </rule>
+    <!-- +getStatus():Status -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
+                t.name="Ticket" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                hasSignature(m, "public Status getStatus()")
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Die Methode "public Status getStatus()" in der Klasse "Ticket" fehlt.
+        </feedback>
+    </rule>
+    <!-- +getEmployee():Employee -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
+                t.name="Ticket" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                hasSignature(m, "public Employee getEmployee()")
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Die Methode "public Employee getEmployee()" in der Klasse "Ticket" fehlt.
+        </feedback>
+    </rule>
+    <!-- +getCustomer():Customer -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
+                t.name="Ticket" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                hasSignature(m, "public Customer getCustomer()")
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Die Methode "public Customer getCustomer()" in der Klasse "Ticket" fehlt.
+        </feedback>
+    </rule>
+    <!-- +getCreationDate():Date -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
+                t.name="Ticket" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                hasSignature(m, "public Date getCreationDate()")
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Die Methode "public Customer getCustomer()" in der Klasse "Ticket" fehlt.
+        </feedback>
+    </rule>
+    <!-- +getPriority():int -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
+                t.name="Ticket" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                hasSignature(m, "public int getPriority()")
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Die Methode "public int getPriority()" in der Klasse "Ticket" fehlt.
+        </feedback>
+    </rule>
+    <!-- +setPriority(int):void -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
+                t.name="Ticket" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                hasSignature(m, "public void setPriority(int)")
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Die Methode "public void setPriority(int)" in der Klasse "Ticket" fehlt.
+        </feedback>
+    </rule>
+    <!-- +setStatus(String):void -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
+                t.name="Ticket" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                hasSignature(m, "public void setStatus(Status)")
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Die Methode "public void setStatus(Status)" in der Klasse "Ticket" fehlt.
+        </feedback>
+    </rule>
+    <!-- +setEmployee(Employee):void -->
+    <rule type="presence" points="4">
+        <query>
+            from t : V{TypeDeclaration}, m : V{MethodDeclaration} with
+                t.name="Ticket" and
+                t -->{TypeDeclarationBodyDeclarations2} m and
+                hasSignature(m, "public void setEmployee(Employee)")
+            report 0 end
+        </query>
+        <feedback prefix="UML Klassendiagramm">
+            Die Methode "public void setEmployee(Employee)" in der Klasse "Ticket" fehlt.
+        </feedback>
+    </rule>
+</checkerrules>

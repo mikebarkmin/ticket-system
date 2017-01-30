@@ -42,10 +42,12 @@ public class TicketManagerTest {
         StaticMethods.setValueToField(ticketManager, "tickets", tickets);
         StaticMethods.setValueToField(ticketManager, "ticketsByEmployee", ticketsByEmployee);
 
-        tickets.add(ticket1);
+        ticketManager.add(ticket1);
 
-        ListNode<?> head = (ListNode<?>) StaticMethods.getValueFromField(tickets, "head");
-        if (StaticMethods.getValueFromField(head, "value") == ticket1) {
+        List<?> t = (List<?>) StaticMethods.getValueFromField(ticketManager, "tickets");
+        ListNode<?> head = (ListNode<?>) StaticMethods.getValueFromField(t, "head");
+        Object value = StaticMethods.getValueFromField(head, "value");
+        if (value == ticket1) {
             punkte += 6;
         } else {
             TracingFramework.printError("Die Methode add hat das Ticket nicht zur Liste hinzugefügt.");
@@ -57,7 +59,7 @@ public class TicketManagerTest {
         punkte -= 6;
         boolean found = false;
         while (curr != null) {
-            if (curr == ticket1) {
+            if (StaticMethods.getValueFromField(curr, "value") == ticket1) {
                 punkte += 6;
                 found = true;
                 return;
@@ -88,6 +90,7 @@ public class TicketManagerTest {
                 TracingFramework.printError("Die Methode getFromEmployee gibt eine falsche Liste zurück");
                 break;
             }
+            curr = StaticMethods.getValueFromField(curr, "next");
         }
     }
 
@@ -123,12 +126,16 @@ public class TicketManagerTest {
                 Ticket ticket = new Ticket(null, null, employees[i], null, 0);
                 Object curr = StaticMethods.getValueFromField(tickets, "head");
                 if (curr == null) {
-                    StaticMethods.setValueToField(tickets, "head", ticket);
+                    ListNode<Ticket> ln = new ListNode<>();
+                    ln.setValue(ticket);
+                    StaticMethods.setValueToField(tickets, "head", ln);
                 } else {
                     while (StaticMethods.getValueFromField(curr, "next") != null) {
                         curr = StaticMethods.getValueFromField(curr, "next");
                     }
-                    StaticMethods.setValueToField(curr, "next", ticket);
+                    ListNode<Ticket> ln = new ListNode<>();
+                    ln.setValue(ticket);
+                    StaticMethods.setValueToField(curr, "next", ln);
                 }
             }
             StaticMethods.setValueToField(btn, "value", tickets);

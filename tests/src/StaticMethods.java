@@ -10,7 +10,13 @@ public class StaticMethods {
             Object value = field.get(o);
             return value;
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
-            TracingFramework.printError("Das Attribut " + name + " wurde nicht gefunden");
+        	try {
+            	field = o.getClass().getSuperclass().getDeclaredField(name);
+                field.setAccessible(true);
+                field.set(o, content);
+            } catch (Exception b) {
+            	TracingFramework.printError("Das Attribut " + name + " wurde nicht gefunden");
+            }
         }
         return null;
     }
@@ -22,7 +28,13 @@ public class StaticMethods {
             field.setAccessible(true);
             field.set(o, content);
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
-            TracingFramework.printError("Das Attribut " + name + " wurde nicht gefunden");
+            try {
+            	field = o.getClass().getSuperclass().getDeclaredField(name);
+                field.setAccessible(true);
+                field.set(o, content);
+            } catch (Exception b) {
+            	TracingFramework.printError("Das Attribut " + name + " wurde nicht gefunden");
+            }
         }
     }
 }

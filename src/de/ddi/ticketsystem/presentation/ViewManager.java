@@ -3,6 +3,7 @@ package de.ddi.ticketsystem.presentation;
 import de.ddi.ticketsystem.logic.NoteManager;
 import de.ddi.ticketsystem.logic.TicketManager;
 import de.ddi.ticketsystem.logic.UserManager;
+import util.Stack;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -25,8 +26,10 @@ public class ViewManager {
      * NoteManager
      */
     private NoteManager noteManager;
-
-    private View current;
+    /**
+     * Historie der aufgerufenen Views
+     */
+    private Stack<View> viewStack;
     /**
      * Scanner, um die Eingaben des Benutzer abzufangen
      */
@@ -42,6 +45,7 @@ public class ViewManager {
         this.userManager = userManager;
         this.ticketManager = ticketManager;
         this.noteManager = noteManager;
+        viewStack = new Stack<>();
         scanner = new Scanner(System.in);
         scanner.useDelimiter(System.lineSeparator());
     }
@@ -52,7 +56,7 @@ public class ViewManager {
     public void run() {
         load();
         // erstelle einen LoginView und füge ihn dem ViewStack hinzu
-        current = new LoginView(this);
+        viewStack.push(new LoginView(this));
         // Endlosschleife, damit dass Programm sich nicht von alleine schließt
         while(true) {
             // den nächsten View anzeigen
@@ -67,6 +71,8 @@ public class ViewManager {
      * genommen, sondern bleibt an oberster Stelle liegen.
      */
     private void showView() {
+        // ermitteln welcher View an erster Stelle auf dem Stack liegt, ohne ihm vom Stack zunehmen.
+        View current = viewStack.peek();
         // diesen View anzeigen
         current.show();
     }
@@ -80,6 +86,11 @@ public class ViewManager {
         // auf die Eingabe vom Benutzer horchen und in Großbuchstaben umwandeln.
         String input = scanner.next().toUpperCase();
         // entscheiden anhand der Eingabe was als nächstes passieren soll
+        switch (input) {
+            case "Z":
+                // Den ersten View vom Stack entfernen, sodass in der Historie zurückgegangen wird.
+                viewStack.pop();
+                break;
             case "B":
                 save();
                 // Das System beenden
@@ -99,7 +110,15 @@ public class ViewManager {
     }
 
     private void save() {
-    	// TODO
+        // TODO
+    }
+
+    /**
+     * Einen View auf den ViewStack legen, sodass dieser als nächstes angezeigt wird.
+     * @param view View
+     */
+    public void setNextView(View view) {
+        viewStack.push(view);
     }
 
     /**

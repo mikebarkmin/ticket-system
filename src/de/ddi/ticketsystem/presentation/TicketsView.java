@@ -10,7 +10,7 @@ import de.ddi.ticketsystem.logic.OrderTicket;
 import de.ddi.ticketsystem.logic.RequestTicket;
 import de.ddi.ticketsystem.logic.Status;
 import de.ddi.ticketsystem.logic.Ticket;
-import util.List;
+import java.util.List;
 
 public class TicketsView extends View {
 

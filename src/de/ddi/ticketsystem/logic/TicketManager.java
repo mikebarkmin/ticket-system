@@ -1,8 +1,12 @@
 package de.ddi.ticketsystem.logic;
 
 import de.ddi.ticketsystem.data.Access;
-import util.BinaryTree;
-import util.List;
+
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.ArrayList;
 
 import java.io.IOException;
 import java.util.Date;
@@ -17,7 +21,7 @@ public class TicketManager extends Manager{
     private List<Ticket> tickets;
     private NoteManager noteManager;
     private UserManager userManager;
-    private BinaryTree<Employee, List<Ticket>> ticketsByEmployee;
+    private Map<Employee, List<Ticket>> ticketsByEmployee;
 
 
     /**
@@ -26,8 +30,8 @@ public class TicketManager extends Manager{
      */
     public TicketManager(Access access, NoteManager noteManager, UserManager userManager) {
         super(access);
-        tickets = new List<>();
-        ticketsByEmployee = new BinaryTree<>();
+        tickets = new ArrayList<>();
+        ticketsByEmployee = new HashMap<>();
         this.noteManager = noteManager;
         this.userManager = userManager;
     }
@@ -38,7 +42,7 @@ public class TicketManager extends Manager{
      */
     @Override
     public void save() throws IOException {
-        List<String> data = new List<>();
+        List<String> data = new ArrayList<>();
         // Liste der Tickets durchlaufen
         for(int i = 0; i < tickets.size(); i++) {
             Ticket ticket = tickets.get(i);
@@ -117,8 +121,8 @@ public class TicketManager extends Manager{
         tickets.add(ticket);
         List<Ticket> userTickets = ticketsByEmployee.get(ticket.getEmployee());
         if (userTickets == null) {
-            userTickets = new List<>();
-            ticketsByEmployee.insert(ticket.getEmployee(), userTickets);
+            userTickets = new ArrayList<>();
+            ticketsByEmployee.put(ticket.getEmployee(), userTickets);
         }
         userTickets.add(ticket);
     }
@@ -141,22 +145,13 @@ public class TicketManager extends Manager{
     }
 
     /**
-     * Gibt alle Tickets zurück, die den Suchbegriff beinhalten
-     * @param search Suchbegriff
-     * @return TicketList Liste von Tickets, die den Suchbegriff beinhalten
-     */
-    public List<Ticket> search(String search) {
-        return tickets.search(search);
-    }
-
-    /**
      * Gibt alle Tickets aus der Datenstruktur zurück. Sind keine Tickets vorhanden wird eine leere Liste zurückgeben.
      * @return List<Ticket> aller Tickets
      */
     public List<Ticket> getAll() {
         // Flache Kopie der Ticket Liste anlegen, um das Entfernen und Hinzufügen, welches nicht
         // vom TicketManager ausgeht zu vermeiden.
-        List<Ticket> tickets = new List<>();
+        List<Ticket> tickets = new ArrayList<>();
         for(int i = 0; i < this.tickets.size(); i++) {
             tickets.add(this.tickets.get(i));
         }

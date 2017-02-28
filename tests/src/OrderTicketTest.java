@@ -59,7 +59,7 @@ public class OrderTicketTest {
 		} else {
 			TracingFramework.printError("Das Attribut address wird falsch gesetzt.");
 		}
-		if (StaticMethods.getValueFromField(ot, "quantity") == quantity) {
+		if ((int) StaticMethods.getValueFromField(ot, "quantity") == quantity) {
 			punkte += 1;
 		} else {
 			TracingFramework.printError("Das Attribut quantity wird falsch gesetzt.");
@@ -112,7 +112,7 @@ public class OrderTicketTest {
 		} else {
 			TracingFramework.printError("Die Methode getPriority gibt ein falschen Wert zurück.");
 		}
-		if (ot.getVendor()) == vendor) {
+		if (ot.getVendor() == vendor) {
 			punkte += 1;
 		} else {
 			TracingFramework.printError("Die Methode getVendor gibt ein falschen Wert zurück.");

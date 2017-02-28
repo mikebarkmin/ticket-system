@@ -1,3 +1,5 @@
+import java.util.Date;
+
 import de.ddi.ticketsystem.Customer;
 import de.ddi.ticketsystem.Employee;
 import de.ddi.ticketsystem.RequestTicket;
@@ -96,12 +98,12 @@ public class RequestTicketTest {
 		} else {
 			TracingFramework.printError("Die Methode getPriority gibt ein falschen Wert zurück.");
 		}
-		if (t.getService()) == service) {
+		if (t.getService() == service) {
 			punkte += 1;
 		} else {
 			TracingFramework.printError("Die Methode getService gibt ein falschen Wert zurück.");
 		}
-		if (t.getDate()) == date) {
+		if (t.getDate() == date) {
 			punkte += 1;
 		} else {
 			TracingFramework.printError("Die Methode getDate gibt ein falschen Wert zurück.");

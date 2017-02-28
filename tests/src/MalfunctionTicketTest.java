@@ -88,7 +88,7 @@ public class MalfunctionTicketTest {
 		} else {
 			TracingFramework.printError("Die Methode getPriority gibt ein falschen Wert zurück.");
 		}
-		if (t.getDeviceService()) == deviceService) {
+		if (t.getDeviceService() == deviceService) {
 			punkte += 1;
 		} else {
 			TracingFramework.printError("Die Methode getDeviceService gibt ein falschen Wert zurück.");

@@ -37,10 +37,7 @@ public class Customer extends User {
      */
     @Override
     public String saveToText() {
-        String text = "CUSTOMER;";
-        text += super.saveToText();
-        text += company + ";";
-        return text;
+        // TODO
     }
 
     /**

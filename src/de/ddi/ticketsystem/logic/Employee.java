@@ -41,10 +41,7 @@ public class Employee extends User implements Comparable<Employee> {
      */
     @Override
     public String saveToText() {
-        String text = "EMPLOYEE;";
-        text += super.saveToText();
-        text += department + ";";
-        return text;
+        // TODO
     }
 
     /**

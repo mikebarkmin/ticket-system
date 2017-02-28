@@ -55,9 +55,6 @@ public class RequestTicket extends Ticket {
      */
     @Override
     public String saveToText() {
-        String text = "REQUEST;";
-        text += super.saveToText();
-        text += date.getTime() + ";" + service + ";";
-        return text;
+        // TODO
     }
 }

@@ -112,7 +112,7 @@ public class OrderTicketTest {
 		} else {
 			TracingFramework.printError("Die Methode getPriority gibt ein falschen Wert zurück.");
 		}
-		if (ot.getVendor()) == vendor) {
+		if (ot.getVendor() == vendor) {
 			punkte += 1;
 		} else {
 			TracingFramework.printError("Die Methode getVendor gibt ein falschen Wert zurück.");

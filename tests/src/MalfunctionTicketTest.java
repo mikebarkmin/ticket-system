@@ -1,7 +1,7 @@
-import de.ddi.ticketsystem.Customer;
-import de.ddi.ticketsystem.Employee;
-import de.ddi.ticketsystem.MalfunctionTicket;
-import de.ddi.ticketsystem.Status;
+import de.ddi.ticketsystem.logic.Customer;
+import de.ddi.ticketsystem.logic.Employee;
+import de.ddi.ticketsystem.logic.MalfunctionTicket;
+import de.ddi.ticketsystem.logic.Status;
 import de.uni_due.s3.jack2.backend.checkers.tracingchecker.framework.TracingFramework;
 import de.uni_due.s3.jack2.backend.checkers.tracingchecker.framework.TracingFramework.Test;
 
@@ -88,7 +88,7 @@ public class MalfunctionTicketTest {
 		} else {
 			TracingFramework.printError("Die Methode getPriority gibt ein falschen Wert zurück.");
 		}
-		if (t.getDeviceService()) == deviceService) {
+		if (t.getDeviceService() == deviceService) {
 			punkte += 1;
 		} else {
 			TracingFramework.printError("Die Methode getDeviceService gibt ein falschen Wert zurück.");

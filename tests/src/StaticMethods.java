@@ -13,7 +13,8 @@ public class StaticMethods {
         	try {
             	field = o.getClass().getSuperclass().getDeclaredField(name);
                 field.setAccessible(true);
-                field.set(o, content);
+                Object value = field.get(o);
+                return value;
             } catch (Exception b) {
             	TracingFramework.printError("Das Attribut " + name + " wurde nicht gefunden");
             }

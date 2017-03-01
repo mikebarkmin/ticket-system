@@ -1,7 +1,7 @@
-import de.ddi.ticketsystem.Customer;
-import de.ddi.ticketsystem.Employee;
-import de.ddi.ticketsystem.MalfunctionTicket;
-import de.ddi.ticketsystem.Status;
+import de.ddi.ticketsystem.logic.UserManager;
+import de.ddi.ticketsystem.logic.User;
+import de.ddi.ticketsystem.logic.Customer;
+import de.ddi.ticketsystem.logic.Employee;
 import de.uni_due.s3.jack2.backend.checkers.tracingchecker.framework.TracingFramework;
 import de.uni_due.s3.jack2.backend.checkers.tracingchecker.framework.TracingFramework.Test;
 
@@ -11,42 +11,30 @@ public class MalfunctionTicketTest {
 	public int getResult() {
 		return punkte;
 	}
-	
+
 	@Test(name="constructor")
 	public void constructor() {
-		String description = "des";
-		Status status = Status.CLOSED;
-		Employee employee = new Employee(null, null, null, null);
-		Customer customer = new Customer(null, null, null, null);
-		int priority = 1;
-        String deviceService = "dev";
-		MalfunctionTicket t = new MalfunctionTicket(description, status, employee, customer, priority, deviceService);
-		if (StaticMethods.getValueFromField(t, "description") == description) {
-			punkte += 1;
-		} else {
-			TracingFramework.printError("Das Attribut description wird falsch gesetzt.");
-		}
-		if (StaticMethods.getValueFromField(t, "status") == status) {
-			punkte += 1;
-		} else {
-			TracingFramework.printError("Das Attribut status wird falsch gesetzt.");
-		}
-		if (StaticMethods.getValueFromField(t, "employee") == employee) {
-			punkte += 1;
-		} else {
-			TracingFramework.printError("Das Attribut employee wird falsch gesetzt.");
-		}
-		if (StaticMethods.getValueFromField(t, "customer") == customer) {
-			punkte += 1;
-		} else {
-			TracingFramework.printError("Das Attribut customer wird falsch gesetzt.");
-		}
-		if (StaticMethods.getValueFromField(t, "deviceService") == deviceService) {
-			punkte += 1;
-		} else {
-			TracingFramework.printError("Das Attribut deviceService wird falsch gesetzt.");
-		}
+		UserManager userManager = new UserManager();
+		if(StaticMethods.getValueFromField(userManager, "users") != null) {
+            punkte += 5;
+        } else {
+            TracingFramework.printError("Der Konstruktor initialisiert nicht das Attribut users");
+        }
 	}
+
+	@Test(name="add")
+    public void add() {
+	    UserManager userManager = new UserManager();
+        List<User> users = new List<>();
+        User user1 = new Employee(null, null, null, null);
+        User user2 = new Customer(null, null, null, null);
+        StaticMethods.setValueToField(userManager, "users", users);
+
+        userManager.add(user1);
+        userManager.add(user2);
+
+        users = (List<User>) StaticMethods.getValueFromField(userManager)
+    }
 	
 	@Test(name="getter")
 	public void getter() {

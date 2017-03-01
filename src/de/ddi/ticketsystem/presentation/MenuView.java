@@ -9,7 +9,14 @@ public class MenuView extends View {
      */
     public MenuView(ViewManager viewManager) {
         super(viewManager);
-        // TODO: Im Plenum
+        name = "Hauptmenü";
+        text = "Wählen Sie einen Menüpunkt aus!";
+        options = new String[]{
+                "[T]ickets",
+        };
+        employeeOptions = new String[]{
+                "[U]sers"
+        };
     }
 
     /**
@@ -20,6 +27,15 @@ public class MenuView extends View {
      */
     @Override
     public void evaluate(String input) {
-        // TODO: Im Plenum
+        switch (input) {
+            case "T":
+                // den nächsten View setzten
+                viewManager.setNextView(new TicketsView(viewManager));
+                break;
+            case "U":
+                // den nächsten View setzten
+                viewManager.setNextView(new UsersView(viewManager));
+                break;
+        }
     }
 }

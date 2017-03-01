@@ -31,7 +31,7 @@ public class TicketManagerTest {
         Ticket ticket1 = new Ticket(null, null, null, null, 3);
         StaticMethods.setValueToField(ticketManager, "tickets", tickets);
 
-        tickets.add(ticket1);
+        ticketManager.add(ticket1);
 
         TicketNode head = (TicketNode) StaticMethods.getValueFromField(tickets, "head");
         if (StaticMethods.getValueFromField(head, "value") == ticket1) {

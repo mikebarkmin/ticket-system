@@ -41,27 +41,6 @@ public class List<E> {
     }
 
     /**
-     * Gibt eine Liste von Einträgen zurück auf die der übergebene Suchbegriff zutrifft.
-     * @param search der String nach dem gesucht werden soll
-     * @return List eine Liste von Einträgen auf denen der Suchbegriff zutrifft
-     */
-    public List<E> search(String search) {
-        return search(search, head);
-    }
-
-    private List<E> search(String search, ListNode<E> current) {
-        if (current == null) {
-            return new List<>();
-        } else if (current.getValue().toString().contains(search)) {
-            List<E> list = search(search, current.getNext());
-            list.add(current.getValue()); 
-            return list;
-        } else {
-            return search(search, current.getNext());
-        }
-    }
-
-    /**
      * Gibt die Node an der Stelle index zurück. Wenn keine Node an diesem Index existiert wird null
      * zurückgegeben.
      * @param index Index

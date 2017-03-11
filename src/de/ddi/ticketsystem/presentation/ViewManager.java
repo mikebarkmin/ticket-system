@@ -44,6 +44,7 @@ public class ViewManager {
      * Startet den ViewManager mit der Anzeige des Logins.
      */
     public void run() {
+        // TODO
         // erstelle einen LoginView und verwende sie als aktuelle View
 
         // Endlosschleife, damit dass Programm sich nicht von alleine schließt
@@ -60,6 +61,7 @@ public class ViewManager {
      * genommen, sondern bleibt an oberster Stelle liegen.
      */
     private void showView() {
+        // TODO
         // Akutelle View anzeigen
 
     }
@@ -90,6 +92,7 @@ public class ViewManager {
      * @param view View
      */
     public void setNextView(View view) {
+        // TODO
 
     }
 

@@ -8,7 +8,6 @@ import util.List;
 public class NotesView extends View {
 
     private Ticket ticket;
-    private List<Note> notes;
 
     /**
      * Erstellt eine Anzeige, die die Notizen zu einem Ticket ausgibt und dem Nutzer die Möglichkeit gibt, eine Notiz
@@ -20,7 +19,6 @@ public class NotesView extends View {
         super(viewManager);
         this.ticket = ticket;
         name = "Notizen";
-        notes = this.ticket.getNotes();
 
         employeeOptions = new String[]{
                 "[L]öschen",
@@ -33,6 +31,7 @@ public class NotesView extends View {
      */
     @Override
     public void show() {
+        List<Note> notes = this.ticket.getNotes();
         String text = "";
         for(int i = 0; i < notes.size(); i++) {
             Note note = notes.get(i);
@@ -66,6 +65,7 @@ public class NotesView extends View {
      * Anhand der Notiznummer eine Notiz löschen
      */
     private void deleteNote() {
+        List<Note> notes = this.ticket.getNotes();
         System.out.print("Notiznummer: ");
         int noteId = scanner.nextInt();
         Note note = notes.get(noteId);

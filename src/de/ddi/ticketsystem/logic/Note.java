@@ -2,7 +2,7 @@ package de.ddi.ticketsystem.logic;
 
 import java.util.Date;
 
-public class Note implements Saveable {
+public class Note {
     /**
      * Kurzer Titel der Notiz
      */
@@ -83,7 +83,6 @@ public class Note implements Saveable {
      * Gibt die Notiz als ";"-getrennte Zeichenfolge in der Reihenfolge Titel;Notiz;Erstellungsdatum; zurück.
      * @return Ein ";"-getrennter String mit den Informationen der Notiz
      */
-    @Override
     public String saveToText() {
         String text = title + ";" + content + ";" + creationDate.getTime() + ";";
         return text;

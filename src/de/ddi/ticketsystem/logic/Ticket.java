@@ -4,7 +4,7 @@ import util.List;
 
 import java.util.Date;
 
-public abstract class Ticket implements Saveable {
+public abstract class Ticket {
     /**
      * Beschreibung des Tickets
      */
@@ -191,7 +191,6 @@ public abstract class Ticket implements Saveable {
      * Beschreibung;Status;Priorität;Erstellugnsdatum;
      * @return Ein ";"-getrennter String mit den Daten des Tickets
      */
-    @Override
     public String saveToText() {
         String text = description + ";" + status + ";" + priority + ";" + creationDate.getTime() + ";";
         return text;

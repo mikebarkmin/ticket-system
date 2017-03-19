@@ -31,7 +31,7 @@ public class NoteManager extends Manager{
     }
 
     /**
-     * Fügt Notizen anhand einer TicketID eienr Liste hinzu, die Notizen zum Speicher vormerkt.
+     * Fügt Notizen anhand einer TicketID einer Liste hinzu, die Notizen zum Speichern vormerkt.
      * @param ticketId Die ID des Tickets, zu dem die Notizen gehören
      * @param notes Eine Liste von Notizen
      */

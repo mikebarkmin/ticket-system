@@ -5,7 +5,7 @@ package de.ddi.ticketsystem.logic;
  * immer von einem speziellen Typ, der von dieser Klasse erbt, sein müssen. Demnach müssen keine Objekte vom Typ User
  * erzeugt werden.
  */
-public abstract class User implements Saveable{
+public abstract class User {
     /**
      * Vorname des Benutzers
      */
@@ -78,7 +78,6 @@ public abstract class User implements Saveable{
      * Vorname;Nachname;Emailadresse;
      * @return Ein ";"-getrennter String mit den Daten des Nutzers
      */
-    @Override
     public String saveToText() {
         String text = firstName + ";" + lastName + ";" + email + ";";
         return text;

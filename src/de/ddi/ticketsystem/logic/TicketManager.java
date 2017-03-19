@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * Der TicketManager ist für die Verwaltung von Tickets zuständig
  */
-public class TicketManager extends Manager{
+public class TicketManager extends Manager {
     /**
      * Gespeicherte Tickets
      */
@@ -138,15 +138,6 @@ public class TicketManager extends Manager{
                 break;
             }
         }
-    }
-
-    /**
-     * Gibt alle Tickets zurück, die den Suchbegriff beinhalten
-     * @param search Suchbegriff
-     * @return TicketList Liste von Tickets, die den Suchbegriff beinhalten
-     */
-    public List<Ticket> search(String search) {
-        return tickets.search(search);
     }
 
     /**

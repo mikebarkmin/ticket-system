@@ -195,12 +195,4 @@ public abstract class Ticket {
         String text = description + ";" + status + ";" + priority + ";" + creationDate.getTime() + ";";
         return text;
     }
-    
-    /**
-     * Konvertiert das Objekt in einen String
-     * @return String Eigenschaften des Objekts
-     */
-    public String toString() {
-        return description + ";" + status + ";" + priority + ";" + employee.toString() + ";" + customer.toString();
-    }
 }

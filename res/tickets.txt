@@ -493,7 +493,7 @@
 492;160;392;REQUEST;I really want to go to work, but I am too sick to drive.;SOLVED;1;1472319956000;1475174865000;checkup;
 493;6;286;REQUEST;Yeah, I think it's a good environment for learning English.;SOLVED;3;1472848730000;1475176729000;training;
 494;216;313;MALFUNCTION;Everyone was busy, so I went to the movie alone.;PROCESSED;1;1472020024000;remove;
-495;102;471;MALFUNCTION;There were white out conditions in the town. subsequently, the roads were impassable.;RECORDED;6;1472450829000;setup;
+495;102;471;MALFUNCTION;There were white out conditions in the town. subsequently, the roads were impassable.;CLOSED;6;1472450829000;setup;
 496;9;319;REQUEST;The sky is clear. the stars are twinkling.;SOLVED;2;1473719430000;1475081845000;checkup;
 497;2;445;ORDER;He ran out of money, so he had to stop playing poker.;CLOSED;5;1472630609000;Green Plants;Unohold;20 School Ln, Bradford BD6 1QX, Vereinigtes Königreich;78;
 498;99;358;MALFUNCTION;A glittering gem is not enough.;CLOSED;2;1474125030000;remove;

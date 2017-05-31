@@ -10,18 +10,39 @@ import de.ddi.ticketsystem.logic.OrderTicket;
 import de.ddi.ticketsystem.logic.RequestTicket;
 import de.ddi.ticketsystem.logic.Status;
 import de.ddi.ticketsystem.logic.Ticket;
+
+import javax.swing.*;
 import java.util.List;
 
 public class TicketsView extends View {
 
-    protected List<Ticket> tickets;
+    public TicketsView(ViewManager viewManager) {
+        super(viewManager);
+    }
 
-    /**
+    @Override
+    protected String getName() {
+        return "Tickets";
+    }
+
+    @Override
+    public JPanel getBody() {
+        return new JPanel();
+    }
+
+    @Override
+    public JPanel getMenu() {
+        return new JPanel();
+    }
+
+ /*   protected List<Ticket> tickets;
+
+    *//**
      * Erstellt eine Anzeige, die alle Tickets ausgibt und Optionen zur Auswahl eines Tickets,
      * zum Anzeigen des nächsten Tickets, zum Anzeigen des ältesten Tickets, zum Erstellen eines Tickets,
      * zum Löschen eines Tickets anzeigt
      * @param viewManager
-     */
+     *//*
     public TicketsView(ViewManager viewManager) {
         super(viewManager);
         name = "Tickets";
@@ -39,9 +60,9 @@ public class TicketsView extends View {
         };
     }
 
-    /**
+    *//**
      * Gibt alle Tickets mit Beschreibung und Priorität aus und zeigt die Anzeige an
-     */
+     *//*
     @Override
     public void show() {
         String text = "";
@@ -82,7 +103,7 @@ public class TicketsView extends View {
     	return abbrev;
     }
 
-    /**
+    *//**
      * Auswertung der Anzeige.
      * Wurde "A" eingegeben, wird eine Möglichkeit zur Auswahl eines Tickets ausgegeben und anschließend das Ticket
      * angezeigt.
@@ -93,7 +114,7 @@ public class TicketsView extends View {
      * Wurde "S" eingegeben, wird eine Möglichkeit zum Sortieren der Tickets angezeigt.
      * gelöscht.
      * @param input Die Eingabe des Nutzers
-     */
+     *//*
     @Override
     public void evaluate(String input) {
         switch (input) {
@@ -119,9 +140,9 @@ public class TicketsView extends View {
         }
     }
 
-    /**
+    *//**
      * Methode zum Erstellen eines neuen Tickets
-     */
+     *//*
     private void createTicket() {
     	// Art
         System.out.println("[B]estellung, [S]törung, [A]nforderung");
@@ -195,44 +216,44 @@ public class TicketsView extends View {
         }
     }
 
-    /**
+    *//**
      * Weist den TicketManager an ein Ticket zu löschen
      * @param ticket das zulöschende Ticket
-     */
+     *//*
     private void deleteTicket(Ticket ticket) {
         viewManager.getTicketManager().remove(ticket);
     }
 
-    /**
+    *//**
      * Wählt ein Ticket aus einer Liste aus.
      * @return das ausgewählte Ticket
-     */
+     *//*
     private Ticket selectTicket() {
         System.out.println("Ticketnummer: ");
         int ticketId = scanner.nextInt();
         return tickets.get(ticketId);
     }
 
-    /**
+    *//**
      * Zeige das als nächstes zu bearbeitende Ticket an
-     */
+     *//*
     private void showNext() {
         Ticket ticket = viewManager.getTicketManager().next();
         showTicket(ticket);
     }
 
-    /**
+    *//**
      * Zeige das älteste Ticket an
-     */
+     *//*
     private void showOldest() {
         Ticket ticket = viewManager.getTicketManager().getOldest();
         showTicket(ticket);
     }
 
-    /**
+    *//**
      * Zeige ein Ticket an.
      * @param ticket das anzuzeigende Ticket
-     */
+     *//*
     private void showTicket(Ticket ticket) {
         viewManager.setNextView(new TicketView(viewManager, ticket));
     }
@@ -274,5 +295,5 @@ public class TicketsView extends View {
                 });
                 break;
         }
-    }
+    }*/
 }

@@ -9,6 +9,8 @@ import de.ddi.ticketsystem.presentation.ViewManager;
 
 public class Main {
     public static void main(String[] args) {
+        System.setProperty("apple.laf.useScreenMenuBar", "true");
+
         Access noteAccess = new NoteAccessText();
         Access userAccess = new UserAccessText();
         Access ticketAccess = new TicketAccessText();

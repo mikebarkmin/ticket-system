@@ -2,6 +2,8 @@ package de.ddi.ticketsystem.presentation;
 
 import de.ddi.ticketsystem.logic.Customer;
 
+import javax.swing.*;
+
 public class CustomerView extends View {
 
     private Customer customer;
@@ -13,30 +15,32 @@ public class CustomerView extends View {
      */
     public CustomerView(ViewManager viewManager, Customer customer) {
         super(viewManager);
-        name = "Kunde";
         this.customer = customer;
     }
 
-    /**
-     * Gibt die Daten des eines Kunden aus
-     */
     @Override
-    public void show() {
+    protected String getName() {
+        return "Customer";
+    }
+
+    @Override
+    public JPanel getBody() {
         String text = "Name\n";
         text += "\t" + customer.getFirstName() + " " + customer.getLastName() + "\n";
         text += "Email\n";
         text += "\t" + customer.getEmail() + "\n";
         text += "Firma\n";
         text += "\t" + customer.getCompany() + "\n";
-        this.text = text;
-        super.show();
+
+        JTextArea textArea = new JTextArea();
+        textArea.setText(text);
+        JPanel body = new JPanel();
+        body.add(textArea);
+        return body;
     }
 
-    /**
-     * Es muss nichts ausgewertet werden.
-     */
     @Override
-    public void evaluate(String input) {
-
+    public JPanel getMenu() {
+        return new JPanel();
     }
 }

@@ -2,6 +2,8 @@ package de.ddi.ticketsystem.presentation;
 
 import de.ddi.ticketsystem.logic.Employee;
 
+import javax.swing.*;
+
 public class EmployeeView extends View {
 
     private Employee employee;
@@ -13,30 +15,32 @@ public class EmployeeView extends View {
      */
     public EmployeeView(ViewManager viewManager, Employee employee) {
         super(viewManager);
-        name = "Angestellter";
         this.employee = employee;
     }
 
-    /**
-     * Gibt die Daten des eines Mitarbeiters aus
-     */
     @Override
-    public void show() {
+    protected String getName() {
+        return "Employee";
+    }
+
+    @Override
+    public JPanel getBody() {
         String text = "Name\n";
         text += "\t" + employee.getFirstName() + " " + employee.getLastName() + "\n";
         text += "Email\n";
         text += "\t" + employee.getEmail() + "\n";
         text += "Abteilung\n";
         text += "\t" + employee.getDepartment() + "\n";
-        this.text = text;
-        super.show();
+
+        JTextArea textArea = new JTextArea();
+        textArea.setText(text);
+        JPanel body = new JPanel();
+        body.add(textArea);
+        return body;
     }
 
-    /**
-     * Es muss nichts ausgewertet werden
-     */
     @Override
-    public void evaluate(String input) {
-
+    public JPanel getMenu() {
+        return null;
     }
 }

@@ -3,6 +3,9 @@ package de.ddi.ticketsystem.presentation;
 import de.ddi.ticketsystem.logic.Customer;
 import de.ddi.ticketsystem.logic.Employee;
 import de.ddi.ticketsystem.logic.User;
+
+import javax.swing.*;
+import java.awt.*;
 import java.util.List;
 
 public class UsersView extends View {
@@ -19,20 +22,47 @@ public class UsersView extends View {
      */
     public UsersView(ViewManager viewManager) {
         super(viewManager);
-        name = "Users";
         users = viewManager.getUserManager().getAll();
-
-        options = new String[]{
-                "[A]uswählen",
-        };
-        employeeOptions = new String[]{
-                "[H]inzufügen",
-        };
     }
 
-    /**
+    @Override
+    protected String getName() {
+        return "Users";
+    }
+
+    @Override
+    public Component getBody() {
+        JScrollPane scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        users.forEach(user -> scrollPane.add(createUserPanel(user)));
+        return scrollPane;
+    }
+
+    @Override
+    public JPanel getMenu() {
+        return new JPanel();
+    }
+
+    private JPanel createUserPanel(User user) {
+        JPanel userPanel = new JPanel();
+        JLabel userInfo = new JLabel(user.toString());
+        JButton show = new JButton("show");
+        show.addActionListener(e -> {
+            System.out.println(user);
+            if (user instanceof Employee) {
+                viewManager.setNextView(new EmployeeView(viewManager, (Employee) user));
+            } else {
+                viewManager.setNextView(new CustomerView(viewManager, (Customer) user));
+            }
+        });
+        userPanel.add(userInfo);
+        userPanel.add(show);
+        return userPanel;
+    }
+
+ /*   *//**
      * Zeigt alle Benutzer in Form einer Liste an.
-     */
+     *//*
     @Override
     public void show() {
         String text = "";
@@ -53,13 +83,13 @@ public class UsersView extends View {
         super.show();
     }
 
-    /**
+    *//**
      * Wertet die Anzeige aus.
      * Wurde "A" eingegeben, wird eine Möglichkeit zur Auswahl eines Nutzers ausgegeben und der ViewManager angewiesen,
      * als nächstes den Nutzer anzuzeigen.
      * Wurde "H" eingegeben, wird eine Möglichkeit zum Anlegen eines neuen Benutzers angezeigt.
      * @param input Die Eingabe des Nutzers
-     */
+     *//*
     @Override
     public void evaluate(String input) {
         switch (input) {
@@ -74,10 +104,10 @@ public class UsersView extends View {
         }
     }
 
-    /**
+    *//**
      * Den übergebenen Benutzer anzeigen
      * @param user Benutzer
-     */
+     *//*
     private void showUser(User user) {
         // Überprüfen, ob ein Employee oder ein Customer angezeigt werden soll
         if (user instanceof Employee) {
@@ -89,10 +119,10 @@ public class UsersView extends View {
         }
     }
 
-    /**
+    *//**
      * Auf die Usernummer horchen und dann den passenden Benutzer zurückgeben
      * @return User
-     */
+     *//*
     private User selectUser() {
         // auf die Usernummer horchen
         System.out.print("Usernummer: ");
@@ -100,9 +130,9 @@ public class UsersView extends View {
         return users.get(userId);
     }
 
-    /**
+    *//**
      * Einen neuen Kunden oder Angestellten anlegen
-     */
+     *//*
     private void createUser() {
         System.out.println("[A]ngestellter, [K]unde");
         String input = scanner.next().toUpperCase();
@@ -127,5 +157,5 @@ public class UsersView extends View {
                 viewManager.getUserManager().add(user);
                 break;
         }
-    }
+    }*/
 }

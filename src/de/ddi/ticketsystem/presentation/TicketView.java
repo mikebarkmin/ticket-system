@@ -6,6 +6,8 @@ import de.ddi.ticketsystem.logic.RequestTicket;
 import de.ddi.ticketsystem.logic.Status;
 import de.ddi.ticketsystem.logic.Ticket;
 
+import javax.swing.*;
+
 public class TicketView extends View {
 
     private Ticket ticket;
@@ -18,15 +20,25 @@ public class TicketView extends View {
      */
     public TicketView(ViewManager viewManager, Ticket ticket) {
         super(viewManager);
-        name = "Ticket";
         this.ticket = ticket;
-        employeeOptions = new String[] {
-                "[S]tatus ändern",
-                "[N]otizen (" + ticket.getNotes().size() + ")"
-        };
     }
 
     @Override
+    protected String getName() {
+        return "Ticket";
+    }
+
+    @Override
+    public JPanel getBody() {
+        return new JPanel();
+    }
+
+    @Override
+    public JPanel getMenu() {
+        return new JPanel();
+    }
+
+    /*@Override
     public void show() {
         String text = "";
         text += "Beschreibung\n\t" + ticket.getDescription() + "\n";
@@ -40,11 +52,11 @@ public class TicketView extends View {
         super.show();
     }
     
-    /**
+    *//**
      * Gibt Ticketart spezifische Eigenschaften zurück
      * @param ticket das anzuzeigende Ticket
      * @return Eigenschaften als String
-     */
+     *//*
     private String getSpecificInfo(Ticket ticket) {
         String result = "";
         if(ticket instanceof OrderTicket) {
@@ -64,12 +76,12 @@ public class TicketView extends View {
         return result;
     }
 
-    /**
+    *//**
      * Wertet die Anzeige aus.
      * Wurde "S" eingegeben, wird eine Option zum wechseln des Ticketstatus angezeigt.
      * Wurde "N" eingegeben, wird der viewManager angewiesen, als nächstes die Notizen zu dem Ticket anzuzeigen
      * @param input Die Eingabe des Nutzers
-     */
+     *//*
     @Override
     public void evaluate(String input) {
         switch (input) {
@@ -82,9 +94,9 @@ public class TicketView extends View {
         }
     }
 
-    /**
+    *//**
      * Den Status des Tickets ändern
-     */
+     *//*
     private void changeStatus() {
         String text = "Status (";
         text += Status.RECORDED + ", " + Status.PROCESSED + ", " + Status.WAITING_FOR_FEEDBACK + ", " + Status.SOLVED
@@ -95,10 +107,10 @@ public class TicketView extends View {
         ticket.setStatus(status);
     }
 
-    /**
+    *//**
      * Die Notizen des Tickets anzeigen
-     */
+     *//*
     private void showNotes() {
         viewManager.setNextView(new NotesView(viewManager, ticket));
-    }
+    }*/
 }

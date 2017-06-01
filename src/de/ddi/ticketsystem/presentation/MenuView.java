@@ -40,9 +40,4 @@ public class MenuView extends View {
         body.add(userButton, c);
         return body;
     }
-
-    @Override
-    public JPanel getMenu() {
-        return null;
-    }
 }

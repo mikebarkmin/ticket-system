@@ -38,9 +38,4 @@ public class EmployeeView extends View {
         body.add(textArea);
         return body;
     }
-
-    @Override
-    public JPanel getMenu() {
-        return null;
-    }
 }

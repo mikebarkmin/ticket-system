@@ -3,10 +3,10 @@ package de.ddi.ticketsystem.presentation;
 import de.ddi.ticketsystem.logic.Customer;
 import de.ddi.ticketsystem.logic.Employee;
 import de.ddi.ticketsystem.logic.User;
-
-import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+import javax.swing.*;
+import javax.swing.JLabel;
 
 public class UsersView extends View {
 
@@ -32,20 +32,42 @@ public class UsersView extends View {
 
     @Override
     public Component getBody() {
-        JScrollPane scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        users.forEach(user -> scrollPane.add(createUserPanel(user)));
-        return scrollPane;
+        JPanel body = new JPanel();
+        body.setLayout(new GridLayout(0, 2, 10, 10));
+        users.forEach(user -> body.add(createUserPanel(user)));
+        return body;
     }
 
     @Override
     public JPanel getMenu() {
-        return new JPanel();
+        JPanel menu = new JPanel();
+        JButton createUser = new JButton("Create User");
+        menu.add(createUser);
+        return menu;
     }
 
     private JPanel createUserPanel(User user) {
         JPanel userPanel = new JPanel();
-        JLabel userInfo = new JLabel(user.toString());
+        userPanel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.BLACK, 5),
+                BorderFactory.createEmptyBorder(5, 5, 10, 10)
+            )
+        );
+        userPanel.setLayout(new BorderLayout());
+
+        JLabel userHeader = new JLabel(
+            "<html><h2>" + user.getFirstName() + " " + user.getLastName() + "</h2></html>"
+        );
+        JPanel userInfo = new JPanel();
+        userInfo.setLayout(new BoxLayout(userInfo, BoxLayout.PAGE_AXIS));
+        String role = user instanceof Employee ? "Employee" : "Customer";
+        userInfo.add(new JLabel(
+            "Email: " + user.getEmail()
+        ));
+        userInfo.add(new JLabel(
+            "Role: " + role
+        ));
+
         JButton show = new JButton("show");
         show.addActionListener(e -> {
             System.out.println(user);
@@ -55,8 +77,9 @@ public class UsersView extends View {
                 viewManager.setNextView(new CustomerView(viewManager, (Customer) user));
             }
         });
-        userPanel.add(userInfo);
-        userPanel.add(show);
+        userPanel.add(userHeader, BorderLayout.NORTH);
+        userPanel.add(userInfo, BorderLayout.CENTER);
+        userPanel.add(show, BorderLayout.SOUTH);
         return userPanel;
     }
 

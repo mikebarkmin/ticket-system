@@ -1,7 +1,5 @@
 package de.ddi.ticketsystem.presentation;
 
-import sun.tools.jstat.Alignment;
-
 import javax.swing.*;
 import java.awt.*;
 

@@ -3,18 +3,17 @@ package de.ddi.ticketsystem.presentation;
 import de.ddi.ticketsystem.logic.NoteManager;
 import de.ddi.ticketsystem.logic.TicketManager;
 import de.ddi.ticketsystem.logic.UserManager;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Stack;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Stack;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 /**
  * Der ViewManager verwaltet die Benutzeransicht.
@@ -50,6 +49,7 @@ public class ViewManager extends JFrame {
      */
     public ViewManager(UserManager userManager, TicketManager ticketManager, NoteManager noteManager) {
         super("Ticketsystem");
+
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -61,6 +61,8 @@ public class ViewManager extends JFrame {
         this.userManager = userManager;
         this.ticketManager = ticketManager;
         this.noteManager = noteManager;
+
+        this.setLayout(new BorderLayout());
         this.container = this.getContentPane();
 
         this.setJMenuBar(constructMenuBar());
@@ -91,11 +93,9 @@ public class ViewManager extends JFrame {
         JMenuItem backMenu = new JMenuItem("Backwards");
         backMenu.addActionListener(e -> {
             if (viewStack.size() > 1) {
-                container.removeAll();
                 viewStack.pop();
                 View view = viewStack.peek();
-                container.add(view.getBody());
-                revalidate();
+                showView(view);
             }
         });
         navigationMenu.add(backMenu);
@@ -114,7 +114,6 @@ public class ViewManager extends JFrame {
         viewStack = new Stack<>();
         // erstelle einen LoginView und füge ihn dem ViewStack hinzu
         setNextView(new LoginView(this));
-        this.revalidate();
     }
 
     private void load() {
@@ -159,9 +158,18 @@ public class ViewManager extends JFrame {
      */
 
     public void setNextView(View view) {
-        container.removeAll();
         viewStack.push(view);
-        container.add(view.getBody());
+        showView(view);
+    }
+
+    public void showView(View view) {
+        container.removeAll();
+        container.add(view.getHeader(), BorderLayout.NORTH);
+        // Use optional Scrollpane, when body is too long.
+        JScrollPane scrollPane = new JScrollPane(view.getBody());
+        scrollPane.setBorder(new EmptyBorder(10, 10, 10, 10));
+        container.add(scrollPane, BorderLayout.CENTER);
+        container.add(view.getMenu(), BorderLayout.SOUTH);
         revalidate();
     }
 

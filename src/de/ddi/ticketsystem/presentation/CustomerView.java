@@ -38,9 +38,4 @@ public class CustomerView extends View {
         body.add(textArea);
         return body;
     }
-
-    @Override
-    public JPanel getMenu() {
-        return new JPanel();
-    }
 }

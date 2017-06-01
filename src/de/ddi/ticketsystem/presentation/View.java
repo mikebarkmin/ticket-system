@@ -40,10 +40,16 @@ public abstract class View {
 
     public Component getHeader() {
         JPanel header = new JPanel();
-        header.add(new JLabel(this.getName() + " - " + this.currentUser.getFirstName() + " " + this.currentUser.getLastName()));
+        String loginStatus = "not logged in";
+        if (this.currentUser != null) {
+            loginStatus = this.currentUser.getFirstName() + " " + this.currentUser.getLastName();
+        }
+        header.add(new JLabel(this.getName() + " - " + loginStatus));
         return header;
     }
 
-    public abstract Component getMenu();
+    public Component getMenu() {
+        return new JPanel();
+    }
 
 }

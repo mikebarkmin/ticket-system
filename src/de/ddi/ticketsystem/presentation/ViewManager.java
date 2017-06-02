@@ -91,18 +91,20 @@ public class ViewManager extends JFrame {
         navigationMenu.add(logoutMenu);
 
         JMenuItem backMenu = new JMenuItem("Backwards");
-        backMenu.addActionListener(e -> {
-            if (viewStack.size() > 1) {
-                viewStack.pop();
-                View view = viewStack.peek();
-                showView(view);
-            }
-        });
+        backMenu.addActionListener(e -> this.goBackwards());
         navigationMenu.add(backMenu);
 
         menuBar.add(navigationMenu);
 
         return menuBar;
+    }
+
+    public void goBackwards() {
+        if (viewStack.size() > 1) {
+            viewStack.pop();
+            View view = viewStack.peek();
+            showView(view);
+        }
     }
 
     /**

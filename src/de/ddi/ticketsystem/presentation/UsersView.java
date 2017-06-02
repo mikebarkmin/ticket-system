@@ -7,6 +7,7 @@ import java.awt.*;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class UsersView extends View {
 
@@ -14,6 +15,7 @@ public class UsersView extends View {
      * List der Benutzer
      */
     private List<User> users;
+    private JPanel body;
 
     /**
      * Erstellt eine Anzeige zum Ausgeben einer Nutzerliste mit den Optionen, einen Nutzer auszuwählen oder einen neuen
@@ -23,6 +25,8 @@ public class UsersView extends View {
     public UsersView(ViewManager viewManager) {
         super(viewManager);
         users = viewManager.getUserManager().getAll();
+        body = new JPanel();
+        body.setLayout(new GridLayout(0, 2, 10, 10));
     }
 
     @Override
@@ -32,8 +36,7 @@ public class UsersView extends View {
 
     @Override
     public Component getBody() {
-        JPanel body = new JPanel();
-        body.setLayout(new GridLayout(0, 2, 10, 10));
+        body.removeAll();
         users.forEach(user -> body.add(createUserPanel(user)));
         return body;
     }
@@ -42,6 +45,25 @@ public class UsersView extends View {
     public JPanel getMenu() {
         JPanel menu = new JPanel();
         JButton createUser = new JButton("Create User");
+        createUser.addActionListener(e -> {
+            String[] possibilities = {"Employee", "Customer"};
+            String s = (String) JOptionPane.showInputDialog(
+                body,
+                "Select a role for the new user",
+                "Create new user",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                possibilities,
+                possibilities[0]);
+            switch(s) {
+                case "Employee":
+                    viewManager.setNextView(new EmployeeView(viewManager));
+                    break;
+                case "Customer":
+                    viewManager.setNextView(new CustomerView(viewManager));
+                    break;
+            }
+        });
         menu.add(createUser);
         return menu;
     }
@@ -83,77 +105,7 @@ public class UsersView extends View {
         return userPanel;
     }
 
- /*   *//**
-     * Zeigt alle Benutzer in Form einer Liste an.
-     *//*
-    @Override
-    public void show() {
-        String text = "";
-        // Liste der Benutzer durchlaufen
-        for(int i = 0; i < users.size(); i++) {
-            User user = users.get(i);
-            // Ausgabestring generieren. Bsp: 1) Heiko Topf Angestellter
-            text += i + ") " + user.getFirstName() + " " + user.getLastName() + " ";
-            if (user instanceof Employee) {
-                text += "Angestellter";
-            } else {
-                text += "Kunde";
-            }
-            text += "\n";
-        }
-        this.text = text;
-        // die show Methode von der Oberklasse View aufrufen
-        super.show();
-    }
-
-    *//**
-     * Wertet die Anzeige aus.
-     * Wurde "A" eingegeben, wird eine Möglichkeit zur Auswahl eines Nutzers ausgegeben und der ViewManager angewiesen,
-     * als nächstes den Nutzer anzuzeigen.
-     * Wurde "H" eingegeben, wird eine Möglichkeit zum Anlegen eines neuen Benutzers angezeigt.
-     * @param input Die Eingabe des Nutzers
-     *//*
-    @Override
-    public void evaluate(String input) {
-        switch (input) {
-            case "A":
-                // einen Benutzer auswählen und dann anzeigen
-                showUser(selectUser());
-                break;
-            case "H":
-                // einen neuen Benutzer anlegen
-                createUser();
-                break;
-        }
-    }
-
-    *//**
-     * Den übergebenen Benutzer anzeigen
-     * @param user Benutzer
-     *//*
-    private void showUser(User user) {
-        // Überprüfen, ob ein Employee oder ein Customer angezeigt werden soll
-        if (user instanceof Employee) {
-            // user auf den Typ Employee casten, einen EmployeeView erstellen und als nächsten View setzten
-            viewManager.setNextView(new EmployeeView(viewManager, (Employee) user));
-        } else {
-            // user auf den Typ Customer casten, einen CustomerView erstellen und als nächsten View setzten
-            viewManager.setNextView(new CustomerView(viewManager, (Customer) user));
-        }
-    }
-
-    *//**
-     * Auf die Usernummer horchen und dann den passenden Benutzer zurückgeben
-     * @return User
-     *//*
-    private User selectUser() {
-        // auf die Usernummer horchen
-        System.out.print("Usernummer: ");
-        int userId = scanner.nextInt();
-        return users.get(userId);
-    }
-
-    *//**
+    /**
      * Einen neuen Kunden oder Angestellten anlegen
      *//*
     private void createUser() {

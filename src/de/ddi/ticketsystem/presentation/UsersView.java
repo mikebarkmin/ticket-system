@@ -55,6 +55,7 @@ public class UsersView extends View {
                 null,
                 possibilities,
                 possibilities[0]);
+            if (s == null) return;
             switch(s) {
                 case "Employee":
                     viewManager.setNextView(new EmployeeView(viewManager));
@@ -92,7 +93,6 @@ public class UsersView extends View {
 
         JButton show = new JButton("show");
         show.addActionListener(e -> {
-            System.out.println(user);
             if (user instanceof Employee) {
                 viewManager.setNextView(new EmployeeView(viewManager, (Employee) user));
             } else {
@@ -104,33 +104,4 @@ public class UsersView extends View {
         userPanel.add(show, BorderLayout.SOUTH);
         return userPanel;
     }
-
-    /**
-     * Einen neuen Kunden oder Angestellten anlegen
-     *//*
-    private void createUser() {
-        System.out.println("[A]ngestellter, [K]unde");
-        String input = scanner.next().toUpperCase();
-        System.out.print("Vorname: ");
-        String firstName = scanner.next();
-        System.out.print("Nachname: ");
-        String lastName = scanner.next();
-        System.out.print("E-Mail: ");
-        String email = scanner.next();
-        User user;
-        switch (input) {
-            case "A":
-                System.out.print("Abteilung: ");
-                String department = scanner.next();
-                user = new Employee(firstName, lastName, email, department);
-                viewManager.getUserManager().add(user);
-                break;
-            case "K":
-                System.out.print("Firma: ");
-                String company = scanner.next();
-                user = new Customer(firstName, lastName, email, company);
-                viewManager.getUserManager().add(user);
-                break;
-        }
-    }*/
 }

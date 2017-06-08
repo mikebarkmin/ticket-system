@@ -1,10 +1,9 @@
 package de.ddi.ticketsystem.logic;
 
 import de.ddi.ticketsystem.data.Access;
+import de.ddi.ticketsystem.data.DataException;
 import java.util.List;
 import java.util.ArrayList;
-
-import java.io.IOException;
 
 public class UserManager extends Manager{
 
@@ -33,7 +32,7 @@ public class UserManager extends Manager{
      * Access an, diese zu speichern.
      */
     @Override
-    public void save() throws IOException {
+    public void save() throws DataException {
         List<String> data = new ArrayList<>();
         // die Liste aller Benutzer durchlaufen
         for(int i = 0; i < users.size(); i++) {
@@ -46,7 +45,7 @@ public class UserManager extends Manager{
     }
 
     @Override
-    public void load() throws IOException {
+    public void load() throws DataException {
         List<String> data = access.load();
         // List der geladenen Strings durchlaufen
         for(int i = 0; i < data.size(); i++) {

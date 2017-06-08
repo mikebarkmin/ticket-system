@@ -40,17 +40,13 @@ public class UserAccessSQLite extends AccessSQLite {
     }
 
     @Override
-    public List<String> load() throws IOException {
-        try {
-            connect();
-            disconnect();
-        } catch (SQLException e) {
-            throw new IOException("Failed to load database!");
-        }
+    public List<String> load() throws DataException {
+        connect();
+        disconnect();
         return new ArrayList<>();
     }
 
-    private void saveUser(String user) throws IOException {
+    private void saveUser(String user) throws DataException {
         try {
             String[] values = user.split(";");
             if (values[1].equals("EMPLOYEE")) {
@@ -65,20 +61,16 @@ public class UserAccessSQLite extends AccessSQLite {
                 createStatement().execute(insertSQL);
             }
         } catch (SQLException e) {
-            throw new IOException("User could not be saved.");
+            throw new DataException("User could not be saved.");
         }
     }
 
     @Override
-    public void save(List<String> users) throws IOException {
-        try {
-            connect();
-            for(String user : users) {
-                saveUser(user);
-            }
-            disconnect();
-        } catch (SQLException e) {
-            throw new IOException("Users could not be saved!");
+    public void save(List<String> users) throws DataException {
+        connect();
+        for(String user : users) {
+            saveUser(user);
         }
+        disconnect();
     }
 }

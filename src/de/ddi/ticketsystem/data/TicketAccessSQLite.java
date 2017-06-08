@@ -52,17 +52,13 @@ public class TicketAccessSQLite extends AccessSQLite {
     }
 
     @Override
-    public List<String> load() throws IOException {
-        try {
-            connect();
-            disconnect();
-        } catch (SQLException e) {
-            throw new IOException("Failed to load database!");
-        }
+    public List<String> load() throws DataException {
+        connect();
+        disconnect();
         return new ArrayList<>();
     }
 
     @Override
-    public void save(List<String> data) throws IOException {
+    public void save(List<String> data) throws DataException {
     }
 }

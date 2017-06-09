@@ -16,15 +16,15 @@ public abstract class AccessSQLite implements Access {
         try {
             if (connection == null || connection.isClosed()) {
                 connection = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
-                connection.setAutoCommit(false);
+                connection.setAutoCommit(true);
             }
         } catch (SQLException e) {
-            throw new DataException("Could not connect with Database.");
+            throw new DataException("Could not connect with database.");
         }
         try {
             this.initTable();
         } catch (SQLException e) {
-            throw new DataException("Could not initilize Database Tables.");
+            throw new DataException("Could not initilize database tables.");
         }
     }
 
@@ -40,7 +40,7 @@ public abstract class AccessSQLite implements Access {
                 connection.close();
             }
         } catch (SQLException e) {
-            throw new DataException("Could not close Database connection");
+            throw new DataException("Could not close database connection");
         }
     }
 }

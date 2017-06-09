@@ -2,6 +2,7 @@ package de.ddi.ticketsystem.data;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,14 +10,18 @@ import java.util.List;
 public class UserAccessSQLite extends AccessSQLite {
 
     private static final String insertEmployeeSQL = "INSERT INTO employees VALUES ("
-        + "%s, %s, %s, %s, %s);";
+        + "'%s', '%s', '%s', '%s', '%s');";
 
-    private static final String deleteEmployeeByIdSQL = "DELETE FROM employees WHERE id=%s;";
+    private static final String deleteAllEmployeesSQL = "DELETE FROM employees;";
+
+    private static final String selectAllEmployeesSQL = "SELECT * FROM employees;";
 
     private static final String insertCustomerSQL = "INSERT INTO customers VALUES ("
-        + "%s, %s, %s, %s, %s);";
+        + "'%s', '%s', '%s', '%s', '%s');";
 
-    private static final String deleteCustomerByIdSQL = "DELETE FROM customers WHERE id=%s;";
+    private static final String deleteAllCustomerSQL = "DELETE FROM customers;";
+
+    private static final String selectAllCustomersSQL = "SELECT * FROM customers;";
 
     @Override
     protected void initTable() throws SQLException {
@@ -42,34 +47,55 @@ public class UserAccessSQLite extends AccessSQLite {
     @Override
     public List<String> load() throws DataException {
         connect();
-        disconnect();
-        return new ArrayList<>();
-    }
-
-    private void saveUser(String user) throws DataException {
+        ArrayList<String> data = new ArrayList<>();
         try {
-            String[] values = user.split(";");
-            if (values[1].equals("EMPLOYEE")) {
-                String deleteSQL = String.format(deleteEmployeeByIdSQL, values[0]);
-                createStatement().execute(deleteSQL);
-                String insertSQL = String.format(insertEmployeeSQL, values[0], values[2], values[3], values[4], values[5]);
-                createStatement().execute(insertSQL);
-            } else if (values[1].equals("CUSTOMER")) {
-                String deleteSQL = String.format(deleteCustomerByIdSQL, values[0]);
-                createStatement().execute(deleteSQL);
-                String insertSQL = String.format(insertCustomerSQL, values[0], values[2], values[3], values[4], values[5]);
-                createStatement().execute(insertSQL);
+            ResultSet customerResults = createStatement().executeQuery(selectAllCustomersSQL);
+            while(customerResults.next()) {
+                int id = customerResults.getInt("id");
+                String firstName = customerResults.getString("first_name");
+                String lastName = customerResults.getString("last_name");
+                String email = customerResults.getString("email");
+                String company = customerResults.getString("company");
+                data.add(id + ";CUSTOMER;" + firstName + ";" + lastName + ";" + email + ";" + company);
+            }
+            ResultSet employeeResults = createStatement().executeQuery(selectAllEmployeesSQL);
+            while(employeeResults.next()) {
+                int id = employeeResults.getInt("id");
+                String firstName = employeeResults.getString("first_name");
+                String lastName = employeeResults.getString("last_name");
+                String email = employeeResults.getString("email");
+                String department = employeeResults.getString("department");
+                data.add(id + ";EMPLOYEE;" + firstName + ";" + lastName + ";" + email + ";" + department);
             }
         } catch (SQLException e) {
-            throw new DataException("User could not be saved.");
+            throw new DataException("Could not load users from database.");
+        }
+        disconnect();
+        return data;
+    }
+
+    private void saveUser(String user) throws SQLException {
+        String[] values = user.split(";");
+        if (values[1].equals("EMPLOYEE")) {
+            String insertSQL = String.format(insertEmployeeSQL, values[0], values[2], values[3], values[4], values[5]);
+            createStatement().execute(insertSQL);
+        } else if (values[1].equals("CUSTOMER")) {
+            String insertSQL = String.format(insertCustomerSQL, values[0], values[2], values[3], values[4], values[5]);
+            createStatement().execute(insertSQL);
         }
     }
 
     @Override
     public void save(List<String> users) throws DataException {
         connect();
-        for(String user : users) {
-            saveUser(user);
+        try {
+            createStatement().execute(deleteAllEmployeesSQL);
+            createStatement().execute(deleteAllCustomerSQL);
+            for(String user : users) {
+                saveUser(user);
+            }
+        } catch (SQLException e) {
+            throw new DataException("Users could not be saved.");
         }
         disconnect();
     }

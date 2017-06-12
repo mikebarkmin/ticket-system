@@ -18,7 +18,6 @@ public abstract class UserView extends View {
     public UserView(ViewManager viewManager, User user) {
         super(viewManager);
         this.user = user;
-        System.out.println("UserView 2");
         this.body = new JPanel(new GridBagLayout());
         this.addLabels();
         this.addFields();
@@ -27,7 +26,6 @@ public abstract class UserView extends View {
     public UserView(ViewManager viewManager) {
         super(viewManager);
         this.body = new JPanel(new GridBagLayout());
-        System.out.println("UserView 1");
         this.addLabels();
         this.addEditableFields();
         this.addCreateButton();

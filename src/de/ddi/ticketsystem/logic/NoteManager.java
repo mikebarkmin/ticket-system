@@ -1,9 +1,9 @@
 package de.ddi.ticketsystem.logic;
 
 import de.ddi.ticketsystem.data.Access;
+import de.ddi.ticketsystem.data.DataException;
 import java.util.List;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -53,7 +53,7 @@ public class NoteManager extends Manager{
      * Weist einen Zugriff vom Typ Access an, die zum Speichern vorgemerkten Notizen zu speichern
      */
     @Override
-    public void save() throws IOException {
+    public void save() throws DataException {
         access.save(toSave);
     }
 
@@ -61,7 +61,7 @@ public class NoteManager extends Manager{
      * Weißt einen Zugriff vom Typ Access an, die Notizen zu laden und speichert diese intern.
      */
     @Override
-    public void load() throws IOException {
+    public void load() throws DataException {
         loaded = access.load();
     }
 

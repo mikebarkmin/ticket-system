@@ -1,7 +1,7 @@
 import de.ddi.ticketsystem.data.Access;
-import de.ddi.ticketsystem.data.NoteAccessText;
-import de.ddi.ticketsystem.data.TicketAccessText;
-import de.ddi.ticketsystem.data.UserAccessText;
+import de.ddi.ticketsystem.data.NoteAccessSQLite;
+import de.ddi.ticketsystem.data.TicketAccessSQLite;
+import de.ddi.ticketsystem.data.UserAccessSQLite;
 import de.ddi.ticketsystem.logic.NoteManager;
 import de.ddi.ticketsystem.logic.TicketManager;
 import de.ddi.ticketsystem.logic.UserManager;
@@ -20,9 +20,9 @@ public class Main {
 
         }
 
-        Access noteAccess = new NoteAccessText();
-        Access userAccess = new UserAccessText();
-        Access ticketAccess = new TicketAccessText();
+        Access noteAccess = new NoteAccessSQLite();
+        Access userAccess = new UserAccessSQLite();
+        Access ticketAccess = new TicketAccessSQLite();
 
         UserManager userManager = new UserManager(userAccess);
         NoteManager noteManager = new NoteManager(noteAccess, userManager);

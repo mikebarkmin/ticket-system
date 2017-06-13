@@ -1,6 +1,7 @@
 package de.ddi.ticketsystem.logic;
 
 import de.ddi.ticketsystem.data.Access;
+import de.ddi.ticketsystem.data.DataException;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -41,7 +42,7 @@ public class TicketManager extends Manager{
      * Zusätzlich werden dem Notizenmanager eine ID zu jedem Ticket mit den zugehörigen Tickets übergeben.
      */
     @Override
-    public void save() throws IOException {
+    public void save() throws DataException {
         List<String> data = new ArrayList<>();
         // Liste der Tickets durchlaufen
         for(int i = 0; i < tickets.size(); i++) {
@@ -65,7 +66,7 @@ public class TicketManager extends Manager{
      * hinzu.
      */
     @Override
-    public void load() throws IOException {
+    public void load() throws DataException {
         List<String> data = access.load();
         // Liste der geladenen Strings durchlaufen
         for(int i = 0; i < data.size(); i++) {

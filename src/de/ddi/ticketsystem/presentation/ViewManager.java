@@ -3,13 +3,13 @@ package de.ddi.ticketsystem.presentation;
 import de.ddi.ticketsystem.logic.NoteManager;
 import de.ddi.ticketsystem.logic.TicketManager;
 import de.ddi.ticketsystem.logic.UserManager;
+import de.ddi.ticketsystem.data.DataException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 import java.util.Stack;
 import javax.swing.*;
@@ -19,6 +19,8 @@ import javax.swing.border.EmptyBorder;
  * Der ViewManager verwaltet die Benutzeransicht.
  */
 public class ViewManager extends JFrame {
+
+    private static final long serialVersionUID = 84329534615134532L;
 
     /**
      * UserManager
@@ -124,13 +126,8 @@ public class ViewManager extends JFrame {
             noteManager.load();
             ticketManager.load();
         }
-        catch (FileNotFoundException e) {
-            System.out.println("Daten nicht gefunden! Das System wird beendet.");
-            e.printStackTrace();
-            System.exit(1);
-        }
-        catch (IOException e) {
-            System.out.println("Zugriff auf Daten verweigert! Das System wird beendet.");
+        catch (DataException e) {
+            System.out.println(e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }
@@ -142,13 +139,8 @@ public class ViewManager extends JFrame {
             ticketManager.save();
             noteManager.save();
         }
-        catch (FileNotFoundException e) {
-            System.out.println("Speicherziel nicht gefunden! Daten gehen ggf. verloren :(");
-            e.printStackTrace();
-            System.exit(1);
-        }
-        catch (IOException e) {
-            System.out.println("Zugriff auf das Speicherziel verweigert! Daten gehen ggf. verloren :(");
+        catch (DataException e) {
+            System.out.println(e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }

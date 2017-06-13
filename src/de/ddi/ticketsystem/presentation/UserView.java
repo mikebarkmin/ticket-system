@@ -38,71 +38,74 @@ public abstract class UserView extends View {
     protected abstract List<Component> getAdditionalEditableFields();
 
     private void addLabels() {
-        GridBagConstraints c = new GridBagConstraints();
+        GridBagConstraints c;
 
-        c.gridy = 0;
+        c = this.createGbc(0, 0);
         JLabel firstNameLabel = new JLabel("First Name");
         this.body.add(firstNameLabel, c);
 
-        c.gridy += 1;
+        c = this.createGbc(0, 1);
         JLabel lastNameLabel = new JLabel("Last Name");
         this.body.add(lastNameLabel, c);
 
-        c.gridy += 1;
+        c = this.createGbc(0, 2);
         JLabel emailLabel = new JLabel("Email");
         this.body.add(emailLabel, c);
 
         List<Component> additionalLabels = this.getAdditionalLabels();
-        additionalLabels.forEach(label -> {
-            c.gridy += 1;
-            this.body.add(label, c);
-        });
+        int i = 3;
+        for(Component additionalLabel : additionalLabels) {
+            c = this.createGbc(0, i);
+            this.body.add(additionalLabel, c);
+        }
     }
 
     private void addFields() {
-        GridBagConstraints c = new GridBagConstraints();
+        GridBagConstraints c;
 
-        c.gridx = 1;
-        c.gridy = 0;
+        c = this.createGbc(1, 0);
         JLabel firstNameLabel = new JLabel(this.user.getFirstName());
         this.body.add(firstNameLabel, c);
 
-        c.gridy += 1;
+        c = this.createGbc(1, 1);
         JLabel lastNameLabel = new JLabel(this.user.getLastName());
         this.body.add(lastNameLabel, c);
 
-        c.gridy += 1;
+        c = this.createGbc(1, 2);
         JLabel emailLabel = new JLabel(this.user.getEmail());
         this.body.add(emailLabel, c);
 
         List<Component> additionalFields = this.getAdditionalFields();
-        additionalFields.forEach(field -> {
-            c.gridy += 1;
-            this.body.add(field, c);
-        });
+        int i = 3;
+        for(Component additionalField : additionalFields) {
+            c = this.createGbc(1, i);
+            i++;
+            this.body.add(additionalField, c);
+        }
     }
 
     private void addEditableFields() {
-        GridBagConstraints c = new GridBagConstraints();
+        GridBagConstraints c;
 
-        c.gridx = 1;
-        c.gridy = 0;
+        c = this.createGbc(1, 0);
         this.firstNameField = new JTextField(20);
         this.body.add(this.firstNameField, c);
 
-        c.gridy +=1;
+        c = this.createGbc(1, 1);
         this.lastNameField = new JTextField(20);
         this.body.add(this.lastNameField, c);
 
-        c.gridy += 1;
+        c = this.createGbc(1, 2);
         this.emailField = new JTextField(20);
         this.body.add(this.emailField, c);
 
         List<Component> additionalEditableFields = this.getAdditionalEditableFields();
-        additionalEditableFields.forEach(field -> {
-            c.gridy += 1;
-            this.body.add(field, c);
-        });
+        int i = 3;
+        for(Component additionalEditableField : additionalEditableFields) {
+            this.createGbc(1, i);
+            i++;
+            this.body.add(additionalEditableField, c);
+        }
     }
 
     private void addCreateButton() {

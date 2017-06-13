@@ -31,8 +31,4 @@ public class OrderTicketView extends TicketView {
     protected OrderTicket createTicketFromFields() {
         return null;
     }
-
-    protected void modifyTicketFromFields() {
-
-    }
 }

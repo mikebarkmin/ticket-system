@@ -26,7 +26,6 @@ public class TicketsView extends View {
         super(viewManager);
         tickets = viewManager.getTicketManager().getAll();
         body = new JPanel();
-        updateBody();
     }
 
     @Override
@@ -35,6 +34,7 @@ public class TicketsView extends View {
     }
 
     private void updateBody() {
+        tickets = viewManager.getTicketManager().getAll();
         body.removeAll();
         body.setLayout(new GridLayout(0, 2, 10, 10));
         tickets.forEach(ticket -> body.add(createTicketPanel(ticket)));
@@ -43,6 +43,7 @@ public class TicketsView extends View {
 
     @Override
     public JPanel getBody() {
+        updateBody();
         return body;
     }
 

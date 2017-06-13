@@ -29,8 +29,4 @@ public class MalfunctionTicketView extends TicketView {
     protected MalfunctionTicket createTicketFromFields() {
         return null;
     }
-
-    protected void modifyTicketFromFields() {
-
-    }
 }

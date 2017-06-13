@@ -15,6 +15,7 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class TicketsView extends View {
 
@@ -25,7 +26,6 @@ public class TicketsView extends View {
         super(viewManager);
         tickets = viewManager.getTicketManager().getAll();
         body = new JPanel();
-        updateBody();
     }
 
     @Override
@@ -34,6 +34,7 @@ public class TicketsView extends View {
     }
 
     private void updateBody() {
+        tickets = viewManager.getTicketManager().getAll();
         body.removeAll();
         body.setLayout(new GridLayout(0, 2, 10, 10));
         tickets.forEach(ticket -> body.add(createTicketPanel(ticket)));
@@ -42,6 +43,7 @@ public class TicketsView extends View {
 
     @Override
     public JPanel getBody() {
+        updateBody();
         return body;
     }
 
@@ -72,7 +74,9 @@ public class TicketsView extends View {
         JPanel ticketMenu = new JPanel();
 
         JButton show = new JButton("show");
-        show.addActionListener(e -> viewManager.setNextView(new TicketView(viewManager, ticket)));
+        show.addActionListener(e -> {
+            showTicket(ticket);
+        });
         ticketMenu.add(show);
 
         JButton edit = new JButton("edit");
@@ -87,24 +91,57 @@ public class TicketsView extends View {
         return panel;
     }
 
+    private void showTicket(Ticket ticket) {
+        if (ticket instanceof RequestTicket) {
+            viewManager.setNextView(new RequestTicketView(viewManager, (RequestTicket) ticket));
+        } else if (ticket instanceof OrderTicket) {
+            viewManager.setNextView(new OrderTicketView(viewManager, (OrderTicket) ticket));
+        } else if (ticket instanceof MalfunctionTicket) {
+            viewManager.setNextView(new MalfunctionTicketView(viewManager, (MalfunctionTicket) ticket));
+        }
+    }
+
     @Override
     public JPanel getMenu() {
         JPanel menu = new JPanel();
 
         JButton createTicket = new JButton("Create");
+        createTicket.addActionListener(e -> {
+            String[] possibilities = {"Request", "Order", "Malfunction"};
+            String s = (String) JOptionPane.showInputDialog(
+                body,
+                "Select a type for the new ticket",
+                "Create new ticket",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                possibilities,
+                possibilities[0]);
+            if (s == null) return;
+            switch(s) {
+                case "Request":
+                    viewManager.setNextView(new RequestTicketView(viewManager));
+                    break;
+                case "Order":
+                    viewManager.setNextView(new OrderTicketView(viewManager));
+                    break;
+                case "Malfunction":
+                    viewManager.setNextView(new MalfunctionTicketView(viewManager));
+                    break;
+            }
+        });
         menu.add(createTicket);
 
         JButton oldestTicket = new JButton("Oldest");
         oldestTicket.addActionListener(e -> {
             Ticket ticket = viewManager.getTicketManager().getOldest();
-            viewManager.setNextView(new TicketView(viewManager, ticket));
+            showTicket(ticket);
         });
         menu.add(oldestTicket);
 
         JButton nextTicket = new JButton("Next");
         nextTicket.addActionListener(e -> {
             Ticket ticket = viewManager.getTicketManager().next();
-            viewManager.setNextView(new TicketView(viewManager, ticket));
+            showTicket(ticket);
         });
         menu.add(nextTicket);
 
@@ -119,6 +156,7 @@ public class TicketsView extends View {
                     null,
                     possibilities,
                     possibilities[0]);
+            if (s == null) return;
             switch(s) {
                 case "Employee":
                     tickets.sort((t1, t2) -> t1.getEmployee().compareTo(t2.getEmployee()));

@@ -1,6 +1,6 @@
 package de.ddi.ticketsystem.data;
 
-import util.List;
+import java.util.List;
 
 import java.io.IOException;
 

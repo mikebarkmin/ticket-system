@@ -1,6 +1,7 @@
 package de.ddi.ticketsystem.data;
 
-import util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 import java.io.*;
 
@@ -21,7 +22,7 @@ public abstract class AccessText implements Access {
      */
     @Override
     public List<String> load() throws IOException {
-        List<String> lines = new List<>();
+        List<String> lines = new ArrayList<>();
 
         // die Datei am entsprechenden Pfad lesen
         FileReader fr = new FileReader(pathToFile);

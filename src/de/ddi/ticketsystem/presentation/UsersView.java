@@ -3,7 +3,7 @@ package de.ddi.ticketsystem.presentation;
 import de.ddi.ticketsystem.logic.Customer;
 import de.ddi.ticketsystem.logic.Employee;
 import de.ddi.ticketsystem.logic.User;
-import util.List;
+import java.util.List;
 
 public class UsersView extends View {
 

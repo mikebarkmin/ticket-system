@@ -3,7 +3,7 @@ package de.ddi.ticketsystem.presentation;
 import de.ddi.ticketsystem.logic.Employee;
 import de.ddi.ticketsystem.logic.Note;
 import de.ddi.ticketsystem.logic.Ticket;
-import util.List;
+import java.util.List;
 
 public class NotesView extends View {
 

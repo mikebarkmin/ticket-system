@@ -1,9 +1,10 @@
 package de.ddi.ticketsystem.logic;
 
 import de.ddi.ticketsystem.data.Access;
-import util.List;
+import java.util.List;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class NoteManager extends Manager{
@@ -26,7 +27,7 @@ public class NoteManager extends Manager{
      */
     public NoteManager(Access access, UserManager userManager) {
         super(access);
-        toSave = new List<>();
+        toSave = new ArrayList<>();
         this.userManager = userManager;
     }
 
@@ -70,7 +71,7 @@ public class NoteManager extends Manager{
      * @return List<Note> aus den zu dem Ticket gehörenden Notizen
      */
     public List<Note> getForTicketId(int id) {
-        List<Note> notes = new List<>();
+        List<Note> notes = new ArrayList<>();
         // Liste von Notizen als Strings durchlaufen
         for(int i = 0; i < loaded.size(); i++) {
             // Den String am Semikolon aufteilen

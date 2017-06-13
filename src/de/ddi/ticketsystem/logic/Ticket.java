@@ -1,6 +1,7 @@
 package de.ddi.ticketsystem.logic;
 
-import util.List;
+import java.util.List;
+import java.util.ArrayList;
 
 import java.util.Date;
 
@@ -49,9 +50,9 @@ public abstract class Ticket implements Saveable {
         this.employee = employee;
         this.customer = customer;
         this.priority = priority;
-        notes = new List<>();
+        notes = new ArrayList<>();
         creationDate = new Date();
-        notes = new List<>();
+        notes = new ArrayList<>();
     }
 
     /**

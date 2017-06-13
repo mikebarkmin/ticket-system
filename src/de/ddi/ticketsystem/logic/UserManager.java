@@ -1,7 +1,8 @@
 package de.ddi.ticketsystem.logic;
 
 import de.ddi.ticketsystem.data.Access;
-import util.List;
+import java.util.List;
+import java.util.ArrayList;
 
 import java.io.IOException;
 
@@ -23,7 +24,7 @@ public class UserManager extends Manager{
      */
     public UserManager(Access access) {
         super(access);
-        users = new List<>();
+        users = new ArrayList<>();
         current = null;
     }
 
@@ -33,7 +34,7 @@ public class UserManager extends Manager{
      */
     @Override
     public void save() throws IOException {
-        List<String> data = new List<>();
+        List<String> data = new ArrayList<>();
         // die Liste aller Benutzer durchlaufen
         for(int i = 0; i < users.size(); i++) {
             User user = users.get(i);
@@ -131,7 +132,7 @@ public class UserManager extends Manager{
      * @return List<Customer> mit den Kunden, die der UserManager verwaltet
      */
     public List<Customer> getCustomers() {
-        List<Customer> customers = new List<>();
+        List<Customer> customers = new ArrayList<>();
         // Liste der Benutzer durchlaufen
         for(int i = 0; i < users.size(); i++) {
             User user = users.get(i);
@@ -149,7 +150,7 @@ public class UserManager extends Manager{
      * @return List<Employee> mit den Angestellten, die der UserManager verwaltet
      */
     public List<Employee> getEmployees() {
-        List<Employee> employees = new List<>();
+        List<Employee> employees = new ArrayList<>();
         // Liste der Benutzer durchlaufen
         for(int i = 0; i < users.size(); i++) {
             User user = users.get(i);

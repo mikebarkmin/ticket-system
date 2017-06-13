@@ -3,7 +3,7 @@ package de.ddi.ticketsystem.presentation;
 import de.ddi.ticketsystem.logic.NoteManager;
 import de.ddi.ticketsystem.logic.TicketManager;
 import de.ddi.ticketsystem.logic.UserManager;
-import util.Stack;
+import java.util.Stack;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

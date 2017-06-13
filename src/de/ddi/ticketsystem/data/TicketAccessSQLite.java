@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TicketAccessSQLite extends AccessSQLite {
@@ -14,21 +15,21 @@ public class TicketAccessSQLite extends AccessSQLite {
     private static final String selectAllRequestTicketsSQL = "SELECT * FROM request_tickets;";
 
     private static final String insertRequestTicketSQL = "INSERT INTO request_tickets VALUES ("
-        + "%s, %s, %s, %s, %s, %s, %s, %s, %s);";
+        + "'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');";
 
     private static final String deleteAllOrderTicketsSQL = "DELETE FROM order_tickets;";
 
     private static final String selectAllOrderTicketsSQL = "SELECT * FROM order_tickets;";
 
     private static final String insertOrderTicketSQL = "INSERT INTO order_tickets VALUES ("
-        + "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);";
+        + "'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');";
 
     private static final String deleteAllMalfunctionTicketsSQL = "DELETE FROM malfunction_tickets;";
 
     private static final String selectAllMalfunctionTicketsSQL = "SELECT * FROM malfunction_tickets;";
 
     private static final String insertMalfunctionTicketSQL = "INSERT INTO malfunction_tickets VALUES ("
-        + "%s, %s, %s, %s, %s, %s, %s, %s);";
+        + "'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');";
 
     @Override
     protected void initTable() throws SQLException {
@@ -116,14 +117,15 @@ public class TicketAccessSQLite extends AccessSQLite {
 
     private void saveTicket(String ticket) throws SQLException {
         String[] values = ticket.split(";");
-        if (values[1].equals("MALFUNCTION")) {
-            String sql = String.format(insertMalfunctionTicketSQL, values[0], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]);
+        System.out.println(Arrays.toString(values));
+        if (values[3].equals("MALFUNCTION")) {
+            String sql = String.format(insertMalfunctionTicketSQL, values[0], values[1], values[2], values[4], values[5], values[6], values[7], values[8]);
             createStatement().execute(sql);
-        } else if (values[1].equals("REQUEST")) {
-            String sql = String.format(insertRequestTicketSQL, values[0], values[2], values[3], values[4], values[5], values[6], values[7], values[8]);
+        } else if (values[3].equals("REQUEST")) {
+            String sql = String.format(insertRequestTicketSQL, values[0], values[1], values[2], values[4], values[5], values[6], values[7], values[8], values[9]);
             createStatement().execute(sql);
-        } else if (values[1].equals("ORDER")) {
-            String sql = String.format(insertOrderTicketSQL, values[0], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]);
+        } else if (values[3].equals("ORDER")) {
+            String sql = String.format(insertOrderTicketSQL, values[0], values[1], values[2], values[4], values[5], values[6], values[7], values[8], values[9], values[10], values[11]);
             createStatement().execute(sql);
         }
     }
@@ -139,6 +141,7 @@ public class TicketAccessSQLite extends AccessSQLite {
                 saveTicket(ticket);
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new DataException("Tickets could not be saved.");
         }
         disconnect();

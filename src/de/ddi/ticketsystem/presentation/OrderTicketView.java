@@ -1,6 +1,9 @@
 package de.ddi.ticketsystem.presentation;
 
 import de.ddi.ticketsystem.logic.OrderTicket;
+import de.ddi.ticketsystem.logic.Status;
+import de.ddi.ticketsystem.logic.Employee;
+import de.ddi.ticketsystem.logic.Customer;
 import java.awt.Component;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -66,6 +69,16 @@ public class OrderTicketView extends TicketView {
     }
 
     protected OrderTicket createTicketFromFields() {
-        return null;
+        String description = this.getDescription();
+        Status status = this.getStatus();
+        Employee employee = this.getEmployee();
+        Customer customer = this.getCustomer();
+        int priority = this.getPriority();
+        String vendor = vendorField.getText();
+        String article = articleField.getText();
+        String address = addressField.getText();
+        int quantity = (int) (long) quantityField.getValue();
+        OrderTicket ticket = new OrderTicket(description, status, employee, customer, priority, vendor, article, address, quantity);
+        return ticket;
     }
 }

@@ -2,41 +2,68 @@ package de.ddi.ticketsystem.presentation;
 
 import de.ddi.ticketsystem.logic.Employee;
 
-public class EmployeeView extends View {
+import javax.swing.*;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Component;
+import java.util.List;
+import java.util.ArrayList;
 
-    private Employee employee;
+public class EmployeeView extends UserView {
 
-    /**
-     * Erstellt eine Anzeige, die die Daten zu einem Mitarbeiter anzeigt
-     * @param viewManager ViewManager, der die Anzeige verwaltet
-     * @param employee Mitarbeiter, dessen Daten angezeigt werden sollen
-     */
+    private JTextField departmentField;
+
     public EmployeeView(ViewManager viewManager, Employee employee) {
+        super(viewManager, employee);
+    }
+
+    public EmployeeView(ViewManager viewManager) {
         super(viewManager);
-        name = "Angestellter";
-        this.employee = employee;
     }
 
-    /**
-     * Gibt die Daten des eines Mitarbeiters aus
-     */
     @Override
-    public void show() {
-        String text = "Name\n";
-        text += "\t" + employee.getFirstName() + " " + employee.getLastName() + "\n";
-        text += "Email\n";
-        text += "\t" + employee.getEmail() + "\n";
-        text += "Abteilung\n";
-        text += "\t" + employee.getDepartment() + "\n";
-        this.text = text;
-        super.show();
+    protected List<Component> getAdditionalLabels() {
+        List<Component> labels = new ArrayList<>();
+
+        JLabel departmentLabel = new JLabel("Department");
+        labels.add(departmentLabel);
+
+        return labels;
     }
 
-    /**
-     * Es muss nichts ausgewertet werden
-     */
     @Override
-    public void evaluate(String input) {
+    protected List<Component> getAdditionalFields() {
+        List<Component> fields = new ArrayList<>();
 
+        JLabel departmentField = new JLabel(((Employee) this.user).getDepartment());
+        fields.add(departmentField);
+
+        return fields;
+    }
+
+    @Override
+    protected List<Component> getAdditionalEditableFields() {
+        List<Component> editableFields = new ArrayList<>();
+
+        this.departmentField = new JTextField(20);
+        editableFields.add(this.departmentField);
+
+        return editableFields;
+    }
+
+    @Override
+    protected String getName() {
+        return "Employee";
+    }
+
+    @Override
+    protected Employee createUserFromFields() {
+        String firstName = this.getFirstName();
+        String lastName = this.getLastName();
+        String email = this.getEmail();
+        String department = this.departmentField.getText();
+
+        Employee employee = new Employee(firstName, lastName, email, department);
+        return employee;
     }
 }

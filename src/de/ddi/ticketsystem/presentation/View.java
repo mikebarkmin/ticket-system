@@ -3,6 +3,8 @@ package de.ddi.ticketsystem.presentation;
 import de.ddi.ticketsystem.logic.Employee;
 import de.ddi.ticketsystem.logic.User;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.Scanner;
 
 /**
@@ -12,104 +14,60 @@ import java.util.Scanner;
  */
 public abstract class View {
     /**
-     * Name des Views
-     */
-    protected String name;
-    /**
-     * Beschreibender Text des Views
-     */
-    protected String text;
-    /**
-     * Allgemeine Optionen, die jeder Benutzer sehen kann
-     */
-    protected String[] options;
-    /**
-     * Spezielle Optionen, die nur Angestellte sehen können
-     */
-    protected String[] employeeOptions;
-    /**
-     * Globale Optionen, die nichts mit dem View zutun haben
-     */
-    private String[] globalOptions = {"[Z]urück", "[B]eenden"};
-    /**
      * Der ViewManager, der die Views verwaltet
      */
     protected ViewManager viewManager;
     /**
-     * Eine Trennline, um eine einheitliche und saubere Ausgabe zu generieren
-     */
-    protected final String SEPERATOR = "-----------------";
-    /**
-     * Scanner, um die Eingabe des Benutzers abzufangen
-     */
-    protected Scanner scanner;
-    /**
      * Der momentan angemeldete Benutzer
      */
     protected User currentUser;
+
+    private JPanel body;
+    private JPanel header;
 
     /**
      * Erzeugt eine neue Anzeige mit Scanner zum entgegennehmen von Nutzereingaben
      * @param viewManager ViewManager, der die Anzeige verwaltet
      */
     public View(ViewManager viewManager) {
-        options = new String[]{};
-        employeeOptions = new String[]{};
         this.viewManager = viewManager;
-        scanner = new Scanner(System.in);
-        scanner.useDelimiter(System.lineSeparator());
+        this.currentUser = viewManager.getUserManager().getCurrent();
     }
 
-    /**
-     * Zeigt die Anzeige an
-     */
-    public void show() {
-        // den Seperator ausgeben, um von einer früheren View abzugrenzen
-        System.out.println(SEPERATOR);
+    protected abstract String getName();
 
-        // den eingeloggten Benutzer ermitteln
-        currentUser = viewManager.getUserManager().getCurrent();
-        String out = name + " - ";
-        if (currentUser != null) {
-            out += currentUser.getFirstName() + " " + currentUser.getLastName();
-        } else {
-            out += "Nicht angemeldet";
+    public abstract Component getBody();
+
+    public Component getHeader() {
+        JPanel header = new JPanel();
+        String loginStatus = "not logged in";
+        if (this.currentUser != null) {
+            loginStatus = this.currentUser.getFirstName() + " " + this.currentUser.getLastName();
         }
-
-        out += "\n\n" + text + "\n\n";
-
-        // die allgemeinen Optionen in einem String sammeln
-        for (String option : options) {
-            out += option + ", ";
-        }
-
-        // überprüfen, ob der eingeloggte Benutzer eine Instanz von Employee ist
-        if (currentUser instanceof Employee) {
-            // die speziellen Optionen mit sammeln
-            for (String option : employeeOptions) {
-                out += "\n" + option;
-            }
-        }
-
-        out += "\n";
-
-        // die globalen Optionen dem String hinzufügen
-        for (String option : globalOptions) {
-            out += option + ", ";
-        }
-
-        // die Optionen gebündelt ausgeben
-        System.out.println(out);
-
-        // den Sperator ausgeben, um anzuzeigen, dass der View fertig ist mit der Ausgabe
-        System.out.println(SEPERATOR);
-
+        header.add(new JLabel(this.getName() + " - " + loginStatus));
+        return header;
     }
 
-    /**
-     * Weißt die Anzeige an, eine Eingabe durch den Nutzer auszuwerten
-     * @param input Die Eingabe des Nutzers
-     */
-    public abstract void evaluate(String input);
+    public Component getMenu() {
+        return new JPanel();
+    }
 
+    private static final Insets WEST_INSETS = new Insets(5, 0, 5, 5);
+    private static final Insets EAST_INSETS = new Insets(5, 5, 5, 0);
+    protected GridBagConstraints createGbc(int x, int y) {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = x;
+        gbc.gridy = y;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+
+        gbc.anchor = (x == 0) ? GridBagConstraints.WEST : GridBagConstraints.EAST;
+        gbc.fill = (x == 0) ? GridBagConstraints.BOTH
+              : GridBagConstraints.HORIZONTAL;
+
+        gbc.insets = (x == 0) ? WEST_INSETS : EAST_INSETS;
+        gbc.weightx = (x == 0) ? 0.1 : 1.0;
+        //gbc.weighty = 1.0;
+        return gbc;
+   }
 }

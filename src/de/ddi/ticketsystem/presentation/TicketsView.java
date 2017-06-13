@@ -1,8 +1,5 @@
 package de.ddi.ticketsystem.presentation;
 
-import java.util.Comparator;
-import java.util.Date;
-
 import de.ddi.ticketsystem.logic.Customer;
 import de.ddi.ticketsystem.logic.Employee;
 import de.ddi.ticketsystem.logic.MalfunctionTicket;
@@ -10,269 +7,174 @@ import de.ddi.ticketsystem.logic.OrderTicket;
 import de.ddi.ticketsystem.logic.RequestTicket;
 import de.ddi.ticketsystem.logic.Status;
 import de.ddi.ticketsystem.logic.Ticket;
+import java.awt.*;
+import java.awt.BorderLayout;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import javax.swing.*;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class TicketsView extends View {
 
-    protected List<Ticket> tickets;
+    private List<Ticket> tickets;
+    private JPanel body;
 
-    /**
-     * Erstellt eine Anzeige, die alle Tickets ausgibt und Optionen zur Auswahl eines Tickets,
-     * zum Anzeigen des nächsten Tickets, zum Anzeigen des ältesten Tickets, zum Erstellen eines Tickets,
-     * zum Löschen eines Tickets anzeigt
-     * @param viewManager
-     */
     public TicketsView(ViewManager viewManager) {
         super(viewManager);
-        name = "Tickets";
-        tickets = this.viewManager.getTicketManager().getAll();
-
-        options = new String[]{
-                "[A]uswählen",
-                "[Ä]ltestes"
-        };
-        employeeOptions = new String[]{
-                "[N]ächstes",
-                "[H]inzufügen",
-                "[L]öschen",
-                "[S]ortieren"
-        };
+        tickets = viewManager.getTicketManager().getAll();
+        body = new JPanel();
     }
 
-    /**
-     * Gibt alle Tickets mit Beschreibung und Priorität aus und zeigt die Anzeige an
-     */
     @Override
-    public void show() {
-        String text = "";
-        int customerLength = 0;
-        int employeeLength = 0;
-        int iLength = 0;
-        for(int i = 0; i < tickets.size(); i++) {
-        	Ticket ticket = tickets.get(i);
-        	String customer = ticket.getCustomer().getFirstName() + " " + ticket.getCustomer().getLastName();
-        	String employee = ticket.getEmployee().getFirstName() + " " + ticket.getEmployee().getLastName();
-        	if (customer.length() > customerLength) {
-        		customerLength = customer.length();
-        	}
-        	if (employee.length() > employeeLength) {
-        		employeeLength = employee.length();
-        	}
-        	iLength = String.valueOf(i).length();
-        }
-        for(int i = 0; i < tickets.size(); i++) {
-            Ticket ticket = tickets.get(i);
-            text += String.format("%-" + iLength + "s", i + ")") + "\t" + abbreviate(ticket.getDescription(), 20) + "\t"
-            		+ String.format("%-2s", ticket.getPriority()) + "\t" 
-            		+ String.format("%-" + customerLength + "s", ticket.getCustomer().getFirstName() + " " + ticket.getCustomer().getLastName()) + "\t" 
-            		+ String.format("%-" + employeeLength + "s", ticket.getEmployee().getFirstName() + " " + ticket.getEmployee().getLastName())+  "\t"
-            		+ ticket.getCreationDate() + "\n";
-        }
-        this.text = text;
-        super.show();
-    }
-    
-    private String abbreviate(String string, int length) {
-    	String abbrev = string;
-    	if (string.length() > length) {
-    		abbrev = string.substring(0, length - 3) + "...";
-    	} else {
-    		abbrev = String.format("%-" + length + "s", "bar");
-    	}
-    	return abbrev;
+    protected String getName() {
+        return "Tickets";
     }
 
-    /**
-     * Auswertung der Anzeige.
-     * Wurde "A" eingegeben, wird eine Möglichkeit zur Auswahl eines Tickets ausgegeben und anschließend das Ticket
-     * angezeigt.
-     * Wurde "N" eingegeben, wird das nächste Ticket angezeigt.
-     * Wurde "Ä" eingegeben, wird das älteste Ticket angezeigt.
-     * Wurde "H" eingegeben, wird eine Möglichkeit zum Erstellen eines Tickets angezeigt.
-     * Wurde "L" eingegeben, wird eine Möglichkeit zur Auswahl eines Tickets ausgegeben und anschließend das Ticket
-     * Wurde "S" eingegeben, wird eine Möglichkeit zum Sortieren der Tickets angezeigt.
-     * gelöscht.
-     * @param input Die Eingabe des Nutzers
-     */
+    private void updateBody() {
+        tickets = viewManager.getTicketManager().getAll();
+        body.removeAll();
+        body.setLayout(new GridLayout(0, 2, 10, 10));
+        tickets.forEach(ticket -> body.add(createTicketPanel(ticket)));
+        body.revalidate();
+    }
+
     @Override
-    public void evaluate(String input) {
-        switch (input) {
-            case "A":
-                showTicket(selectTicket());
-                break;
-            case "N":
-                showNext();
-                break;
-            case "Ä":
-                showOldest();
-                break;
-            case "H":
-                createTicket();
-                break;
-            case "L":
-                deleteTicket(selectTicket());
-                break;
-            case "S":
-                sort();
-            default:
-                break;
-        }
+    public JPanel getBody() {
+        updateBody();
+        return body;
     }
 
-    /**
-     * Methode zum Erstellen eines neuen Tickets
-     */
-    private void createTicket() {
-    	// Art
-        System.out.println("[B]estellung, [S]törung, [A]nforderung");
-        String input = scanner.next().toUpperCase();
-        
-        // Kunde
-        System.out.println("Kunden auswählen: ");
-        List<Customer> customers = viewManager.getUserManager().getCustomers();
-        for(int i = 0; i < customers.size(); i++) {
-            Customer customer = customers.get(i);
-            System.out.println(i + ") " + customer.getFirstName() + " " + customer.getLastName() + " "
-                    + customer.getCompany() + " " + customer.getEmail());
-        }
-        int customerId = scanner.nextInt();
-        Customer customer = customers.get(customerId);
-        
-        // Beschreibung
-        System.out.print("Beschreibung: ");
-        String description = scanner.next();
-        
-        // Status wird automatisch gesetzt
-        Status status = Status.RECORDED;
-        
-        // Priorität
-        System.out.print("Priorität: ");
-        int priority = scanner.nextInt();
-        
-        // Angestellten auswählen
-        System.out.println("Angestellen auswählen: ");
-        List<Employee> employees = viewManager.getUserManager().getEmployees();
-        for(int i = 0; i < employees.size(); i++) {
-            Employee employee = employees.get(i);
-            System.out.println(i + ") " + employee.getFirstName() + " " + employee.getLastName() + " "
-                    + employee.getDepartment() + " " + employee.getEmail());
-        }
-        int employeeId = scanner.nextInt();
-        Employee employee = employees.get(employeeId);
-        
-        // Art spezifische Eigenschaften abfragen
-        switch (input) {
-            case "S": {
-                System.out.print("Gerätservice: ");
-                String deviceService = scanner.next();
-                Ticket ticket = new MalfunctionTicket(description, status, employee, customer, priority, deviceService);
-                viewManager.getTicketManager().add(ticket);
-                break;
-            }
-            case "A": {
-                System.out.print("Datum: ");
-                Date date = new Date();
-                System.out.print("Service: ");
-                String service = scanner.next();
-                Ticket ticket = new RequestTicket(description, status, employee, customer, priority, date, service);
-                viewManager.getTicketManager().add(ticket);
-                break;
-            }
-            case "B": {
-                System.out.print("Lieferant: ");
-                String vendor = scanner.next();
-                System.out.print("Artikel: ");
-                String article = scanner.next();
-                System.out.print("Adresse: ");
-                String address = scanner.next();
-                System.out.print("Anzahl: ");
-                int quantity = scanner.nextInt();
-                Ticket ticket = new OrderTicket(description, status, employee, customer, priority,
-                        vendor, article, address, quantity);
-                viewManager.getTicketManager().add(ticket);
-                break;
-            }
-        }
+    public JPanel createTicketPanel(Ticket ticket) {
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.BLACK, 5),
+                BorderFactory.createEmptyBorder(5, 5, 10, 10)
+            )
+        );
+
+        JPanel body = new JPanel();
+        body.setLayout(new BoxLayout(body, BoxLayout.PAGE_AXIS));
+        JLabel status = new JLabel(
+            "Status: " + ticket.getStatus()
+        );
+        body.add(status);
+
+        JLabel priority = new JLabel(
+            "Priority: " + ticket.getPriority()
+        );
+        body.add(priority);
+
+        body.add(new JLabel(
+            ticket.getDescription().substring(0, ticket.getDescription().length() > 50 ? 50 : ticket.getDescription().length()) + "..."
+        ));
+
+        JPanel ticketMenu = new JPanel();
+
+        JButton show = new JButton("show");
+        show.addActionListener(e -> {
+            showTicket(ticket);
+        });
+        ticketMenu.add(show);
+
+        JButton edit = new JButton("edit");
+        ticketMenu.add(edit);
+
+        JButton delete = new JButton("delete");
+        ticketMenu.add(delete);
+
+        panel.add(body, BorderLayout.CENTER);
+
+        panel.add(ticketMenu, BorderLayout.SOUTH);
+        return panel;
     }
 
-    /**
-     * Weist den TicketManager an ein Ticket zu löschen
-     * @param ticket das zulöschende Ticket
-     */
-    private void deleteTicket(Ticket ticket) {
-        viewManager.getTicketManager().remove(ticket);
-    }
-
-    /**
-     * Wählt ein Ticket aus einer Liste aus.
-     * @return das ausgewählte Ticket
-     */
-    private Ticket selectTicket() {
-        System.out.println("Ticketnummer: ");
-        int ticketId = scanner.nextInt();
-        return tickets.get(ticketId);
-    }
-
-    /**
-     * Zeige das als nächstes zu bearbeitende Ticket an
-     */
-    private void showNext() {
-        Ticket ticket = viewManager.getTicketManager().next();
-        showTicket(ticket);
-    }
-
-    /**
-     * Zeige das älteste Ticket an
-     */
-    private void showOldest() {
-        Ticket ticket = viewManager.getTicketManager().getOldest();
-        showTicket(ticket);
-    }
-
-    /**
-     * Zeige ein Ticket an.
-     * @param ticket das anzuzeigende Ticket
-     */
     private void showTicket(Ticket ticket) {
-        viewManager.setNextView(new TicketView(viewManager, ticket));
+        if (ticket instanceof RequestTicket) {
+            viewManager.setNextView(new RequestTicketView(viewManager, (RequestTicket) ticket));
+        } else if (ticket instanceof OrderTicket) {
+            viewManager.setNextView(new OrderTicketView(viewManager, (OrderTicket) ticket));
+        } else if (ticket instanceof MalfunctionTicket) {
+            viewManager.setNextView(new MalfunctionTicketView(viewManager, (MalfunctionTicket) ticket));
+        }
     }
 
-    private void sort() {
-        System.out.println("[P]riorität, [D]atum, [A]ngestellter, [K]unde");
-        String input = scanner.next();
-        switch (input) {
-            case "P":
-                tickets.sort(new Comparator<Ticket>() {
-                    @Override
-                    public int compare(Ticket ticket, Ticket t1) {
-                        return ticket.getPriority() - t1.getPriority();
-                    }
-                });
-                break;
-            case "D":
-                tickets.sort(new Comparator<Ticket>() {
-                    @Override
-                    public int compare(Ticket ticket, Ticket t1) {
-                        return ticket.getCreationDate().compareTo(t1.getCreationDate());
-                    }
-                });
-                break;
-            case "A":
-                tickets.sort(new Comparator<Ticket>() {
-                    @Override
-                    public int compare(Ticket ticket, Ticket t1) {
-                        return ticket.getEmployee().compareTo(t1.getEmployee());
-                    }
-                });
-                break;
-            case "K":
-                tickets.sort(new Comparator<Ticket>() {
-                    @Override
-                    public int compare(Ticket ticket, Ticket t1) {
-                        return ticket.getCustomer().compareTo(t1.getCustomer());
-                    }
-                });
-                break;
-        }
+    @Override
+    public JPanel getMenu() {
+        JPanel menu = new JPanel();
+
+        JButton createTicket = new JButton("Create");
+        createTicket.addActionListener(e -> {
+            String[] possibilities = {"Request", "Order", "Malfunction"};
+            String s = (String) JOptionPane.showInputDialog(
+                body,
+                "Select a type for the new ticket",
+                "Create new ticket",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                possibilities,
+                possibilities[0]);
+            if (s == null) return;
+            switch(s) {
+                case "Request":
+                    viewManager.setNextView(new RequestTicketView(viewManager));
+                    break;
+                case "Order":
+                    viewManager.setNextView(new OrderTicketView(viewManager));
+                    break;
+                case "Malfunction":
+                    viewManager.setNextView(new MalfunctionTicketView(viewManager));
+                    break;
+            }
+        });
+        menu.add(createTicket);
+
+        JButton oldestTicket = new JButton("Oldest");
+        oldestTicket.addActionListener(e -> {
+            Ticket ticket = viewManager.getTicketManager().getOldest();
+            showTicket(ticket);
+        });
+        menu.add(oldestTicket);
+
+        JButton nextTicket = new JButton("Next");
+        nextTicket.addActionListener(e -> {
+            Ticket ticket = viewManager.getTicketManager().next();
+            showTicket(ticket);
+        });
+        menu.add(nextTicket);
+
+        JButton sort = new JButton("Sort");
+        sort.addActionListener(e -> {
+            String[] possibilities = {"Employee", "Customer", "Date", "Priority"};
+            String s = (String) JOptionPane.showInputDialog(
+                    body,
+                    "Select a criteria for sorting the tickets",
+                    "Sort Tickets",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    possibilities,
+                    possibilities[0]);
+            if (s == null) return;
+            switch(s) {
+                case "Employee":
+                    tickets.sort((t1, t2) -> t1.getEmployee().compareTo(t2.getEmployee()));
+                    break;
+                case "Customer":
+                    tickets.sort((t1, t2) -> t1.getCustomer().compareTo(t2.getCustomer()));
+                    break;
+                case "Date":
+                    tickets.sort((t1, t2) -> t1.getCreationDate().compareTo(t2.getCreationDate()));
+                    break;
+                case "Priority":
+                    tickets.sort((t1, t2) -> t1.getPriority() - t2.getPriority());
+                    break;
+            }
+            updateBody();
+        });
+        menu.add(sort);
+
+        return menu;
     }
 }

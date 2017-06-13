@@ -3,16 +3,22 @@ package de.ddi.ticketsystem.presentation;
 import de.ddi.ticketsystem.logic.NoteManager;
 import de.ddi.ticketsystem.logic.TicketManager;
 import de.ddi.ticketsystem.logic.UserManager;
-import java.util.Stack;
-
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Stack;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 /**
  * Der ViewManager verwaltet die Benutzeransicht.
  */
-public class ViewManager {
+public class ViewManager extends JFrame {
 
     /**
      * UserManager
@@ -33,7 +39,7 @@ public class ViewManager {
     /**
      * Scanner, um die Eingaben des Benutzer abzufangen
      */
-    private Scanner scanner;
+    private Container container;
 
     /**
      * Erstellt eine Instanz zur Verwaltung verschiedener Anzeigen.
@@ -42,12 +48,63 @@ public class ViewManager {
      * @param noteManager Ein NoteManager zum Zugriff auf die Notizen
      */
     public ViewManager(UserManager userManager, TicketManager ticketManager, NoteManager noteManager) {
+        super("Ticketsystem");
+
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String options[] = new String[] { "Speichern und beenden", "Beenden", "Abbrechen" };
+                System.exit(0);
+            }
+        });
         this.userManager = userManager;
         this.ticketManager = ticketManager;
         this.noteManager = noteManager;
-        viewStack = new Stack<>();
-        scanner = new Scanner(System.in);
-        scanner.useDelimiter(System.lineSeparator());
+
+        this.setLayout(new BorderLayout());
+        this.container = this.getContentPane();
+
+        this.setJMenuBar(constructMenuBar());
+
+        this.setPreferredSize(new Dimension(800, 600));
+        this.pack();
+        this.setVisible(true);
+    }
+
+    private JMenuBar constructMenuBar() {
+        JMenuBar menuBar = new JMenuBar();
+
+        JMenu fileMenu = new JMenu("File");
+        JMenuItem saveMenu = new JMenuItem("Save");
+        saveMenu.addActionListener(e -> this.save());
+        fileMenu.add(saveMenu);
+        JMenuItem loadMenu = new JMenuItem("Load");
+        loadMenu.addActionListener(e -> this.load());
+        fileMenu.add(loadMenu);
+
+        menuBar.add(fileMenu);
+
+        JMenu navigationMenu = new JMenu("Navigation");
+        JMenuItem logoutMenu = new JMenuItem("Logout");
+        logoutMenu.addActionListener(e -> this.run());
+        navigationMenu.add(logoutMenu);
+
+        JMenuItem backMenu = new JMenuItem("Backwards");
+        backMenu.addActionListener(e -> this.goBackwards());
+        navigationMenu.add(backMenu);
+
+        menuBar.add(navigationMenu);
+
+        return menuBar;
+    }
+
+    public void goBackwards() {
+        if (viewStack.size() > 1) {
+            viewStack.pop();
+            View view = viewStack.peek();
+            showView(view);
+        }
     }
 
     /**
@@ -55,54 +112,10 @@ public class ViewManager {
      */
     public void run() {
         load();
+        userManager.logout();
+        viewStack = new Stack<>();
         // erstelle einen LoginView und füge ihn dem ViewStack hinzu
-        viewStack.push(new LoginView(this));
-        // Endlosschleife, damit dass Programm sich nicht von alleine schließt
-        while(true) {
-            // den nächsten View anzeigen
-            showView();
-            // auf die Eingabe des Benutzers horchen
-            getInput();
-        }
-    }
-
-    /**
-     * Zeigt den nächsten View vom viewStack an. Dabei wird der View mit vom viewStack
-     * genommen, sondern bleibt an oberster Stelle liegen.
-     */
-    private void showView() {
-        // ermitteln welcher View an erster Stelle auf dem Stack liegt, ohne ihm vom Stack zunehmen.
-        View current = viewStack.peek();
-        // diesen View anzeigen
-        current.show();
-    }
-
-    /**
-     * Nimmt eine Eingabe vom Benutzer entgegen und werte diese aus. Dabei werden zunächst die
-     * globalen Optionen getestet. Wenn die Eingabe keiner globalen Option entsprach, wird
-     * die Evaluation der Eingabe an den momentanen View weitergereicht.
-     */
-    private void getInput() {
-        // auf die Eingabe vom Benutzer horchen und in Großbuchstaben umwandeln.
-        String input = scanner.next().toUpperCase();
-        // entscheiden anhand der Eingabe was als nächstes passieren soll
-        switch (input) {
-            case "Z":
-                // Den ersten View vom Stack entfernen, sodass in der Historie zurückgegangen wird.
-                viewStack.pop();
-                break;
-            case "B":
-                save();
-                // Das System beenden
-                System.exit(0);
-                break;
-            default:
-                // Den momentanen View ermitteln
-                View current = viewStack.peek();
-                // Die Auswertung der Eingabe dem View überlassen
-                current.evaluate(input);
-                break;
-        }
+        setNextView(new LoginView(this));
     }
 
     private void load() {
@@ -145,8 +158,21 @@ public class ViewManager {
      * Einen View auf den ViewStack legen, sodass dieser als nächstes angezeigt wird.
      * @param view View
      */
+
     public void setNextView(View view) {
         viewStack.push(view);
+        showView(view);
+    }
+
+    public void showView(View view) {
+        container.removeAll();
+        container.add(view.getHeader(), BorderLayout.NORTH);
+        // Use optional Scrollpane, when body is too long.
+        JScrollPane scrollPane = new JScrollPane(view.getBody());
+        scrollPane.setBorder(new EmptyBorder(10, 10, 10, 10));
+        container.add(scrollPane, BorderLayout.CENTER);
+        container.add(view.getMenu(), BorderLayout.SOUTH);
+        revalidate();
     }
 
     /**
@@ -164,4 +190,5 @@ public class ViewManager {
     public TicketManager getTicketManager() {
         return ticketManager;
     }
+
 }

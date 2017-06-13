@@ -6,9 +6,20 @@ import de.ddi.ticketsystem.logic.NoteManager;
 import de.ddi.ticketsystem.logic.TicketManager;
 import de.ddi.ticketsystem.logic.UserManager;
 import de.ddi.ticketsystem.presentation.ViewManager;
+import javax.swing.UIManager;
 
 public class Main {
     public static void main(String[] args) {
+
+        System.setProperty("apple.laf.useScreenMenuBar", "true");
+        System.setProperty("awt.useSystemAAFontSettings","on");
+        System.setProperty("swing.aatext", "true");
+        try {
+          UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+
+        }
+
         Access noteAccess = new NoteAccessText();
         Access userAccess = new UserAccessText();
         Access ticketAccess = new TicketAccessText();

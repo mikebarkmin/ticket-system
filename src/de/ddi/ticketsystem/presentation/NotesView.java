@@ -3,6 +3,8 @@ package de.ddi.ticketsystem.presentation;
 import de.ddi.ticketsystem.logic.Employee;
 import de.ddi.ticketsystem.logic.Note;
 import de.ddi.ticketsystem.logic.Ticket;
+
+import javax.swing.*;
 import java.util.List;
 
 public class NotesView extends View {
@@ -19,20 +21,16 @@ public class NotesView extends View {
     public NotesView(ViewManager viewManager, Ticket ticket) {
         super(viewManager);
         this.ticket = ticket;
-        name = "Notizen";
         notes = this.ticket.getNotes();
-
-        employeeOptions = new String[]{
-                "[L]öschen",
-                "[N]eu",
-        };
     }
 
-    /**
-     * Gibt die Notizen zu dem Ticket aus und zeigt die Anzeige an
-     */
     @Override
-    public void show() {
+    protected String getName() {
+        return "Notes";
+    }
+
+    @Override
+    public JPanel getBody() {
         String text = "";
         for(int i = 0; i < notes.size(); i++) {
             Note note = notes.get(i);
@@ -40,47 +38,19 @@ public class NotesView extends View {
                     + note.getTitle() + " (" + note.getCreationDate() + ")\n";
             text += "\t" + note.getContent() + "\n\n";
         }
-        this.text = text;
-        super.show();
+
+        JTextArea textArea = new JTextArea();
+        textArea.setText(text);
+
+        JPanel body = new JPanel();
+        body.add(textArea);
+        return body;
     }
 
-    /**
-     * Auswertung der Notes-Anzeige.
-     * Wurde "L" eingegeben, wird eine Möglichkeit zur Löschung einer Notizen ausgegeben
-     * Wurde "N" eingegeben, wird eine Möglichkeit zum Erstellen einer Notiz angezeigt
-     * @param input Die Eingabe des Nutzers
-     */
     @Override
-    public void evaluate(String input) {
-        switch (input) {
-            case "L":
-                deleteNote();
-                break;
-            case "N":
-                createNote();
-                break;
-        }
-    }
-
-    /**
-     * Anhand der Notiznummer eine Notiz löschen
-     */
-    private void deleteNote() {
-        System.out.print("Notiznummer: ");
-        int noteId = scanner.nextInt();
-        Note note = notes.get(noteId);
-        ticket.removeNote(note);
-    }
-
-    /**
-     * Eine neue Notiz anlegen
-     */
-    private void createNote() {
-        System.out.print("Titel: ");
-        String title = scanner.next();
-        System.out.print("Inhalt: ");
-        String content = scanner.next();
-        Note note = new Note(title, content, (Employee) currentUser);
-        ticket.addNote(note);
+    public JPanel getMenu() {
+        JPanel menu = new JPanel();
+        menu.add(new JLabel("create, delete"));
+        return menu;
     }
 }

@@ -79,9 +79,6 @@ public class TicketsView extends View {
         });
         ticketMenu.add(show);
 
-        JButton edit = new JButton("edit");
-        ticketMenu.add(edit);
-
         JButton delete = new JButton("delete");
         ticketMenu.add(delete);
 

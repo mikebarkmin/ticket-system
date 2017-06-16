@@ -73,7 +73,7 @@ public class TicketManager extends Manager{
             String sTicket = data.get(i);
             // den String an den Semikolons aufteilen
             String[] values = sTicket.split(";");
-            Ticket ticket;
+            Ticket ticket = null;
             // den Angestellten anhand der ID ermitteln
             Employee employee = (Employee) userManager.get(Integer.parseInt(values[1]));
             // den Kunden anhand der der ID ermitteln
@@ -105,6 +105,10 @@ public class TicketManager extends Manager{
                     break;
                 default:
                     break;
+            }
+            List<Note> notes = noteManager.getForTicketId(i);
+            for(Note note : notes) {
+                ticket.addNote(note);
             }
         }
     }

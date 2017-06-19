@@ -1,6 +1,9 @@
 package de.ddi.ticketsystem.presentation;
 
 import javax.swing.*;
+
+import de.ddi.ticketsystem.logic.Employee;
+
 import java.awt.*;
 
 public class MenuView extends View {
@@ -36,8 +39,10 @@ public class MenuView extends View {
 
         c.gridy = 0;
         body.add(ticketButton, c);
-        c.gridy += 1;
-        body.add(userButton, c);
+        if (viewManager.getUserManager().getCurrent() instanceof Employee) {
+            c.gridy += 1;
+            body.add(userButton, c);
+        }
         return body;
     }
 }

@@ -35,11 +35,17 @@ public class TicketsView extends View {
         return "Tickets";
     }
 
-    private void updateBody() {
+    private void updateTicketList() {
         body.removeAll();
         body.setLayout(new GridLayout(0, 2, 10, 10));
         tickets.forEach(ticket -> body.add(createTicketPanel(ticket)));
+        body.repaint();
         body.revalidate();
+    }
+
+    private void updateBody() {
+        tickets = viewManager.getTicketManager().getAll();
+        updateTicketList();
     }
 
     @Override
@@ -117,7 +123,7 @@ public class TicketsView extends View {
                 tickets.sort((t1, t2) -> t1.getPriority() - t2.getPriority());
                 break;
             }
-            updateBody();
+            updateTicketList();
         });
         menu.add(sort);
 

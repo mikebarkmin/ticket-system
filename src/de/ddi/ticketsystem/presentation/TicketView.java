@@ -13,9 +13,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.List;
 import javax.swing.*;
-import javax.swing.JComboBox;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+
 import java.util.stream.IntStream;
 
 public abstract class TicketView extends View {
@@ -35,6 +33,7 @@ public abstract class TicketView extends View {
         this.addLabels();
         this.addFields();
         this.addModifyButton();
+        this.addNotes();
     }
 
     public TicketView(ViewManager viewManager) {
@@ -50,6 +49,20 @@ public abstract class TicketView extends View {
     protected abstract List<Component> getAdditionalFields();
 
     protected abstract List<Component> getAdditionalEditableFields();
+
+    private void addNotes() {
+        NotesView notesView = new NotesView(viewManager, ticket);
+        GridBagConstraints c = new GridBagConstraints();
+
+        c.gridx = 0;
+        c.anchor = GridBagConstraints.PAGE_END;
+        c.gridwidth = 2;
+        c.weightx = 1;
+        this.body.add(new JLabel("<html><h2>Notes</h2></html>"), c);
+        c.fill = GridBagConstraints.BOTH;
+        this.body.add(notesView.getBody(), c);
+        this.body.add(notesView.getMenu(), c);
+    }
 
     private void addLabels() {
         GridBagConstraints c;
@@ -76,7 +89,7 @@ public abstract class TicketView extends View {
 
         List<Component> additionalLabels = this.getAdditionalLabels();
         int i = 5;
-        for(Component additionalLabel : additionalLabels) {
+        for (Component additionalLabel : additionalLabels) {
             c = this.createGbc(0, i);
             i++;
             this.body.add(additionalLabel, c);
@@ -96,11 +109,9 @@ public abstract class TicketView extends View {
         this.body.add(statusBox, c);
 
         c = this.createGbc(1, 2);
-        Employee[] employees = viewManager.getUserManager().getAll().stream()
-            .filter(u -> u instanceof Employee)
-            .map(u -> (Employee) u)
-            .sorted((u1, u2) -> u1.getLastName().compareTo(u2.getLastName()))
-            .toArray(Employee[]::new);
+        Employee[] employees = viewManager.getUserManager().getAll().stream().filter(u -> u instanceof Employee)
+                .map(u -> (Employee) u).sorted((u1, u2) -> u1.getLastName().compareTo(u2.getLastName()))
+                .toArray(Employee[]::new);
         employeeBox = new JComboBox<Employee>(employees);
         employeeBox.setSelectedItem(this.ticket.getEmployee());
         installRendererUser(employeeBox);
@@ -108,21 +119,19 @@ public abstract class TicketView extends View {
 
         c = this.createGbc(1, 3);
         Customer customer = ticket.getCustomer();
-        JLabel customerLabel = new JLabel(customer.getFirstName() + " " + customer.getLastName() + " (" + customer.getCompany() + ")");
+        JLabel customerLabel = new JLabel(
+                customer.getFirstName() + " " + customer.getLastName() + " (" + customer.getCompany() + ")");
         this.body.add(customerLabel, c);
 
         c = this.createGbc(1, 4);
-        Integer[] priorities = IntStream.iterate(1, n -> n + 1)
-            .limit(10)
-            .boxed()
-            .toArray(Integer[]::new);
+        Integer[] priorities = IntStream.iterate(1, n -> n + 1).limit(10).boxed().toArray(Integer[]::new);
         priorityBox = new JComboBox<Integer>(priorities);
         priorityBox.setSelectedItem(this.ticket.getPriority());
         this.body.add(priorityBox, c);
 
         List<Component> additionalFields = this.getAdditionalFields();
         int i = 5;
-        for(Component additionalField : additionalFields) {
+        for (Component additionalField : additionalFields) {
             c = this.createGbc(1, i);
             i++;
             this.body.add(additionalField, c);
@@ -132,45 +141,38 @@ public abstract class TicketView extends View {
     private void addEditableFields() {
         GridBagConstraints c;
 
-        c = this.createGbc(1,0);
+        c = this.createGbc(1, 0);
         descriptionField = new JTextArea();
         this.body.add(descriptionField, c);
 
-        c = this.createGbc(1,1);
+        c = this.createGbc(1, 1);
         statusBox = new JComboBox<>(Status.values());
         this.body.add(statusBox, c);
 
         c = this.createGbc(1, 2);
-        Employee[] employees = viewManager.getUserManager().getAll().stream()
-            .filter(u -> u instanceof Employee)
-            .map(u -> (Employee) u)
-            .sorted((u1, u2) -> u1.getLastName().compareTo(u2.getLastName()))
-            .toArray(Employee[]::new);
+        Employee[] employees = viewManager.getUserManager().getAll().stream().filter(u -> u instanceof Employee)
+                .map(u -> (Employee) u).sorted((u1, u2) -> u1.getLastName().compareTo(u2.getLastName()))
+                .toArray(Employee[]::new);
         employeeBox = new JComboBox<Employee>(employees);
         installRendererUser(employeeBox);
         this.body.add(employeeBox, c);
 
         c = this.createGbc(1, 3);
-        Customer[] customers = viewManager.getUserManager().getAll().stream()
-            .filter(u -> u instanceof Customer)
-            .map(u -> (Customer) u)
-            .sorted((u1, u2) -> u1.getLastName().compareTo(u2.getLastName()))
-            .toArray(Customer[]::new);
+        Customer[] customers = viewManager.getUserManager().getAll().stream().filter(u -> u instanceof Customer)
+                .map(u -> (Customer) u).sorted((u1, u2) -> u1.getLastName().compareTo(u2.getLastName()))
+                .toArray(Customer[]::new);
         customerBox = new JComboBox<Customer>(customers);
         installRendererUser(customerBox);
         this.body.add(customerBox, c);
 
         c = this.createGbc(1, 4);
-        Integer[] priorities = IntStream.iterate(1, n -> n + 1)
-            .limit(10)
-            .boxed()
-            .toArray(Integer[]::new);
+        Integer[] priorities = IntStream.iterate(1, n -> n + 1).limit(10).boxed().toArray(Integer[]::new);
         priorityBox = new JComboBox<Integer>(priorities);
         this.body.add(priorityBox, c);
 
         List<Component> additionalEditableFields = this.getAdditionalEditableFields();
         int i = 5;
-        for(Component additionalEditableField : additionalEditableFields) {
+        for (Component additionalEditableField : additionalEditableFields) {
             c = this.createGbc(1, i);
             i++;
             this.body.add(additionalEditableField, c);
@@ -251,17 +253,17 @@ public abstract class TicketView extends View {
     }
 
     private void installRendererUser(JComboBox<? extends User> comboBox) {
-    final ListCellRenderer<? super Object> original = new JComboBox<Object>()
-            .getRenderer();
-    comboBox.setRenderer(new ListCellRenderer<User>() {
+        final ListCellRenderer<? super Object> original = new JComboBox<Object>().getRenderer();
+        comboBox.setRenderer(new ListCellRenderer<User>() {
 
-        public Component getListCellRendererComponent(
-                JList<? extends User> list, User value,
-                int index, boolean isSelected, boolean cellHasFocus) {
-            String sValue = value.getLastName() + ", " + value.getFirstName();
-            return original.getListCellRendererComponent(list,
-                    sValue, index, isSelected, cellHasFocus);
-        }
-    });
-}
+            public Component getListCellRendererComponent(JList<? extends User> list, User value, int index,
+                    boolean isSelected, boolean cellHasFocus) {
+                String sValue = "No Users";
+                if (value != null) {
+                    sValue = value.getLastName() + ", " + value.getFirstName();
+                }
+                return original.getListCellRendererComponent(list, sValue, index, isSelected, cellHasFocus);
+            }
+        });
+    }
 }

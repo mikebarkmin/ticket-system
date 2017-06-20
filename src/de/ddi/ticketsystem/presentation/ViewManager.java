@@ -125,8 +125,7 @@ public class ViewManager extends JFrame {
             userManager.load();
             noteManager.load();
             ticketManager.load();
-        }
-        catch (DataException e) {
+        } catch (DataException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
             System.exit(1);
@@ -138,8 +137,7 @@ public class ViewManager extends JFrame {
             userManager.save();
             ticketManager.save();
             noteManager.save();
-        }
-        catch (DataException e) {
+        } catch (DataException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
             System.exit(1);
@@ -164,6 +162,7 @@ public class ViewManager extends JFrame {
         scrollPane.setBorder(new EmptyBorder(10, 10, 10, 10));
         container.add(scrollPane, BorderLayout.CENTER);
         container.add(view.getMenu(), BorderLayout.SOUTH);
+        repaint();
         revalidate();
     }
 

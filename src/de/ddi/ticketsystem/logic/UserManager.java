@@ -5,7 +5,7 @@ import de.ddi.ticketsystem.data.DataException;
 import java.util.List;
 import java.util.ArrayList;
 
-public class UserManager extends Manager{
+public class UserManager extends Manager {
 
     /**
      * Liste aller Benutzer
@@ -35,7 +35,7 @@ public class UserManager extends Manager{
     public void save() throws DataException {
         List<String> data = new ArrayList<>();
         // die Liste aller Benutzer durchlaufen
-        for(int i = 0; i < users.size(); i++) {
+        for (int i = 0; i < users.size(); i++) {
             User user = users.get(i);
             // den zu speichernden String erstellen
             String sUser = i + ";" + user.saveToText();
@@ -48,15 +48,15 @@ public class UserManager extends Manager{
     public void load() throws DataException {
         List<String> data = access.load();
         // List der geladenen Strings durchlaufen
-        for(int i = 0; i < data.size(); i++) {
+        for (int i = 0; i < data.size(); i++) {
             String sUser = data.get(i);
             // String am Semikolon aufteilen
             String[] values = sUser.split(";");
             // das Objekt abhängig von der Art des Benutzers erstellen
-            if(values[1].equals("EMPLOYEE")) {
+            if (values[1].equals("EMPLOYEE")) {
                 User user = new Employee(values[2], values[3], values[4], values[5]);
                 users.add(user);
-            } else if(values[1].equals("CUSTOMER")){
+            } else if (values[1].equals("CUSTOMER")) {
                 User user = new Customer(values[2], values[3], values[4], values[5]);
                 users.add(user);
             }
@@ -98,10 +98,10 @@ public class UserManager extends Manager{
      */
     public void login(String firstName, String lastName) {
         // Liste alle Benutzer durchlaufen
-        for(int i = 0; i < users.size(); i++) {
+        for (int i = 0; i < users.size(); i++) {
             User user = users.get(i);
             // Überprüfen, ob der Vor- und Nachname mit dem momentanen Benutzer übereinstimmt.
-            if(user.getFirstName().equals(firstName) && user.getLastName().equals(lastName)) {
+            if (user.getFirstName().equals(firstName) && user.getLastName().equals(lastName)) {
                 current = user;
             }
         }
@@ -133,7 +133,7 @@ public class UserManager extends Manager{
     public List<Customer> getCustomers() {
         List<Customer> customers = new ArrayList<>();
         // Liste der Benutzer durchlaufen
-        for(int i = 0; i < users.size(); i++) {
+        for (int i = 0; i < users.size(); i++) {
             User user = users.get(i);
             // Wenn der momentane Benutzer eine Instanz der Klasse Customer ist, dann füge ihn der
             // Liste hinzu.
@@ -151,7 +151,7 @@ public class UserManager extends Manager{
     public List<Employee> getEmployees() {
         List<Employee> employees = new ArrayList<>();
         // Liste der Benutzer durchlaufen
-        for(int i = 0; i < users.size(); i++) {
+        for (int i = 0; i < users.size(); i++) {
             User user = users.get(i);
             // Wenn der momentane Benutzer eine Instanz der Klasse Employee ist, dann füge ihn der
             // Liste hinzu

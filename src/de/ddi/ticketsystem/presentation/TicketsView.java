@@ -123,7 +123,7 @@ public class TicketsView extends View {
                 tickets.sort((t1, t2) -> t1.getPriority() - t2.getPriority());
                 break;
             }
-            updateBody();
+            updateTicketList();
         });
         menu.add(sort);
 

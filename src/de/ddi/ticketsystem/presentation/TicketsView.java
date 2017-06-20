@@ -66,13 +66,13 @@ public class TicketsView extends View {
 
         JPanel ticketMenu = new JPanel();
 
-        JButton show = new JButton("show");
+        JButton show = new JButton("Show");
         show.addActionListener(e -> {
             showTicket(ticket);
         });
         ticketMenu.add(show);
 
-        JButton delete = new JButton("delete");
+        JButton delete = new JButton("Close");
         ticketMenu.add(delete);
 
         panel.add(body, BorderLayout.CENTER);

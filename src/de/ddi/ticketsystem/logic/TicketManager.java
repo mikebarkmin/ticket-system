@@ -79,6 +79,7 @@ public class TicketManager extends Manager {
             Status status = Status.valueOf(values[5]);
             int priority = Integer.parseInt(values[6]);
             Long datetime = Long.parseLong(values[7]);
+            List<Note> notes = noteManager.getForTicketId(Integer.valueOf(values[0]));
             Date creationDate = new Date(datetime);
             // abhängig von der Art des Tickets das Objekt erstellen
             switch (values[3]) {
@@ -87,6 +88,9 @@ public class TicketManager extends Manager {
                 Date date = new Date(datetime);
                 ticket = new RequestTicket(values[4], status, employee, customer, priority, date, values[9]);
                 ticket.setCreationDate(creationDate);
+                for (Note note : notes) {
+                    ticket.addNote(note);
+                }
                 this.add(ticket);
                 break;
             case "ORDER":
@@ -94,11 +98,17 @@ public class TicketManager extends Manager {
                 ticket = new OrderTicket(values[4], status, employee, customer, priority, values[8], values[9],
                         values[10], quantity);
                 ticket.setCreationDate(creationDate);
+                for (Note note : notes) {
+                    ticket.addNote(note);
+                }
                 this.add(ticket);
                 break;
             case "MALFUNCTION":
                 ticket = new MalfunctionTicket(values[4], status, employee, customer, priority, values[8]);
                 ticket.setCreationDate(creationDate);
+                for (Note note : notes) {
+                    ticket.addNote(note);
+                }
                 this.add(ticket);
                 break;
             default:

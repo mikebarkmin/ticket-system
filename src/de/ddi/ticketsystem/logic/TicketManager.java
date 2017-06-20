@@ -15,7 +15,7 @@ import java.util.Date;
 /**
  * Der TicketManager ist für die Verwaltung von Tickets zuständig
  */
-public class TicketManager extends Manager{
+public class TicketManager extends Manager {
     /**
      * Gespeicherte Tickets
      */
@@ -23,7 +23,6 @@ public class TicketManager extends Manager{
     private NoteManager noteManager;
     private UserManager userManager;
     private Map<Employee, List<Ticket>> ticketsByEmployee;
-
 
     /**
      * Erstellt ein Objekt vom Typ TicketManager. Dabei werden je eine neue Instanz von List<> und
@@ -45,7 +44,7 @@ public class TicketManager extends Manager{
     public void save() throws DataException {
         List<String> data = new ArrayList<>();
         // Liste der Tickets durchlaufen
-        for(int i = 0; i < tickets.size(); i++) {
+        for (int i = 0; i < tickets.size(); i++) {
             Ticket ticket = tickets.get(i);
             // ID des Angestellten ermitteln
             int employeeId = userManager.indexOf(ticket.getEmployee());
@@ -69,7 +68,7 @@ public class TicketManager extends Manager{
     public void load() throws DataException {
         List<String> data = access.load();
         // Liste der geladenen Strings durchlaufen
-        for(int i = 0; i < data.size(); i++) {
+        for (int i = 0; i < data.size(); i++) {
             String sTicket = data.get(i);
             // den String an den Semikolons aufteilen
             String[] values = sTicket.split(";");
@@ -81,30 +80,40 @@ public class TicketManager extends Manager{
             Status status = Status.valueOf(values[5]);
             int priority = Integer.parseInt(values[6]);
             Long datetime = Long.parseLong(values[7]);
+            List<Note> notes = noteManager.getForTicketId(Integer.valueOf(values[0]));
             Date creationDate = new Date(datetime);
             // abhängig von der Art des Tickets das Objekt erstellen
             switch (values[3]) {
-                case "REQUEST":
-                	datetime = Long.parseLong(values[8]);
-                    Date date = new Date(datetime);
-                    ticket = new RequestTicket(values[4], status, employee, customer, priority, date, values[9]);
-                    ticket.setCreationDate(creationDate);
-                    tickets.add(ticket);
-                    break;
-                case "ORDER":
-                    int quantity = Integer.parseInt(values[11]);
-                    ticket = new OrderTicket(values[4], status, employee, customer, priority, values[8],
-                            values[9], values[10], quantity);
-                    ticket.setCreationDate(creationDate);
-                    tickets.add(ticket);
-                    break;
-                case "MALFUNCTION":
-                    ticket = new MalfunctionTicket(values[4], status, employee, customer, priority, values[8]);
-                    ticket.setCreationDate(creationDate);
-                    tickets.add(ticket);
-                    break;
-                default:
-                    break;
+            case "REQUEST":
+                datetime = Long.parseLong(values[8]);
+                Date date = new Date(datetime);
+                ticket = new RequestTicket(values[4], status, employee, customer, priority, date, values[9]);
+                ticket.setCreationDate(creationDate);
+                for (Note note : notes) {
+                    ticket.addNote(note);
+                }
+                this.add(ticket);
+                break;
+            case "ORDER":
+                int quantity = Integer.parseInt(values[11]);
+                ticket = new OrderTicket(values[4], status, employee, customer, priority, values[8], values[9],
+                        values[10], quantity);
+                ticket.setCreationDate(creationDate);
+                for (Note note : notes) {
+                    ticket.addNote(note);
+                }
+                this.add(ticket);
+                break;
+            case "MALFUNCTION":
+                ticket = new MalfunctionTicket(values[4], status, employee, customer, priority, values[8]);
+                ticket.setCreationDate(creationDate);
+                for (Note note : notes) {
+                    ticket.addNote(note);
+                }
+                this.add(ticket);
+                break;
+            default:
+                break;
             }
         }
     }
@@ -135,10 +144,10 @@ public class TicketManager extends Manager{
      */
     public void remove(Ticket ticket) {
         // Die Liste von Tickets durchlaufen
-        for(int i = 0; i < tickets.size(); i++) {
+        for (int i = 0; i < tickets.size(); i++) {
             Ticket current = tickets.get(i);
             // Überprüfen, ob das momentane Ticket gleich dem zu löschenden ist.
-            if(current.equals(ticket)) {
+            if (current.equals(ticket)) {
                 current.setStatus(Status.CLOSED);
                 break;
             }
@@ -153,8 +162,12 @@ public class TicketManager extends Manager{
         // Flache Kopie der Ticket Liste anlegen, um das Entfernen und Hinzufügen, welches nicht
         // vom TicketManager ausgeht zu vermeiden.
         List<Ticket> tickets = new ArrayList<>();
-        for(int i = 0; i < this.tickets.size(); i++) {
-            tickets.add(this.tickets.get(i));
+        for (int i = 0; i < this.tickets.size(); i++) {
+            Ticket ticket = this.tickets.get(i);
+            if (userManager.getCurrent() instanceof Customer && ticket.getCustomer() != userManager.getCurrent()) {
+                continue;
+            }
+            tickets.add(ticket);
         }
         return tickets;
     }
@@ -169,19 +182,19 @@ public class TicketManager extends Manager{
         // initialisieren der Variablen oldest, in der das älteste Ticket gespeichert werden soll
         Ticket oldest = null;
         // Die Liste von Tickets durchlaufen
-        for(int i = 0; i < tickets.size(); i++) {
+        for (int i = 0; i < tickets.size(); i++) {
             Ticket current = tickets.get(i);
             // Ist das momentane Ticket geschlossen, dann wird es übersprungen
-            if(current.getStatus() == Status.CLOSED) {
+            if (current.getStatus() == Status.CLOSED) {
                 continue;
             }
             // Wenn noch kein Ältestes zwischengespeichert wurde, dann speichern wir das momentane
             // Ticket als Ältestes.  Wenn dies nicht der Fall ist, werden die Erstellungsdaten des
             // momentane Ältesten und es momentanen Tickets verglichen. Ist das momentane Ticket
             // älter, dann wird es als Ältestes zwischengespeichert.
-            if(oldest == null) {
+            if (oldest == null) {
                 oldest = current;
-            } else if(current.getCreationDate().compareTo(oldest.getCreationDate()) < 0) {
+            } else if (current.getCreationDate().compareTo(oldest.getCreationDate()) < 0) {
                 oldest = current;
             }
         }
@@ -209,10 +222,10 @@ public class TicketManager extends Manager{
         // initialisieren der Variable next, in der das nächste Ticket gespeichert werden soll
         Ticket next = null;
         // Die Liste von Tickets durchlaufen
-        for(int i = 0; i < tickets.size(); i++) {
+        for (int i = 0; i < tickets.size(); i++) {
             Ticket current = tickets.get(i);
             // Ist das momentane Ticket geschlossen, dann wird es übersprungen
-            if(current.getStatus() == Status.CLOSED) {
+            if (current.getStatus() == Status.CLOSED) {
                 continue;
             }
             // Wenn noch kein Nächstes zwischengespeichert wurde, dann speichern wir das momentane
@@ -222,12 +235,12 @@ public class TicketManager extends Manager{
             // Prioritäten gleich, dann werden die Erstellungsdaten verglichen. Hat das momentane
             // Ticket ein älteres Erstellungsdatum als das Nächste, wird es als Nächstes
             // zwischengespeichert.
-            if(next == null) {
+            if (next == null) {
                 next = current;
-            } else if(next.getPriority() < current.getPriority()) {
+            } else if (next.getPriority() < current.getPriority()) {
                 next = current;
-            } else if(next.getPriority() == current.getPriority()) {
-                if(current.getCreationDate().compareTo(next.getCreationDate()) < 0) {
+            } else if (next.getPriority() == current.getPriority()) {
+                if (current.getCreationDate().compareTo(next.getCreationDate()) < 0) {
                     next = current;
                 }
             }

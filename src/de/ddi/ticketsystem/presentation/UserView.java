@@ -54,7 +54,7 @@ public abstract class UserView extends View {
 
         List<Component> additionalLabels = this.getAdditionalLabels();
         int i = 3;
-        for(Component additionalLabel : additionalLabels) {
+        for (Component additionalLabel : additionalLabels) {
             c = this.createGbc(0, i);
             this.body.add(additionalLabel, c);
         }
@@ -77,7 +77,7 @@ public abstract class UserView extends View {
 
         List<Component> additionalFields = this.getAdditionalFields();
         int i = 3;
-        for(Component additionalField : additionalFields) {
+        for (Component additionalField : additionalFields) {
             c = this.createGbc(1, i);
             i++;
             this.body.add(additionalField, c);
@@ -101,8 +101,8 @@ public abstract class UserView extends View {
 
         List<Component> additionalEditableFields = this.getAdditionalEditableFields();
         int i = 3;
-        for(Component additionalEditableField : additionalEditableFields) {
-            this.createGbc(1, i);
+        for (Component additionalEditableField : additionalEditableFields) {
+            c = this.createGbc(1, i);
             i++;
             this.body.add(additionalEditableField, c);
         }

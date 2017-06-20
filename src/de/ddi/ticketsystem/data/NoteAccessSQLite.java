@@ -8,8 +8,7 @@ import java.io.IOException;
 
 public class NoteAccessSQLite extends AccessSQLite {
 
-    private static final String insertNoteSQL = "INSERT INTO notes VALUES("
-        + "%s, %s, %s, %s, %s, %s);";
+    private static final String insertNoteSQL = "INSERT INTO notes VALUES ('%s', '%s', '%s', '%s', '%s', '%s');";
 
     private static final String selectAllNotesSQL = "SELECT * FROM notes;";
 
@@ -17,23 +16,18 @@ public class NoteAccessSQLite extends AccessSQLite {
 
     @Override
     protected void initTable() throws SQLException {
-        String sql = "CREATE TABLE IF NOT EXISTS notes ("
-            + " id integer PRIMARY KEY, "
-            + " ticket_id integer, "
-            + " employee_id integer, "
-            + " title text, "
-            + " content text, "
-            + " creation_date integer"
-            + ");";
+        String sql = "CREATE TABLE IF NOT EXISTS notes (" + " id integer PRIMARY KEY, " + " ticket_id integer, "
+                + " employee_id integer, " + " title text, " + " content text, " + " creation_date integer" + ");";
         createStatement().execute(sql);
     }
+
     @Override
     public List<String> load() throws DataException {
         connect();
         ArrayList<String> data = new ArrayList<>();
         try {
             ResultSet noteResults = createStatement().executeQuery(selectAllNotesSQL);
-            while(noteResults.next()) {
+            while (noteResults.next()) {
                 int id = noteResults.getInt("id");
                 int ticketId = noteResults.getInt("ticket_id");
                 int employeeId = noteResults.getInt("employee_id");
@@ -59,13 +53,13 @@ public class NoteAccessSQLite extends AccessSQLite {
     public void save(List<String> notes) throws DataException {
         connect();
         try {
-        createStatement().execute(deleteAllNotesSQL);
-        for (String note : notes) {
-            saveNote(note);
+            createStatement().execute(deleteAllNotesSQL);
+            for (String note : notes) {
+                saveNote(note);
+            }
+        } catch (SQLException e) {
+            throw new DataException("Notes could not be saved.");
         }
-    } catch (SQLException e) {
-        throw new DataException("Notes could not be saved.");
-    }
         disconnect();
     }
 }

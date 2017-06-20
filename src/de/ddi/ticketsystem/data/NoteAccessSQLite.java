@@ -46,7 +46,6 @@ public class NoteAccessSQLite extends AccessSQLite {
     private void saveNote(String note) throws SQLException {
         String[] values = note.split(";");
         String sql = String.format(insertNoteSQL, values[0], values[1], values[2], values[3], values[4], values[5]);
-        System.out.println(sql);
         createStatement().execute(sql);
     }
 
@@ -59,7 +58,6 @@ public class NoteAccessSQLite extends AccessSQLite {
                 saveNote(note);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new DataException("Notes could not be saved.");
         }
         disconnect();

@@ -204,8 +204,6 @@ public abstract class TicketView extends View {
         this.ticket.setStatus(status);
         this.ticket.setEmployee(employee);
         this.ticket.setPriority(priority);
-
-        System.out.println(ticket);
     }
 
     private void addModifyButton() {

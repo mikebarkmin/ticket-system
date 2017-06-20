@@ -126,7 +126,7 @@ public class ViewManager extends JFrame {
             noteManager.load();
             ticketManager.load();
         } catch (DataException e) {
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Internal error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
             System.exit(1);
         }
@@ -138,7 +138,7 @@ public class ViewManager extends JFrame {
             ticketManager.save();
             noteManager.save();
         } catch (DataException e) {
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Internal error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
             System.exit(1);
         }

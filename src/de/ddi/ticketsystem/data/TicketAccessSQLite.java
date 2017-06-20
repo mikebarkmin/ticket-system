@@ -114,7 +114,6 @@ public class TicketAccessSQLite extends AccessSQLite {
 
     private void saveTicket(String ticket) throws SQLException {
         String[] values = ticket.split(";");
-        System.out.println(Arrays.toString(values));
         if (values[3].equals("MALFUNCTION")) {
             String sql = String.format(insertMalfunctionTicketSQL, values[0], values[1], values[2], values[4],
                     values[5], values[6], values[7], values[8]);

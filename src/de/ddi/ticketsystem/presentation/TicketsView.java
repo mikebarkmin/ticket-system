@@ -78,8 +78,10 @@ public class TicketsView extends View {
         });
         ticketMenu.add(show);
 
-        JButton delete = new JButton("Close");
-        ticketMenu.add(delete);
+        if (currentUser instanceof Employee) {
+            JButton delete = new JButton("Close");
+            ticketMenu.add(delete);
+        }
 
         panel.add(body, BorderLayout.CENTER);
 
@@ -100,7 +102,6 @@ public class TicketsView extends View {
     @Override
     public JPanel getMenu() {
         final JPanel menu = new JPanel();
-        User current = viewManager.getUserManager().getCurrent();
 
         JButton sort = new JButton("Sort");
         sort.addActionListener(e -> {
@@ -127,7 +128,7 @@ public class TicketsView extends View {
         });
         menu.add(sort);
 
-        if (current instanceof Employee) {
+        if (currentUser instanceof Employee) {
 
             JButton createTicket = new JButton("Create");
             createTicket.addActionListener(e -> {
@@ -175,7 +176,7 @@ public class TicketsView extends View {
                 updateBody();
             });
             myTickets.addActionListener(e -> {
-                tickets = viewManager.getTicketManager().getFromEmployee((Employee) current);
+                tickets = viewManager.getTicketManager().getFromEmployee((Employee) currentUser);
                 if (tickets == null) {
                     tickets = new ArrayList<>();
                 }

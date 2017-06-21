@@ -32,8 +32,10 @@ public abstract class TicketView extends View {
         this.body = new JPanel(new GridBagLayout());
         this.addLabels();
         this.addFields();
-        this.addModifyButton();
-        this.addNotes();
+        if (currentUser instanceof Employee) {
+            this.addModifyButton();
+            this.addNotes();
+        }
     }
 
     public TicketView(ViewManager viewManager) {
@@ -104,18 +106,27 @@ public abstract class TicketView extends View {
         this.body.add(descriptionLabel, c);
 
         c = this.createGbc(1, 1);
-        statusBox = new JComboBox<>(Status.values());
-        statusBox.setSelectedItem(this.ticket.getStatus());
-        this.body.add(statusBox, c);
+        if (currentUser instanceof Employee) {
+            statusBox = new JComboBox<>(Status.values());
+            statusBox.setSelectedItem(this.ticket.getStatus());
+            this.body.add(statusBox, c);
+        } else {
+            this.body.add(new JLabel(ticket.getStatus().toString()), c);
+        }
 
         c = this.createGbc(1, 2);
-        Employee[] employees = viewManager.getUserManager().getAll().stream().filter(u -> u instanceof Employee)
-                .map(u -> (Employee) u).sorted((u1, u2) -> u1.getLastName().compareTo(u2.getLastName()))
-                .toArray(Employee[]::new);
-        employeeBox = new JComboBox<Employee>(employees);
-        employeeBox.setSelectedItem(this.ticket.getEmployee());
-        installRendererUser(employeeBox);
-        this.body.add(employeeBox, c);
+        if (currentUser instanceof Employee) {
+            Employee[] employees = viewManager.getUserManager().getAll().stream().filter(u -> u instanceof Employee)
+                    .map(u -> (Employee) u).sorted((u1, u2) -> u1.getLastName().compareTo(u2.getLastName()))
+                    .toArray(Employee[]::new);
+            employeeBox = new JComboBox<Employee>(employees);
+            employeeBox.setSelectedItem(this.ticket.getEmployee());
+            installRendererUser(employeeBox);
+            this.body.add(employeeBox, c);
+        } else {
+            this.body.add(new JLabel(ticket.getEmployee().getFirstName() + " " + ticket.getEmployee().getLastName()),
+                    c);
+        }
 
         c = this.createGbc(1, 3);
         Customer customer = ticket.getCustomer();
@@ -124,10 +135,14 @@ public abstract class TicketView extends View {
         this.body.add(customerLabel, c);
 
         c = this.createGbc(1, 4);
-        Integer[] priorities = IntStream.iterate(1, n -> n + 1).limit(10).boxed().toArray(Integer[]::new);
-        priorityBox = new JComboBox<Integer>(priorities);
-        priorityBox.setSelectedItem(this.ticket.getPriority());
-        this.body.add(priorityBox, c);
+        if (currentUser instanceof Employee) {
+            Integer[] priorities = IntStream.iterate(1, n -> n + 1).limit(10).boxed().toArray(Integer[]::new);
+            priorityBox = new JComboBox<Integer>(priorities);
+            priorityBox.setSelectedItem(this.ticket.getPriority());
+            this.body.add(priorityBox, c);
+        } else {
+            this.body.add(new JLabel("" + ticket.getPriority()), c);
+        }
 
         List<Component> additionalFields = this.getAdditionalFields();
         int i = 5;

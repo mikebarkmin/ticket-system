@@ -13,8 +13,8 @@ public class TicketManagerTest {
     public int getResult() {
         return punkte;
     }
-    // bla
-    @Test(name="Konstruktor")
+
+    @Test(name = "Konstruktor")
     public void constructur() {
         TicketManager ticketManager = new TicketManager();
         if (StaticMethods.getValueFromField(ticketManager, "tickets") != null) {
@@ -24,7 +24,7 @@ public class TicketManagerTest {
         }
     }
 
-    @Test(name="add")
+    @Test(name = "add")
     public void add() {
         TicketManager ticketManager = new TicketManager();
         TicketList tickets = new TicketList();
@@ -42,7 +42,68 @@ public class TicketManagerTest {
         }
     }
 
-    @Test(name="remove")
+    @Test(name = "getAll")
+    public void getAll() {
+        TicketManager ticketManager = new TicketManager();
+        TicketList tickets = new TicketList();
+
+        Ticket ticket1 = new Ticket(null, null, null, null, 3);
+        TicketNode ticketNode1 = new TicketNode();
+        StaticMethods.setValueToField(ticketNode1, "value", ticket1);
+        StaticMethods.setValueToField(tickets, "head", ticketNode1);
+
+        Ticket ticket2 = new Ticket(null, null, null, null, 5);
+        TicketNode ticketNode2 = new TicketNode();
+        StaticMethods.setValueToField(ticketNode2, "value", ticket2);
+        StaticMethods.setValueToField(ticketNode1, "next", ticketNode2);
+
+        Ticket ticket3 = new Ticket(null, null, null, null, 0);
+        TicketNode ticketNode3 = new TicketNode();
+        StaticMethods.setValueToField(ticketNode3, "value", ticket3);
+        StaticMethods.setValueToField(ticketNode2, "next", ticketNode3);
+
+        StaticMethods.setValueToField(ticketManager, "tickets", tickets);
+
+        TicketList rTickets = ticketManager.getAll();
+        if (rTickets != tickets) {
+            punkte += 2;
+        } else {
+            TracingFramework.printError(
+                    "Die Methode getAll gibt die gleiche Referenz zurück. Es wird erwartet, dass eine neue Liste erzeugt wird.");
+        }
+        TicketNode curr = (TicketNode) StaticMethods.getValueFromField(tickets, "head");
+        TicketNode rCurr = (TicketNode) StaticMethods.getValueFromField(rTickets, "head");
+        int ticketsSize = 0;
+        int rTicketsSize = 0;
+
+        while (curr != null) {
+            ticketsSize++;
+        }
+
+        while (rCurr != null) {
+            rTicketsSize++;
+        }
+
+        if (ticketsSize != rTicketsSize) {
+            TracingFramework
+                    .printError("Die Methode getAll gibt eine Liste mit einer falschen Anzahl an Tickets zurück.");
+        } else {
+            punkte += 2;
+        }
+
+        punkte += 2;
+        while (curr != null) {
+            if (curr != rCurr) {
+                punkte -= 2;
+                TracingFramework.printError(
+                        "Die Methode getAll gibt eine Liste zurück, die Element enthält, welche Tickets enthält die nicht in der original Liste sind.");
+
+            }
+        }
+
+    }
+
+    @Test(name = "remove")
     public void remove() {
         TicketManager ticketManager = new TicketManager();
         TicketList tickets = new TicketList();
@@ -77,7 +138,7 @@ public class TicketManagerTest {
         }
     }
 
-    @Test(name="getOldest")
+    @Test(name = "getOldest")
     public void getOldest() {
         TicketManager ticketManager = new TicketManager();
         TicketList tickets = new TicketList();
@@ -106,14 +167,15 @@ public class TicketManagerTest {
         StaticMethods.setValueToField(ticketManager, "tickets", tickets);
 
         Ticket oldest = ticketManager.getOldest();
-        if(oldest == ticket2) {
+        if (oldest == ticket2) {
             punkte += 10;
         } else {
-            TracingFramework.printError("Die Methode getOldest in der Klasse TicketManager gibt ein falsches Ticket zurück");
+            TracingFramework
+                    .printError("Die Methode getOldest in der Klasse TicketManager gibt ein falsches Ticket zurück");
         }
     }
 
-    @Test(name="next")
+    @Test(name = "next")
     public void next() {
         TicketManager ticketManager = new TicketManager();
         TicketList tickets = new TicketList();
@@ -142,7 +204,7 @@ public class TicketManagerTest {
         StaticMethods.setValueToField(ticketManager, "tickets", tickets);
 
         Ticket oldest = ticketManager.next();
-        if(oldest == ticket3) {
+        if (oldest == ticket3) {
             punkte += 10;
         } else {
             TracingFramework.printError("Die Methode next in der Klasse TicketManager gibt ein falsches Ticket zurück");
